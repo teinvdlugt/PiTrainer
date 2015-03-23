@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Pi Trainer</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="vibrate">Vibrate</string>
+    <string name="digits_colon">Digits:</string>
+</resources>

@@ -1,5 +1,8 @@
 package com.teinproductions.tein.pitrainer;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v7.app.ActionBarActivity;
@@ -40,6 +43,7 @@ public class MainActivity extends ActionBarActivity {
     private boolean indirectTextChange = false;
     private int selection = 0;
     private int lastTextLength = 0;
+    private boolean toolbarCurrentlyRed = false;
 
     private boolean vibrate;
 
@@ -64,21 +68,21 @@ public class MainActivity extends ActionBarActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-                digits.setText(getString(R.string.digits_colon) + inputET.length());
-
                 if (indirectTextChange) return;
 
                 selection = inputET.getSelectionStart();
 
                 if (!isCorrect(inputET.getText().toString()) && inputET.length() != 0) {
-                    toolbar.setBackgroundColor(getResources().getColor(R.color.red));
+                    animateToolbarColor(false);
 
-                    if (lastTextLength < inputET.length() && vibrate) {
-                        // That means backspace is not pressed
+                    if (vibrate
+                            && lastTextLength < inputET.length() // That means backspace is pressed
+                            && inputET.getText().toString().charAt(inputET.length() - 1)
+                            != PI_DIGITS.charAt(inputET.length() - 1)) { // The last character is wrong
                         ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(100);
                     }
                 } else {
-                    toolbar.setBackgroundColor(getResources().getColor(R.color.primary_material_dark));
+                    animateToolbarColor(true);
                 }
 
                 indirectTextChange = true;
@@ -91,6 +95,8 @@ public class MainActivity extends ActionBarActivity {
                 }
 
                 lastTextLength = inputET.length();
+
+                fillDigitsTextView();
             }
 
             @Override
@@ -98,6 +104,89 @@ public class MainActivity extends ActionBarActivity {
 
             }
         });
+    }
+
+    private void animateToolbarColor(boolean correct) {
+        if (!correct && !toolbarCurrentlyRed) {
+
+            toolbarCurrentlyRed = true;
+
+            if (Build.VERSION.SDK_INT >= 11) {
+                ValueAnimator animator = ValueAnimator.ofObject(new ArgbEvaluator(),
+                        getResources().getColor(R.color.colorPrimary),
+                        getResources().getColor(R.color.red));
+                animator.setDuration(getResources().getInteger(android.R.integer.config_shortAnimTime));
+                animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                        toolbar.setBackgroundColor((Integer) valueAnimator.getAnimatedValue());
+                    }
+                });
+                animator.start();
+
+            } else {
+                toolbar.setBackgroundColor(getResources().getColor(R.color.red));
+            }
+
+        } else if (correct && toolbarCurrentlyRed) {
+
+            toolbarCurrentlyRed = false;
+
+            if (Build.VERSION.SDK_INT >= 11) {
+                ValueAnimator animator = ValueAnimator.ofObject(new ArgbEvaluator(),
+                        getResources().getColor(R.color.red),
+                        getResources().getColor(R.color.colorPrimary));
+                animator.setDuration(getResources().getInteger(android.R.integer.config_shortAnimTime));
+                animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                        toolbar.setBackgroundColor((Integer) valueAnimator.getAnimatedValue());
+                    }
+                });
+                animator.start();
+
+            } else {
+                toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            }
+
+        }
+    }
+
+    public static boolean isCorrect(String stringToCheck) {
+        for (int i = 0; i < stringToCheck.length(); i++) {
+            if (stringToCheck.charAt(i) != PI_DIGITS.charAt(i)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private void fillDigitsTextView() {
+        String input = inputET.getText().toString();
+
+        int count = 0;
+        for (int i = 0; i < input.length(); i++) {
+            if (input.charAt(i) == PI_DIGITS.charAt(i)) {
+                count++;
+            }
+        }
+
+        digits.setText(getString(R.string.digits_colon) + " " + count);
+    }
+
+    public SpannableStringBuilder toColoredSpannable(String string) {
+        SpannableStringBuilder sb = new SpannableStringBuilder(string);
+
+        for (int i = 0; i < string.length(); i++) {
+            if (string.charAt(i) != PI_DIGITS.charAt(i)) {
+                // If the character is incorrect
+                ForegroundColorSpan redSpan = new ForegroundColorSpan(getResources().getColor(R.color.red));
+                sb.setSpan(redSpan, i, i + 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            }
+        }
+
+        return sb;
     }
 
     @Override
@@ -122,29 +211,5 @@ public class MainActivity extends ActionBarActivity {
             default:
                 return false;
         }
-    }
-
-    public static boolean isCorrect(String stringToCheck) {
-        for (int i = 0; i < stringToCheck.length(); i++) {
-            if (stringToCheck.charAt(i) != PI_DIGITS.charAt(i)) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    public SpannableStringBuilder toColoredSpannable(String string) {
-        SpannableStringBuilder sb = new SpannableStringBuilder(string);
-
-        for (int i = 0; i < string.length(); i++) {
-            if (string.charAt(i) != PI_DIGITS.charAt(i)) {
-                // If the character is incorrect
-                ForegroundColorSpan redSpan = new ForegroundColorSpan(getResources().getColor(R.color.red));
-                sb.setSpan(redSpan, i, i + 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-            }
-        }
-
-        return sb;
     }
 }

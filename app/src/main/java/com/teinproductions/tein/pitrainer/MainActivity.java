@@ -8,12 +8,15 @@ import android.os.Vibrator;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -21,6 +24,7 @@ import android.widget.TextView;
 public class MainActivity extends ActionBarActivity {
 
     public static final String VIBRATE = "VIBRATE";
+    public static final String ON_SCREEN_KEYBOARD = "ON_SCREEN_KEYBOARD";
 
     public static final String PI_DIGITS = "1415926535897932384626433832795028841971693993" +
             "7510582097494459230781640628620899862803482534211706798214808651328230" +
@@ -39,6 +43,7 @@ public class MainActivity extends ActionBarActivity {
     private EditText inputET;
     private Toolbar toolbar;
     private TextView digits;
+    private Keyboard keyboard;
 
     private boolean indirectTextChange = false;
     private int selection = 0;
@@ -46,6 +51,7 @@ public class MainActivity extends ActionBarActivity {
     private boolean toolbarCurrentlyRed = false;
 
     private boolean vibrate;
+    private boolean onScreenKeyboard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +61,11 @@ public class MainActivity extends ActionBarActivity {
         inputET = (EditText) findViewById(R.id.input_editText);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         digits = (TextView) findViewById(R.id.digits_textView);
+        keyboard = (Keyboard) findViewById(R.id.keyboard);
+        setTypeListener();
 
         vibrate = getPreferences(0).getBoolean(VIBRATE, true);
+        showOnScreenKeyboard(getPreferences(0).getBoolean(ON_SCREEN_KEYBOARD, false));
 
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
@@ -102,6 +111,24 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void afterTextChanged(Editable editable) {
 
+            }
+        });
+    }
+
+    private void setTypeListener() {
+        keyboard.setOnTypeListener(new Keyboard.OnTypeListener() {
+            @Override
+            public void onTypeDigit(int digit) {
+                final int selection = inputET.getSelectionStart();
+                inputET.getText().insert(selection, Integer.toString(digit));
+            }
+
+            @Override
+            public void onTypeBackspace() {
+                final int selection = inputET.getSelectionStart();
+                if (selection > 0) {
+                    inputET.getText().replace(selection - 1, selection, "");
+                }
             }
         });
     }
@@ -193,6 +220,7 @@ public class MainActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         menu.findItem(R.id.vibrate).setChecked(vibrate);
+        menu.findItem(R.id.keyboard).setChecked(onScreenKeyboard);
         return true;
     }
 
@@ -208,8 +236,52 @@ public class MainActivity extends ActionBarActivity {
                 getPreferences(0).edit().putBoolean(VIBRATE, vibrate).apply();
 
                 return true;
+            case R.id.keyboard:
+                if (item.isChecked()) item.setChecked(false);
+                else item.setChecked(true);
+
+                showOnScreenKeyboard(item.isChecked());
             default:
                 return false;
+        }
+    }
+
+    private void showOnScreenKeyboard(boolean show) {
+        onScreenKeyboard = show;
+        getPreferences(0).edit().putBoolean(ON_SCREEN_KEYBOARD, show).apply();
+        preventSoftKeyboardFromShowingUp(show);
+
+        keyboard.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    private void preventSoftKeyboardFromShowingUp(boolean prevent) {
+        if (prevent) {
+            if (Build.VERSION.SDK_INT >= 21) {
+                inputET.setShowSoftInputOnFocus(false);
+            } else {
+                inputET.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                        int inputType = inputET.getInputType(); // backup the input type
+                        inputET.setInputType(InputType.TYPE_NULL); // disable soft input
+                        inputET.onTouchEvent(motionEvent); // call native handler
+                        inputET.setInputType(inputType); // restore input type
+                        inputET.setFocusable(true);
+                        return true; // consume touch even
+                    }
+                });
+            }
+        } else {
+            if (Build.VERSION.SDK_INT >= 21) {
+                inputET.setShowSoftInputOnFocus(false);
+            } else {
+                inputET.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                        return inputET.onTouchEvent(motionEvent);
+                    }
+                });
+            }
         }
     }
 }

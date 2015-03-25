@@ -10,4 +10,11 @@
         android:title="@string/vibrate"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/keyboard"
+        android:checkable="true"
+        android:checked="false"
+        android:title="@string/on_screen_keyboard"
+        app:showAsAction="never" />
+
 </menu>

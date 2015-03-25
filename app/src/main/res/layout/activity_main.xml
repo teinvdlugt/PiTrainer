@@ -36,14 +36,6 @@
             android:numeric="integer"
             android:textSize="24sp" />
 
-        <!--<ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:background="?android:attr/selectableItemBackground"
-            android:src="@mipmap/ic_refresh_white_36dp" />-->
-
         <TextView
             android:id="@+id/digits_textView"
             android:layout_width="wrap_content"
@@ -51,6 +43,13 @@
             android:layout_below="@id/input_editText"
             android:layout_marginTop="8dp"
             android:textSize="22sp" />
+
+        <com.teinproductions.tein.pitrainer.Keyboard
+            android:id="@+id/keyboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone"/>
 
     </RelativeLayout>
 </LinearLayout>

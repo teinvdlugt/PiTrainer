@@ -36,7 +36,7 @@
             android:background="@null"
             android:contentDescription="@string/restart"
             android:onClick="onClickRestart"
-            android:scaleType="fitCenter"/>
+            android:scaleType="fitCenter" />
 
         <EditText
             android:id="@+id/input_editText"
@@ -48,13 +48,45 @@
             android:numeric="integer"
             android:textSize="24sp" />
 
-        <TextView
-            android:id="@+id/digits_textView"
+        <TableLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/input_editText"
-            android:layout_marginTop="8dp"
-            android:textSize="22sp" />
+            android:layout_marginTop="8dp">
+
+            <TableRow>
+
+                <TextView
+                    android:text="@string/digits_colon"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:id="@+id/digits_textView"
+                    android:textSize="22sp" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="4dp">
+
+                <TextView
+                    android:text="@string/errors_colon"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:id="@+id/errors_textView"
+                    android:textSize="22sp" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="4dp">
+
+                <TextView
+                    android:text="@string/percentage_colon"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:id="@+id/percentage_textView"
+                    android:textSize="22sp" />
+            </TableRow>
+        </TableLayout>
 
         <com.teinproductions.tein.pitrainer.Keyboard
             android:id="@+id/keyboard"

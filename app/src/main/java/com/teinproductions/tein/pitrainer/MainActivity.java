@@ -27,6 +27,8 @@ public class MainActivity extends ActionBarActivity {
 
     public static final String VIBRATE = "VIBRATE";
     public static final String ON_SCREEN_KEYBOARD = "ON_SCREEN_KEYBOARD";
+    public static final String ERRORS = "ERRORS";
+    public static final String INPUT = "INPUT";
 
     public static final String PI_DIGITS = "1415926535897932384626433832795028841971693993" +
             "7510582097494459230781640628620899862803482534211706798214808651328230" +
@@ -44,7 +46,7 @@ public class MainActivity extends ActionBarActivity {
 
     private EditText inputET;
     private Toolbar toolbar;
-    private TextView digits;
+    private TextView digitsTV, errorsTV, percentageTV;
     private Keyboard keyboard;
     private ImageButton restartButton;
 
@@ -52,6 +54,7 @@ public class MainActivity extends ActionBarActivity {
     private int selection = 0;
     private int lastTextLength = 0;
     private boolean toolbarCurrentlyRed = false;
+    private int errors = 0;
 
     private boolean vibrate;
     private boolean onScreenKeyboard;
@@ -64,13 +67,15 @@ public class MainActivity extends ActionBarActivity {
 
         inputET = (EditText) findViewById(R.id.input_editText);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        digits = (TextView) findViewById(R.id.digits_textView);
+        digitsTV = (TextView) findViewById(R.id.digits_textView);
         keyboard = (Keyboard) findViewById(R.id.keyboard);
         restartButton = (ImageButton) findViewById(R.id.refresh_button);
+        errorsTV = (TextView) findViewById(R.id.errors_textView);
+        percentageTV = (TextView) findViewById(R.id.percentage_textView);
 
         setTypeListener();
         setRestartImageResource();
-        fillDigitsTextView();
+        fillTextViews();
 
         vibrate = getPreferences(0).getBoolean(VIBRATE, true);
         showOnScreenKeyboard(getPreferences(0).getBoolean(ON_SCREEN_KEYBOARD, false));
@@ -90,14 +95,14 @@ public class MainActivity extends ActionBarActivity {
                 if (!isCorrect(inputET.getText().toString()) && inputET.length() != 0) {
                     animateToolbarColor(false);
 
+                    // If the last typed character is wrong:
                     if (vibrate
-                            && lastTextLength < inputET.length() // That means backspace is pressed
-                            && inputET.getText().toString().charAt(inputET.length() - 1)
-                            != PI_DIGITS.charAt(inputET.length() - 1)) { // The last character is wrong
+                            && lastTextLength < inputET.length() // backspace is not pressed
+                            && inputET.getText().toString().charAt(selection - 1)
+                            != PI_DIGITS.charAt(selection - 1)) { // The typed character is wrong
                         ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(100);
+                        errors++;
                     }
-
-
                 } else {
                     animateToolbarColor(true);
                 }
@@ -113,7 +118,7 @@ public class MainActivity extends ActionBarActivity {
 
                 lastTextLength = inputET.length();
 
-                fillDigitsTextView();
+                fillTextViews();
             }
 
             @Override
@@ -121,6 +126,8 @@ public class MainActivity extends ActionBarActivity {
 
             }
         });
+
+        restoreValues();
     }
 
     private void setTypeListener() {
@@ -205,7 +212,7 @@ public class MainActivity extends ActionBarActivity {
         return true;
     }
 
-    private void fillDigitsTextView() {
+    private void fillTextViews() {
         String input = inputET.getText().toString();
 
         int count = 0;
@@ -215,7 +222,14 @@ public class MainActivity extends ActionBarActivity {
             }
         }
 
-        digits.setText(getString(R.string.digits_colon) + " " + count);
+        digitsTV.setText(" " + count);
+        errorsTV.setText(" " + errors);
+
+        if (errors == 0 || inputET.length() == 0){
+            percentageTV.setText(" 100%");
+        } else {
+            percentageTV.setText(" " + (int) Math.floor(100 - ((double) errors / inputET.length() * 100)) + "%");
+        }
     }
 
     public SpannableStringBuilder toColoredSpannable(String string) {
@@ -306,5 +320,20 @@ public class MainActivity extends ActionBarActivity {
             ((AnimatedVectorDrawable) restartButton.getDrawable()).start();
         }
         inputET.setText("");
+        errors = 0;
+        fillTextViews();
+    }
+
+    @Override
+    protected void onDestroy() {
+        getPreferences(0).edit().putInt(ERRORS, errors).putString(INPUT, inputET.getText().toString()).apply();
+        super.onDestroy();
+    }
+
+    private void restoreValues() {
+        errors = getPreferences(0).getInt(ERRORS, 0);
+        inputET.setText(getPreferences(0).getString(INPUT, ""));
+        fillTextViews();
+        inputET.setSelection(inputET.length());
     }
 }

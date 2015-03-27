@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -35,8 +35,20 @@
                 android:id="@+id/three_point_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3."
-                android:textSize="56sp" />
+                android:text="@string/three_point"
+                android:textSize="42sp" />
+
+            <ImageButton
+                android:id="@+id/refresh_button"
+                android:layout_width="42sp"
+                android:layout_height="42sp"
+                android:layout_alignBottom="@id/three_point_tv"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:background="@null"
+                android:contentDescription="@string/restart"
+                android:onClick="onClickRestart"
+                android:scaleType="fitCenter" />
 
             <EditText
                 android:id="@+id/input_editText"
@@ -48,13 +60,45 @@
                 android:numeric="integer"
                 android:textSize="24sp" />
 
-            <TextView
-                android:id="@+id/digits_textView"
+            <TableLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/input_editText"
-                android:layout_marginTop="8dp"
-                android:textSize="22sp" />
+                android:layout_marginTop="8dp">
+
+                <TableRow>
+
+                    <TextView
+                        android:text="@string/digits_colon"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:id="@+id/digits_textView"
+                        android:textSize="22sp" />
+                </TableRow>
+
+                <TableRow android:layout_marginTop="4dp">
+
+                    <TextView
+                        android:text="@string/errors_colon"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:id="@+id/errors_textView"
+                        android:textSize="22sp" />
+                </TableRow>
+
+                <TableRow android:layout_marginTop="4dp">
+
+                    <TextView
+                        android:text="@string/percentage_colon"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:id="@+id/percentage_textView"
+                        android:textSize="22sp" />
+                </TableRow>
+            </TableLayout>
         </RelativeLayout>
     </LinearLayout>
 

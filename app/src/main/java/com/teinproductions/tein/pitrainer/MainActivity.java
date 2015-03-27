@@ -2,6 +2,7 @@ package com.teinproductions.tein.pitrainer;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
+import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -18,6 +19,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 
@@ -44,6 +46,7 @@ public class MainActivity extends ActionBarActivity {
     private Toolbar toolbar;
     private TextView digits;
     private Keyboard keyboard;
+    private ImageButton restartButton;
 
     private boolean indirectTextChange = false;
     private int selection = 0;
@@ -57,17 +60,20 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
         inputET = (EditText) findViewById(R.id.input_editText);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         digits = (TextView) findViewById(R.id.digits_textView);
         keyboard = (Keyboard) findViewById(R.id.keyboard);
+        restartButton = (ImageButton) findViewById(R.id.refresh_button);
+
         setTypeListener();
+        setRestartImageResource();
+        fillDigitsTextView();
 
         vibrate = getPreferences(0).getBoolean(VIBRATE, true);
         showOnScreenKeyboard(getPreferences(0).getBoolean(ON_SCREEN_KEYBOARD, false));
-
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
         inputET.addTextChangedListener(new TextWatcher() {
             @Override
@@ -90,6 +96,8 @@ public class MainActivity extends ActionBarActivity {
                             != PI_DIGITS.charAt(inputET.length() - 1)) { // The last character is wrong
                         ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(100);
                     }
+
+
                 } else {
                     animateToolbarColor(true);
                 }
@@ -131,6 +139,14 @@ public class MainActivity extends ActionBarActivity {
                 }
             }
         });
+    }
+
+    private void setRestartImageResource() {
+        if (Build.VERSION.SDK_INT >= 21) {
+            restartButton.setImageResource(R.drawable.anim_ic_restart);
+        } else {
+            restartButton.setImageResource(R.mipmap.ic_refresh_white_36dp);
+        }
     }
 
     private void animateToolbarColor(boolean correct) {
@@ -273,7 +289,7 @@ public class MainActivity extends ActionBarActivity {
             }
         } else {
             if (Build.VERSION.SDK_INT >= 21) {
-                inputET.setShowSoftInputOnFocus(false);
+                inputET.setShowSoftInputOnFocus(true);
             } else {
                 inputET.setOnTouchListener(new View.OnTouchListener() {
                     @Override
@@ -283,5 +299,12 @@ public class MainActivity extends ActionBarActivity {
                 });
             }
         }
+    }
+
+    public void onClickRestart(View view) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            ((AnimatedVectorDrawable) restartButton.getDrawable()).start();
+        }
+        inputET.setText("");
     }
 }

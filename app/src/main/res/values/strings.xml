@@ -6,4 +6,7 @@
     <string name="vibrate">Vibrate</string>
     <string name="digits_colon">Digits:</string>
     <string name="on_screen_keyboard">\"On Screen\" Keyboard</string>
+    <string name="restart">restart</string>
+    <string name="three_point" translatable="false">3.</string>
+    <string name="lets_see_what_you_can_do">Let\'s see what you can do!</string>
 </resources>

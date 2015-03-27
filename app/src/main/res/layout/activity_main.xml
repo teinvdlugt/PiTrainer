@@ -23,15 +23,27 @@
             android:id="@+id/three_point_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3."
+            android:text="@string/three_point"
             android:textSize="56sp" />
+
+        <ImageButton
+            android:id="@+id/refresh_button"
+            android:layout_width="56sp"
+            android:layout_height="56sp"
+            android:layout_alignBottom="@id/three_point_tv"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:contentDescription="@string/restart"
+            android:onClick="onClickRestart"
+            android:scaleType="fitCenter"/>
 
         <EditText
             android:id="@+id/input_editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/three_point_tv"
-            android:hint="Let's see what you can do!"
+            android:hint="@string/lets_see_what_you_can_do"
             android:maxLines="8"
             android:numeric="integer"
             android:textSize="24sp" />
@@ -49,7 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
     </RelativeLayout>
 </LinearLayout>

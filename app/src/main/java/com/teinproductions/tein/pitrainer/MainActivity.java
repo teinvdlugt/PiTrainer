@@ -96,13 +96,17 @@ public class MainActivity extends ActionBarActivity {
                     animateToolbarColor(false);
 
                     // If the last typed character is wrong:
-                    if (vibrate
-                            && lastTextLength < inputET.length() // backspace is not pressed
+                    if (lastTextLength < inputET.length() // backspace is not pressed
                             && inputET.getText().toString().charAt(selection - 1)
                             != PI_DIGITS.charAt(selection - 1)) { // The typed character is wrong
-                        ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(100);
+
                         errors++;
+
+                        if (vibrate) {
+                            ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(100);
+                        }
                     }
+
                 } else {
                     animateToolbarColor(true);
                 }
@@ -225,8 +229,8 @@ public class MainActivity extends ActionBarActivity {
         digitsTV.setText(" " + count);
         errorsTV.setText(" " + errors);
 
-        if (errors == 0 || inputET.length() == 0){
-            percentageTV.setText(" 100%");
+        if (errors == 0 || inputET.length() == 0) {
+            percentageTV.setText(" 0%");
         } else {
             percentageTV.setText(" " + (int) Math.floor(100 - ((double) errors / inputET.length() * 100)) + "%");
         }

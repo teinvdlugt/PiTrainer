@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TableLayout;
 
 public class Keyboard extends TableLayout {
@@ -13,6 +14,7 @@ public class Keyboard extends TableLayout {
 
     public interface OnTypeListener {
         public void onTypeDigit(int digit);
+
         public void onTypeBackspace();
     }
 
@@ -21,7 +23,7 @@ public class Keyboard extends TableLayout {
 
         setDigitListeners();
 
-        Button backspace = (Button) findViewById(R.id.buttonBackspace);
+        ImageButton backspace = (ImageButton) findViewById(R.id.buttonBackspace);
         backspace.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {

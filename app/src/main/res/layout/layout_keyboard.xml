@@ -86,12 +86,14 @@
             android:text="0"
             android:textSize="26sp" />
 
-        <Button
+        <ImageButton
             android:id="@+id/buttonBackspace"
             style="?android:attr/buttonBarButtonStyle"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="&lt;--"
-            android:textSize="26sp" />
+            android:contentDescription="backspace"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/ic_backspace_white_24dp" />
     </TableRow>
 
 </TableLayout>

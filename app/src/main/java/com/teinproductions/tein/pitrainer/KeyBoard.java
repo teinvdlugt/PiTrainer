@@ -10,7 +10,7 @@ import android.widget.TableLayout;
 
 public class Keyboard extends TableLayout {
 
-    OnTypeListener onTypeListener;
+    private OnTypeListener onTypeListener;
 
     public interface OnTypeListener {
         public void onTypeDigit(int digit);

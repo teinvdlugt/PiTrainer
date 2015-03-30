@@ -17,4 +17,9 @@
         android:title="@string/on_screen_keyboard"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/number"
+        android:title="@string/number"
+        app:showAsAction="never" />
+
 </menu>

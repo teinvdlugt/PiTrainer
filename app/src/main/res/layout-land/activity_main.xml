@@ -8,7 +8,8 @@
         style="@style/ToolbarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/primary_material_dark" />
+        android:background="@color/primary_material_dark"
+        android:elevation="4dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,17 +33,16 @@
             android:paddingTop="@dimen/activity_vertical_margin">
 
             <TextView
-                android:id="@+id/three_point_tv"
+                android:id="@+id/integerPart_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/three_point"
                 android:textSize="42sp" />
 
             <ImageButton
                 android:id="@+id/refresh_button"
                 android:layout_width="42sp"
                 android:layout_height="42sp"
-                android:layout_alignBottom="@id/three_point_tv"
+                android:layout_alignBottom="@id/integerPart_textView"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:background="@null"
@@ -54,8 +54,8 @@
                 android:id="@+id/input_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/three_point_tv"
-                android:hint="Let's see what you can do!"
+                android:layout_below="@id/integerPart_textView"
+                android:hint="@string/lets_see_what_you_can_do"
                 android:maxLines="8"
                 android:numeric="integer"
                 android:textSize="24sp" />

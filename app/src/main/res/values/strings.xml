@@ -1,14 +1,23 @@
 <resources>
     <string name="app_name">Pi Trainer</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
     <string name="vibrate">Vibrate</string>
-    <string name="digits_colon">Digits:</string>
     <string name="on_screen_keyboard">\"On Screen\" Keyboard</string>
+    <string-array name="numbers">
+        <item>Pi</item>
+        <item>Tau</item>
+        <item>Euler\'s number</item>
+    </string-array>
+    <string-array name="trainers">
+        <item>Pi Trainer</item>
+        <item>Tau Trainer</item>
+        <item>Euler\'s Trainer</item>
+    </string-array>
+
     <string name="restart">restart</string>
-    <string name="three_point" translatable="false">3.</string>
     <string name="lets_see_what_you_can_do">Let\'s see what you can do!</string>
+    <string name="digits_colon">Digits:</string>
     <string name="errors_colon">Errors:</string>
     <string name="percentage_colon">Percentage:</string>
+    <string name="number">Number</string>
 </resources>

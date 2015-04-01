@@ -20,4 +20,6 @@
     <string name="errors_colon">Errors:</string>
     <string name="percentage_colon">Percentage:</string>
     <string name="number">Number</string>
+    <string name="open_drawer">Open navigation drawer</string>
+    <string name="close_drawer">Close Navigation Drawer</string>
 </resources>

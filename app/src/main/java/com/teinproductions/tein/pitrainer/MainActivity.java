@@ -8,7 +8,9 @@ import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputType;
@@ -22,6 +24,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 
 
@@ -106,6 +109,10 @@ public class MainActivity extends ActionBarActivity {
     private Keyboard keyboard;
     private ImageButton restartButton;
 
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle drawerToggle;
+    private ListView drawerListView;
+
     private boolean indirectTextChange = false;
     private int selection = 0;
     private int lastTextLength = 0;
@@ -119,10 +126,15 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerListView = (ListView) findViewById(R.id.drawer_listView);
+        initDrawerToggle();
 
         inputET = (EditText) findViewById(R.id.input_editText);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
         digitsTV = (TextView) findViewById(R.id.digits_textView);
         keyboard = (Keyboard) findViewById(R.id.keyboard);
         restartButton = (ImageButton) findViewById(R.id.refresh_button);
@@ -186,6 +198,17 @@ public class MainActivity extends ActionBarActivity {
 
             }
         });
+    }
+
+    private void initDrawerToggle() {
+        drawerToggle = new ActionBarDrawerToggle(
+                this,
+                drawerLayout,
+                toolbar,
+                R.string.open_drawer,
+                R.string.close_drawer);
+        drawerLayout.setDrawerListener(drawerToggle);
+        drawerToggle.syncState();
     }
 
     private void setTypeListener() {

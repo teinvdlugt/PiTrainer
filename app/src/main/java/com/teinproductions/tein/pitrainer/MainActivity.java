@@ -4,37 +4,28 @@ import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
 import android.text.InputType;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.TextWatcher;
-import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TextView;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements ActivityInterface {
 
     private static final String VIBRATE = "VIBRATE";
-    private static final String ON_SCREEN_KEYBOARD = "ON_SCREEN_KEYBOARD";
-    private static final String ERRORS = "ERRORS";
-    private static final String INPUT = "INPUT";
-    private static final String CURRENT_DIGITS_ORDINAL = "CURRENT_DIGITS_ORDINAL";
+    public static final String ON_SCREEN_KEYBOARD = "ON_SCREEN_KEYBOARD";
+    public static final String CURRENT_DIGITS_ORDINAL = "CURRENT_DIGITS_ORDINAL";
 
     public static enum Digits {
         PI("3.", "14159265358979323846264338327950288419716939937510582097494459" +
@@ -101,26 +92,17 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    private Digits current_digits;
-
-    private EditText inputET;
-    private Toolbar toolbar;
-    private TextView integerPartTV, digitsTV, errorsTV, percentageTV;
-    private Keyboard keyboard;
-    private ImageButton restartButton;
+    private MainActivity.Digits current_digits;
+    private boolean onScreenKeyboard;
+    private FragmentInterface fragmentInterface;
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private ListView drawerListView;
-
-    private boolean indirectTextChange = false;
-    private int selection = 0;
-    private int lastTextLength = 0;
-    private boolean toolbarCurrentlyRed = false;
-    private int errors = 0;
+    private Toolbar toolbar;
 
     private boolean vibrate;
-    private boolean onScreenKeyboard;
+    private boolean toolbarCurrentlyRed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,70 +116,9 @@ public class MainActivity extends ActionBarActivity {
         drawerListView = (ListView) findViewById(R.id.drawer_listView);
         initDrawerToggle();
 
-        inputET = (EditText) findViewById(R.id.input_editText);
-        digitsTV = (TextView) findViewById(R.id.digits_textView);
-        keyboard = (Keyboard) findViewById(R.id.keyboard);
-        restartButton = (ImageButton) findViewById(R.id.refresh_button);
-        errorsTV = (TextView) findViewById(R.id.errors_textView);
-        percentageTV = (TextView) findViewById(R.id.percentage_textView);
-        integerPartTV = (TextView) findViewById(R.id.integerPart_textView);
-
         restoreValues();
-        setTypeListener();
-        setRestartImageResource();
         setTitle();
-        fillTextViews();
-
-        inputET.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-                if (indirectTextChange) return;
-
-                selection = inputET.getSelectionStart();
-
-                if (isIncorrect(inputET.getText().toString()) && inputET.length() != 0) {
-                    animateToolbarColor(false);
-
-                    // If the last typed character is wrong:
-                    if (lastTextLength < inputET.length() // backspace is not pressed
-                            && inputET.getText().toString().charAt(selection - 1)
-                            != current_digits.fractionalPart.charAt(selection - 1)) { // The typed character is wrong
-
-                        errors++;
-
-                        if (vibrate) {
-                            ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(100);
-                        }
-                    }
-
-                } else {
-                    animateToolbarColor(true);
-                }
-
-                indirectTextChange = true;
-                inputET.setText(toColoredSpannable(inputET.getText().toString()));
-                indirectTextChange = false;
-                if (selection < inputET.length()) {
-                    inputET.setSelection(selection);
-                } else {
-                    inputET.setSelection(inputET.length());
-                }
-
-                lastTextLength = inputET.length();
-
-                fillTextViews();
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
+        swapFragment(new PractiseFragment());
     }
 
     private void initDrawerToggle() {
@@ -211,33 +132,110 @@ public class MainActivity extends ActionBarActivity {
         drawerToggle.syncState();
     }
 
-    private void setTypeListener() {
-        keyboard.setOnTypeListener(new Keyboard.OnTypeListener() {
-            @Override
-            public void onTypeDigit(int digit) {
-                final int selection = inputET.getSelectionStart();
-                inputET.getText().insert(selection, Integer.toString(digit));
-            }
-
-            @Override
-            public void onTypeBackspace() {
-                final int selection = inputET.getSelectionStart();
-                if (selection > 0) {
-                    inputET.getText().replace(selection - 1, selection, "");
-                }
-            }
-        });
-    }
-
-    private void setRestartImageResource() {
-        if (Build.VERSION.SDK_INT >= 21) {
-            restartButton.setImageResource(R.drawable.anim_ic_restart);
-        } else {
-            restartButton.setImageResource(R.mipmap.ic_refresh_white_36dp);
+    private void setTitle() {
+        if (current_digits != null) {
+            setTitle(getResources().getStringArray(R.array.trainers)[current_digits.ordinal()]);
         }
     }
 
-    private void animateToolbarColor(boolean correct) {
+    private void swapFragment(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.content, fragment)
+                .commit();
+        fragmentInterface = (FragmentInterface) fragment;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        menu.findItem(R.id.vibrate).setChecked(vibrate);
+        menu.findItem(R.id.keyboard).setChecked(onScreenKeyboard);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.vibrate:
+                if (item.isChecked()) item.setChecked(false);
+                else item.setChecked(true);
+
+                vibrate = item.isChecked();
+                getPreferences(0).edit().putBoolean(VIBRATE, vibrate).apply();
+                return true;
+
+            case R.id.keyboard:
+                if (item.isChecked()) item.setChecked(false);
+                else item.setChecked(true);
+
+                getPreferences(0).edit().putBoolean(MainActivity.ON_SCREEN_KEYBOARD, item.isChecked()).apply();
+                fragmentInterface.showOnScreenKeyboard(item.isChecked());
+                return true;
+
+            case R.id.number:
+                final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setSingleChoiceItems(R.array.numbers, current_digits.ordinal(), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if (current_digits.ordinal() != i) {
+                            current_digits = Digits.values()[i];
+                            fragmentInterface.setCurrentDigits(current_digits);
+                            setTitle();
+                        }
+                        dialogInterface.dismiss();
+                    }
+                }).show();
+
+                return true;
+            default:
+                return false;
+        }
+    }
+
+
+    @Override
+    public void preventSoftKeyboardFromShowingUp(final EditText et, boolean prevent) {
+        if (prevent) {
+            if (Build.VERSION.SDK_INT >= 21) {
+                et.setShowSoftInputOnFocus(false);
+            } else {
+                et.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                        int inputType = et.getInputType(); // backup the input type
+                        et.setInputType(InputType.TYPE_NULL); // disable soft input
+                        et.onTouchEvent(motionEvent); // call native handler
+                        et.setInputType(inputType); // restore input type
+                        et.setFocusable(true);
+                        return true; // consume touch even
+                    }
+                });
+            }
+        } else {
+            if (Build.VERSION.SDK_INT >= 21) {
+                et.setShowSoftInputOnFocus(true);
+            } else {
+                et.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                        return et.onTouchEvent(motionEvent);
+                    }
+                });
+            }
+        }
+    }
+
+    @Override
+    public void vibrate(int millis) {
+        if (vibrate) {
+            ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(100);
+        }
+    }
+
+    @Override
+    public void animateToolbarColor(boolean correct) {
         if (!correct && !toolbarCurrentlyRed) {
 
             toolbarCurrentlyRed = true;
@@ -283,173 +281,17 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    public boolean isIncorrect(String stringToCheck) {
-        for (int i = 0; i < stringToCheck.length(); i++) {
-            if (stringToCheck.charAt(i) != current_digits.fractionalPart.charAt(i)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private void fillTextViews() {
-        String input = inputET.getText().toString();
-
-        int count = 0;
-        for (int i = 0; i < input.length(); i++) {
-            if (input.charAt(i) == current_digits.fractionalPart.charAt(i)) {
-                count++;
-            }
-        }
-
-        digitsTV.setText(" " + count);
-        errorsTV.setText(" " + errors);
-
-        if (inputET.length() == 0 || errors > inputET.length()) {
-            percentageTV.setText(" 0%");
-        } else {
-            percentageTV.setText(" " + (int) Math.floor(100 - ((double) errors / inputET.length() * 100)) + "%");
-        }
-    }
-
-    private SpannableStringBuilder toColoredSpannable(String string) {
-        SpannableStringBuilder sb = new SpannableStringBuilder(string);
-
-        for (int i = 0; i < string.length(); i++) {
-            if (string.charAt(i) != current_digits.fractionalPart.charAt(i)) {
-                // If the character is incorrect
-                ForegroundColorSpan redSpan = new ForegroundColorSpan(getResources().getColor(R.color.red));
-                sb.setSpan(redSpan, i, i + 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-            }
-        }
-
-        return sb;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        menu.findItem(R.id.vibrate).setChecked(vibrate);
-        menu.findItem(R.id.keyboard).setChecked(onScreenKeyboard);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.vibrate:
-                if (item.isChecked()) item.setChecked(false);
-                else item.setChecked(true);
-
-                vibrate = item.isChecked();
-                getPreferences(0).edit().putBoolean(VIBRATE, vibrate).apply();
-                return true;
-
-            case R.id.keyboard:
-                if (item.isChecked()) item.setChecked(false);
-                else item.setChecked(true);
-
-                showOnScreenKeyboard(item.isChecked());
-                return true;
-
-            case R.id.number:
-                final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setSingleChoiceItems(R.array.numbers, current_digits.ordinal(), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if (current_digits.ordinal() != i) {
-                            current_digits = Digits.values()[i];
-                            integerPartTV.setText(current_digits.integerPart);
-                            setTitle();
-                            onClickRestart(null);
-                        }
-                        dialogInterface.dismiss();
-                    }
-                }).show();
-
-                return true;
-            default:
-                return false;
-        }
-    }
-
-    private void showOnScreenKeyboard(boolean show) {
-        onScreenKeyboard = show;
-        getPreferences(0).edit().putBoolean(ON_SCREEN_KEYBOARD, show).apply();
-        preventSoftKeyboardFromShowingUp(show);
-
-        keyboard.setVisibility(show ? View.VISIBLE : View.GONE);
-    }
-
-    private void preventSoftKeyboardFromShowingUp(boolean prevent) {
-        if (prevent) {
-            if (Build.VERSION.SDK_INT >= 21) {
-                inputET.setShowSoftInputOnFocus(false);
-            } else {
-                inputET.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View view, MotionEvent motionEvent) {
-                        int inputType = inputET.getInputType(); // backup the input type
-                        inputET.setInputType(InputType.TYPE_NULL); // disable soft input
-                        inputET.onTouchEvent(motionEvent); // call native handler
-                        inputET.setInputType(inputType); // restore input type
-                        inputET.setFocusable(true);
-                        return true; // consume touch even
-                    }
-                });
-            }
-        } else {
-            if (Build.VERSION.SDK_INT >= 21) {
-                inputET.setShowSoftInputOnFocus(true);
-            } else {
-                inputET.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View view, MotionEvent motionEvent) {
-                        return inputET.onTouchEvent(motionEvent);
-                    }
-                });
-            }
-        }
-    }
-
-    public void onClickRestart(View view) {
-        if (Build.VERSION.SDK_INT >= 21) {
-            ((AnimatedVectorDrawable) restartButton.getDrawable()).start();
-        }
-        inputET.setText("");
-        errors = 0;
-        fillTextViews();
-    }
-
-    private void setTitle() {
-        if (current_digits != null) {
-            setTitle(getResources().getStringArray(R.array.trainers)[current_digits.ordinal()]);
-        }
-    }
-
     @Override
     protected void onDestroy() {
         getPreferences(0).edit()
-                .putInt(ERRORS, errors)
-                .putString(INPUT, inputET.getText().toString())
                 .putInt(CURRENT_DIGITS_ORDINAL, current_digits.ordinal())
                 .apply();
         super.onDestroy();
     }
 
     private void restoreValues() {
-        errors = getPreferences(0).getInt(ERRORS, 0);
-
-        inputET.setText(getPreferences(0).getString(INPUT, ""));
-        inputET.setSelection(inputET.length());
-
         vibrate = getPreferences(0).getBoolean(VIBRATE, true);
-
         current_digits = Digits.values()[getPreferences(0).getInt(CURRENT_DIGITS_ORDINAL, 0)];
-        integerPartTV.setText(current_digits.integerPart);
-
-        showOnScreenKeyboard(getPreferences(0).getBoolean(ON_SCREEN_KEYBOARD, false));
+        onScreenKeyboard = getPreferences(0).getBoolean(MainActivity.ON_SCREEN_KEYBOARD, false);
     }
 }

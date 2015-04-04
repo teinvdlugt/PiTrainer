@@ -22,4 +22,5 @@
     <string name="number">Number</string>
     <string name="open_drawer">Open navigation drawer</string>
     <string name="close_drawer">Close Navigation Drawer</string>
+    <string name="practise">Practise</string>
 </resources>

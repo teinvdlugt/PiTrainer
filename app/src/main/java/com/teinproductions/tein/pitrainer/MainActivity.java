@@ -11,6 +11,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.Menu;
@@ -18,7 +20,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ListView;
 
 
 public class MainActivity extends ActionBarActivity implements ActivityInterface {
@@ -96,9 +97,11 @@ public class MainActivity extends ActionBarActivity implements ActivityInterface
     private boolean onScreenKeyboard;
     private FragmentInterface fragmentInterface;
 
+    public static final Game[] GAMES = {new Game(R.string.practise, PractiseFragment.class)};
+
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
-    private ListView drawerListView;
+    private RecyclerView drawerRecyclerView;
     private Toolbar toolbar;
 
     private boolean vibrate;
@@ -113,7 +116,15 @@ public class MainActivity extends ActionBarActivity implements ActivityInterface
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerListView = (ListView) findViewById(R.id.drawer_listView);
+        drawerRecyclerView = (RecyclerView) findViewById(R.id.drawer_recyclerView);
+        drawerRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        drawerRecyclerView.setAdapter(new Game.RecyclerAdapter(this, GAMES, new Game.RecyclerAdapter.OnClickListener() {
+            @Override
+            public void onClick(int i) {
+                drawerLayout.closeDrawer(drawerRecyclerView);
+                swapFragment(GAMES[i].getFragment());
+            }
+        }));
         initDrawerToggle();
 
         restoreValues();
@@ -139,6 +150,23 @@ public class MainActivity extends ActionBarActivity implements ActivityInterface
     }
 
     private void swapFragment(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.content, fragment)
+                .commit();
+        fragmentInterface = (FragmentInterface) fragment;
+    }
+
+    private void swapFragment(Class fragmentClass) {
+        Fragment fragment = null;
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.content, fragment)

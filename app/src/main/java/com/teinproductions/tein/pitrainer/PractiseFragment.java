@@ -159,6 +159,7 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
 
                     // If the last typed character is wrong:
                     if (lastTextLength < inputET.length() // backspace is not pressed
+                            && selection != 0 // For catching index o.o.b. exception in next line
                             && inputET.getText().toString().charAt(selection - 1)
                             != current_digits.fractionalPart.charAt(selection - 1)) { // The typed character is wrong
 

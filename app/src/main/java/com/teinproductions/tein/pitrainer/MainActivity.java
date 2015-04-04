@@ -27,6 +27,7 @@ public class MainActivity extends ActionBarActivity implements ActivityInterface
     private static final String VIBRATE = "VIBRATE";
     public static final String ON_SCREEN_KEYBOARD = "ON_SCREEN_KEYBOARD";
     public static final String CURRENT_DIGITS_ORDINAL = "CURRENT_DIGITS_ORDINAL";
+    public static final String CURRENT_GAME = "CURRENT_GAME";
 
     public static enum Digits {
         PI("3.", "14159265358979323846264338327950288419716939937510582097494459" +
@@ -97,7 +98,10 @@ public class MainActivity extends ActionBarActivity implements ActivityInterface
     private boolean onScreenKeyboard;
     private FragmentInterface fragmentInterface;
 
-    public static final Game[] GAMES = {new Game(R.string.practise, PractiseFragment.class)};
+    public static final Game[] GAMES = {
+            new Game(R.string.practise, PractiseFragment.class),
+            new Game(R.string.reference, ReferenceFragment.class)};
+    private int currentGame;
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
@@ -121,6 +125,7 @@ public class MainActivity extends ActionBarActivity implements ActivityInterface
         drawerRecyclerView.setAdapter(new Game.RecyclerAdapter(this, GAMES, new Game.RecyclerAdapter.OnClickListener() {
             @Override
             public void onClick(int i) {
+                currentGame = i;
                 drawerLayout.closeDrawer(drawerRecyclerView);
                 swapFragment(GAMES[i].getFragment());
             }
@@ -129,7 +134,7 @@ public class MainActivity extends ActionBarActivity implements ActivityInterface
 
         restoreValues();
         setTitle();
-        swapFragment(new PractiseFragment());
+        swapFragment(GAMES[currentGame].getFragment());
     }
 
     private void initDrawerToggle() {
@@ -147,14 +152,6 @@ public class MainActivity extends ActionBarActivity implements ActivityInterface
         if (current_digits != null) {
             setTitle(getResources().getStringArray(R.array.trainers)[current_digits.ordinal()]);
         }
-    }
-
-    private void swapFragment(Fragment fragment) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.content, fragment)
-                .commit();
-        fragmentInterface = (FragmentInterface) fragment;
     }
 
     private void swapFragment(Class fragmentClass) {
@@ -310,16 +307,18 @@ public class MainActivity extends ActionBarActivity implements ActivityInterface
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onPause() {
         getPreferences(0).edit()
                 .putInt(CURRENT_DIGITS_ORDINAL, current_digits.ordinal())
+                .putInt(CURRENT_GAME, currentGame)
                 .apply();
-        super.onDestroy();
+        super.onPause();
     }
 
     private void restoreValues() {
         vibrate = getPreferences(0).getBoolean(VIBRATE, true);
         current_digits = Digits.values()[getPreferences(0).getInt(CURRENT_DIGITS_ORDINAL, 0)];
-        onScreenKeyboard = getPreferences(0).getBoolean(MainActivity.ON_SCREEN_KEYBOARD, false);
+        onScreenKeyboard = getPreferences(0).getBoolean(ON_SCREEN_KEYBOARD, false);
+        currentGame = getPreferences(0).getInt(CURRENT_GAME, 0);
     }
 }

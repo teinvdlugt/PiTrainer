@@ -21,7 +21,7 @@ import android.widget.TextView;
 public class PractiseFragment extends Fragment implements FragmentInterface {
 
     private static final String ERRORS = "ERRORS";
-    private static final String INPUT = "INPUT";
+    private static final String INPUT = "PRACTISE_FRAGMENT_INPUT";
 
     private ActivityInterface listener;
 

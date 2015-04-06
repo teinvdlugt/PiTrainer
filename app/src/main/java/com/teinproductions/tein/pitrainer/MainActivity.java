@@ -195,23 +195,25 @@ public class MainActivity extends ActionBarActivity implements ActivityInterface
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
 
-                getPreferences(0).edit().putBoolean(MainActivity.ON_SCREEN_KEYBOARD, item.isChecked()).apply();
+                getPreferences(0).edit().putBoolean(ON_SCREEN_KEYBOARD, item.isChecked()).apply();
                 fragmentInterface.showOnScreenKeyboard(item.isChecked());
                 return true;
 
             case R.id.number:
-                final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setSingleChoiceItems(R.array.numbers, current_digits.ordinal(), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if (current_digits.ordinal() != i) {
-                            current_digits = Digits.values()[i];
-                            fragmentInterface.setCurrentDigits(current_digits);
-                            setTitle();
-                        }
-                        dialogInterface.dismiss();
-                    }
-                }).show();
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.number_option_dialog_title)
+                        .setSingleChoiceItems(R.array.numbers, current_digits.ordinal(), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                if (current_digits.ordinal() != i) {
+                                    current_digits = Digits.values()[i];
+                                    getPreferences(0).edit().putInt(CURRENT_DIGITS_ORDINAL, i).apply();
+                                    fragmentInterface.setCurrentDigits(current_digits);
+                                    setTitle();
+                                }
+                                dialogInterface.dismiss();
+                            }
+                        }).show();
 
                 return true;
             default:

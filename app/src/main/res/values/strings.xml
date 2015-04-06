@@ -24,4 +24,5 @@
     <string name="close_drawer">Close Navigation Drawer</string>
     <string name="practise">Practise</string>
     <string name="reference">Reference</string>
+    <string name="number_option_dialog_title">Select the number to practise</string>
 </resources>

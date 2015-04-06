@@ -3,6 +3,7 @@ package com.teinproductions.tein.pitrainer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,8 @@ public class ReferenceFragment extends Fragment implements FragmentInterface {
         setCurrentDigits(MainActivity.Digits.values()[
                 getActivity().getPreferences(0).getInt(MainActivity.CURRENT_DIGITS_ORDINAL, 0)]);
 
+        Log.i("ONLY_FOR_GEEKS", "onCreateView");
+
         content.addView(integerPart,
                 new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         content.addView(fractionalPart,
@@ -44,6 +47,7 @@ public class ReferenceFragment extends Fragment implements FragmentInterface {
     public void setCurrentDigits(MainActivity.Digits digits) {
         integerPart.setText(digits.integerPart);
         setFractionalPartText(digits.fractionalPart);
+        Log.i("ONLY_FOR_GEEKS", "setCurrentDigits " + digits.integerPart);
     }
 
     private void setFractionalPartText(String string) {

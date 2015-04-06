@@ -3,59 +3,84 @@ package com.teinproductions.tein.pitrainer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
-public class ReferenceFragment extends Fragment implements FragmentInterface {
+public class ReferenceFragment extends Fragment
+        implements FragmentInterface, ReferenceFragmentSettingsDialog.Listener {
+
+    public static final String TEXT_SIZE = "TEXT_SIZE";
+    public static final String SPACINGS = "SPACINGS";
+
+    private int textSize;
+    private int spacings;
+
+    private MainActivity.Digits currentDigits;
 
     TextView integerPart, fractionalPart;
+    ImageButton settingsButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ScrollView scrollView = new ScrollView(getActivity());
+        View theView = inflater.inflate(R.layout.fragment_reference, container, false);
 
-        LinearLayout content = new LinearLayout(getActivity());
-        content.setOrientation(LinearLayout.VERTICAL);
+        integerPart = (TextView) theView.findViewById(R.id.integerPart_textView);
+        fractionalPart = (TextView) theView.findViewById(R.id.fractionalPart_textView);
+        settingsButton = (ImageButton) theView.findViewById(R.id.settings_button);
 
-        integerPart = new TextView(getActivity());
-        fractionalPart = new TextView(getActivity());
+        restoreValues();
 
-        integerPart.setTextSize(56);
-        fractionalPart.setTextSize(18);
+        setCurrentDigits(currentDigits);
 
-        setCurrentDigits(MainActivity.Digits.values()[
-                getActivity().getPreferences(0).getInt(MainActivity.CURRENT_DIGITS_ORDINAL, 0)]);
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickSettings();
+            }
+        });
 
-        Log.i("ONLY_FOR_GEEKS", "onCreateView");
+        return theView;
+    }
 
-        content.addView(integerPart,
-                new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        content.addView(fractionalPart,
-                new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        scrollView.addView(content,
-                new ScrollView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+    public void restoreValues() {
+        textSize = getActivity().getPreferences(0).getInt(TEXT_SIZE, 18);
+        spacings = getActivity().getPreferences(0).getInt(SPACINGS, 10);
+        currentDigits = MainActivity.Digits.values()[
+                getActivity().getPreferences(0).getInt(MainActivity.CURRENT_DIGITS_ORDINAL, 0)];
 
-        return scrollView;
+        fractionalPart.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
     }
 
     @Override
     public void setCurrentDigits(MainActivity.Digits digits) {
+        currentDigits = digits;
         integerPart.setText(digits.integerPart);
-        setFractionalPartText(digits.fractionalPart);
-        Log.i("ONLY_FOR_GEEKS", "setCurrentDigits " + digits.integerPart);
+        setFractionalPartText();
     }
 
-    private void setFractionalPartText(String string) {
-        StringBuilder sb = new StringBuilder(string);
-        for (int i = 10; i < sb.length(); i += 11) {
-            sb.insert(i, " ");
+    private void setFractionalPartText() {
+        StringBuilder sb = new StringBuilder(currentDigits.fractionalPart);
+        if (spacings > 0) { // If 0, then no spacings
+            for (int i = spacings; i < sb.length(); i += spacings + 1) {
+                sb.insert(i, " ");
+            }
         }
         fractionalPart.setText(sb);
+    }
+
+    private void onClickSettings() {
+        ReferenceFragmentSettingsDialog.show(this, textSize, spacings);
+        // When on this dialog OK is clicked, reload() is called
+    }
+
+    @Override
+    public void reload() {
+        restoreValues();
+        setFractionalPartText();
     }
 
     @Override

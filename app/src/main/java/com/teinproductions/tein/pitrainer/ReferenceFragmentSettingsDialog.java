@@ -83,7 +83,7 @@ public class ReferenceFragmentSettingsDialog extends DialogFragment {
     private void applyChanges() {
         SharedPreferences.Editor prefs = getActivity().getPreferences(0).edit();
         prefs.putInt(ReferenceFragment.TEXT_SIZE,
-                Integer.parseInt(textSizeET.getText().toString()));
+                Integer.parseInt(textSizeET.getText().toString())); // TODO float
         prefs.putInt(ReferenceFragment.SPACINGS,
                 Integer.parseInt(spacingsET.getText().toString()));
         prefs.apply();

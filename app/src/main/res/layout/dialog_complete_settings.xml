@@ -8,22 +8,23 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/text_size" />
+        android:text="@string/number_of_digits_given" />
 
     <EditText
-        android:id="@+id/textSize_textView"
+        android:id="@+id/digits_given_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="numberDecimal" />
+        android:inputType="number" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/spacings" />
+        android:text="@string/range" />
 
     <EditText
-        android:id="@+id/spacings_textView"
+        android:id="@+id/range_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number" />
+
 </LinearLayout>

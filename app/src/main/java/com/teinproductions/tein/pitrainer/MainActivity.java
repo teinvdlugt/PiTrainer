@@ -100,7 +100,8 @@ public class MainActivity extends ActionBarActivity implements ActivityInterface
 
     public static final Game[] GAMES = {
             new Game(R.string.practise, PractiseFragment.class),
-            new Game(R.string.reference, ReferenceFragment.class)};
+            new Game(R.string.reference, ReferenceFragment.class),
+            new Game(R.string.complete_the_statement, CompleteFragment.class)};
     private int currentGame;
 
     private DrawerLayout drawerLayout;

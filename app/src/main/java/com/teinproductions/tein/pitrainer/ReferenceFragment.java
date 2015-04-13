@@ -16,7 +16,7 @@ public class ReferenceFragment extends Fragment
     public static final String TEXT_SIZE = "TEXT_SIZE";
     public static final String SPACINGS = "SPACINGS";
 
-    private int textSize;
+    private float textSize;
     private int spacings;
 
     private MainActivity.Digits currentDigits;
@@ -47,7 +47,7 @@ public class ReferenceFragment extends Fragment
     }
 
     public void restoreValues() {
-        textSize = getActivity().getPreferences(0).getInt(TEXT_SIZE, 18);
+        textSize = getActivity().getPreferences(0).getFloat(TEXT_SIZE, 18);
         spacings = getActivity().getPreferences(0).getInt(SPACINGS, 10);
         currentDigits = MainActivity.Digits.values()[
                 getActivity().getPreferences(0).getInt(MainActivity.CURRENT_DIGITS_ORDINAL, 0)];

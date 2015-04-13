@@ -41,7 +41,13 @@ public class CompleteFragmentSettingsDialog extends DialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(getContentView());
-        builder.setPositiveButton(android.R.string.ok, null); // onClick is handled in onStart()
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                applyChanges();
+                listener.reload();
+            }
+        });
         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.cancel();
@@ -57,10 +63,15 @@ public class CompleteFragmentSettingsDialog extends DialogFragment {
         numOfDigitsET = (EditText) theView.findViewById(R.id.digits_given_editText);
         rangeET = (EditText) theView.findViewById(R.id.range_editText);
 
-        if (numOfDigits != -1 && range != -1) {
-            numOfDigitsET.setText("" + numOfDigits);
-            rangeET.setText("" + range);
+        if (numOfDigits == -1 || range == -1) {
+            // Default settings:
+            numOfDigits = 12;
+            range = 50;
         }
+
+        numOfDigitsET.setText("" + numOfDigits);
+        rangeET.setText("" + range);
+
         numOfDigitsET.setSelection(numOfDigitsET.length());
 
         setTextWatchers();
@@ -80,32 +91,21 @@ public class CompleteFragmentSettingsDialog extends DialogFragment {
 
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    if (e.getText().toString().equals("0")) {
-                        e.setText("");
+                    final String input1 = numOfDigitsET.getText().toString();
+                    final String input2 = rangeET.getText().toString();
+
+                    if (ReferenceFragmentSettingsDialog.isValidInteger(input1)
+                            && ReferenceFragmentSettingsDialog.isValidInteger(input2)
+                            && !input1.equals("0") && !input2.equals("0")) {
+                        ((AlertDialog) getDialog()).getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(true);
+                    } else {
+                        ((AlertDialog) getDialog()).getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
                     }
                 }
 
                 @Override
                 public void afterTextChanged(Editable editable) {
 
-                }
-            });
-        }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        AlertDialog dialog = (AlertDialog) getDialog();
-        if (dialog != null) {
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (numOfDigitsET.length() > 0 && rangeET.length() > 0) {
-                        applyChanges();
-                        listener.reload();
-                        dismiss();
-                    }
                 }
             });
         }

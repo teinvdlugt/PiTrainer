@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
 
@@ -13,9 +14,9 @@ public class Keyboard extends TableLayout {
     private OnTypeListener onTypeListener;
 
     public interface OnTypeListener {
-        public void onTypeDigit(int digit);
+        void onTypeDigit(int digit);
 
-        public void onTypeBackspace();
+        void onTypeBackspace();
     }
 
     private void init() {
@@ -28,6 +29,24 @@ public class Keyboard extends TableLayout {
             @Override
             public void onClick(View view) {
                 if (onTypeListener != null) onTypeListener.onTypeBackspace();
+            }
+        });
+    }
+
+    public void setEditText(final EditText editText) {
+        this.setOnTypeListener(new OnTypeListener() {
+            @Override
+            public void onTypeDigit(int digit) {
+                final int selection = editText.getSelectionStart();
+                editText.getText().insert(selection, Integer.toString(digit));
+            }
+
+            @Override
+            public void onTypeBackspace() {
+                final int selection = editText.getSelectionStart();
+                if (selection > 0) {
+                    editText.getText().replace(selection - 1, selection, "");
+                }
             }
         });
     }

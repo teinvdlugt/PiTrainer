@@ -36,6 +36,8 @@ public class CompleteFragment extends Fragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        listener = (ActivityInterface) getActivity();
+
         View theView = inflater.inflate(R.layout.fragment_complete, container, false);
 
         statement = (TextView) theView.findViewById(R.id.statement_textView);
@@ -57,11 +59,15 @@ public class CompleteFragment extends Fragment
         });
 
         setTextWatcher();
-        setTypeListener();
+        keyboard.setEditText(editText);
         if (restoreValues()) {
             next();
         } else {
             onClickSettings();
+            // Default settings:
+            numOfDigits = 12;
+            range = 50;
+            next();
         }
 
         return theView;
@@ -77,24 +83,6 @@ public class CompleteFragment extends Fragment
 
         // If the values existed, return true; otherwise, false
         return !(range == -1 || numOfDigits == -1);
-    }
-
-    private void setTypeListener() {
-        keyboard.setOnTypeListener(new Keyboard.OnTypeListener() {
-            @Override
-            public void onTypeDigit(int digit) {
-                final int selection = editText.getSelectionStart();
-                editText.getText().insert(selection, Integer.toString(digit));
-            }
-
-            @Override
-            public void onTypeBackspace() {
-                final int selection = editText.getSelectionStart();
-                if (selection > 0) {
-                    editText.getText().replace(selection - 1, selection, "");
-                }
-            }
-        });
     }
 
     public void next() {
@@ -207,13 +195,5 @@ public class CompleteFragment extends Fragment
     public void reload() {
         restoreValues();
         next();
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        // TODO can't this be done in onCreateView() with getActivity()?
-        listener = (ActivityInterface) activity;
     }
 }

@@ -1,6 +1,5 @@
 package com.teinproductions.tein.pitrainer;
 
-import android.app.Activity;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -39,6 +38,8 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        listener = (ActivityInterface) getActivity();
+
         View root = inflater.inflate(R.layout.fragment_practise, container, false);
 
         inputET = (EditText) root.findViewById(R.id.input_editText);
@@ -49,9 +50,9 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
         percentageTV = (TextView) root.findViewById(R.id.percentage_textView);
         integerPartTV = (TextView) root.findViewById(R.id.integerPart_textView);
 
+        keyboard.setEditText(inputET);
         restoreValues();
         fillTextViews();
-        setTypeListener();
         setRestartImageResource();
         setTextWatcher();
 
@@ -71,24 +72,6 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
         listener.animateToolbarColor(!isIncorrect(inputET.getText().toString()));
 
         showOnScreenKeyboard(getActivity().getPreferences(0).getBoolean(MainActivity.ON_SCREEN_KEYBOARD, false));
-    }
-
-    private void setTypeListener() {
-        keyboard.setOnTypeListener(new Keyboard.OnTypeListener() {
-            @Override
-            public void onTypeDigit(int digit) {
-                final int selection = inputET.getSelectionStart();
-                inputET.getText().insert(selection, Integer.toString(digit));
-            }
-
-            @Override
-            public void onTypeBackspace() {
-                final int selection = inputET.getSelectionStart();
-                if (selection > 0) {
-                    inputET.getText().replace(selection - 1, selection, "");
-                }
-            }
-        });
     }
 
     @Override
@@ -221,14 +204,6 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
         current_digits = digits;
         integerPartTV.setText(current_digits.integerPart);
         onClickRestart();
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        // TODO can't this be done in onCreateView() with getActivity()?
-        listener = (ActivityInterface) activity;
     }
 
     @Override

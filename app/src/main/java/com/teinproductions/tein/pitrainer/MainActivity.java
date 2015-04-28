@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -22,7 +23,7 @@ import android.view.View;
 import android.widget.EditText;
 
 
-public class MainActivity extends ActionBarActivity implements ActivityInterface {
+public class MainActivity extends AppCompatActivity implements ActivityInterface {
 
     private static final String VIBRATE = "VIBRATE";
     public static final String ON_SCREEN_KEYBOARD = "ON_SCREEN_KEYBOARD";

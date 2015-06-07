@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -123,13 +124,20 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
     private void setTextWatcher() {
         inputET.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
                 if (indirectTextChange) return;
+                if (inputET.length() >= Digits.currentDigit.getFractionalPart().length()) {
+                    tooMuchInput();
+                    indirectTextChange = true;
+                    inputET.setText(inputET.getText().delete(
+                            Digits.currentDigit.getFractionalPart().length() - 1, inputET.length() - 1));
+                    inputET.setSelection(inputET.length());
+                    indirectTextChange = false;
+                }
 
                 selection = inputET.getSelectionStart();
 
@@ -165,7 +173,6 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
 
             @Override
             public void afterTextChanged(Editable editable) {
-
             }
         });
     }
@@ -192,6 +199,13 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
         }
 
         return sb;
+    }
+
+    private void tooMuchInput() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(R.string.too_much_input_dialog_message)
+                .setPositiveButton(android.R.string.ok, null);
+        builder.create().show();
     }
 
 

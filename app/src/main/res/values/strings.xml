@@ -1,26 +1,11 @@
 <resources>
     <string name="app_name">Pi Trainer</string>
-
     <string name="vibrate">Vibrate</string>
     <string name="on_screen_keyboard">\"On Screen\" Keyboard</string>
-    <string-array name="numbers">
-        <item>Pi</item>
-        <item>Tau</item>
-        <item>Euler\'s number</item>
-        <item>Square root of 2</item>
-    </string-array>
-    <string-array name="trainers">
-        <item>Pi Trainer</item>
-        <item>Tau Trainer</item>
-        <item>Euler\'s Trainer</item>
-        <item>Square Root Trainer</item>
-    </string-array>
-
     <string name="pi">Pi</string>
     <string name="tau">Tau</string>
     <string name="euler_number">Euler\'s number</string>
     <string name="sqrt2">Square root of 2</string>
-
     <string name="restart">restart</string>
     <string name="lets_see_what_you_can_do">Let\'s see what you can do!</string>
     <string name="digits_colon">Digits:</string>
@@ -39,4 +24,16 @@
     <string name="range">Range</string>
     <string name="next">next</string>
     <string name="complete_the_statement">Complete the statement</string>
+    <string name="title_activity_add_number">Add Number</string>
+    <string name="integer_part">Integer part</string>
+    <string name="integer_part_explanation">The digits in front of the point</string>
+    <string name="fractional_part">Fractional part</string>
+    <string name="fractional_part_explanation">The digits that come after the point</string>
+    <string name="name">Name</string>
+    <string name="add_number">Add number…</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="save">Save</string>
+    <string name="too_much_input_dialog_message">Great work! You have reached the maximum amount of digits of the number.</string>
+    <string name="check_your_settings">Check your settings</string>
+    <string name="length_of_answer">Length of answer</string>
 </resources>

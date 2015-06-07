@@ -27,4 +27,15 @@
         android:layout_height="wrap_content"
         android:inputType="number" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/length_of_answer" />
+
+    <EditText
+        android:id="@+id/lengthOfAnswer_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number" />
+
 </LinearLayout>

@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.teinproductions.tein.pitrainer.AddNumberActivity">
+
+    <item
+        android:icon="@mipmap/ic_clear_white_36dp"
+        android:id="@+id/dismiss"
+        android:orderInCategory="100"
+        android:title="@string/dismiss"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:icon="@mipmap/ic_done_white_36dp"
+        android:id="@+id/save"
+        android:orderInCategory="100"
+        android:title="@string/save"
+        app:showAsAction="ifRoom" />
+</menu>

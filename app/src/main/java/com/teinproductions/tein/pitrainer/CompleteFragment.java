@@ -19,10 +19,11 @@ public class CompleteFragment extends Fragment
 
     public static final String RANGE = "RANGE";
     public static final String NUM_OF_DIGITS_GIVEN = "NUM_OF_DIGITS_GIVEN";
+    public static final String LENGTH_OF_ANSWER = "LENGTH_OF_ANSWER";
 
     private ActivityInterface listener;
 
-    private int range, numOfDigits;
+    private int range, numOfDigits, answerLength;
     private String answer;
 
     private int selection = 0, lastTextLength = 0;
@@ -58,37 +59,32 @@ public class CompleteFragment extends Fragment
 
         setTextWatcher();
         keyboard.setEditText(editText);
-        if (restoreValues()) {
-            next();
-        } else {
-            onClickSettings();
-            // Default settings:
-            numOfDigits = 12;
-            range = 50;
-            next();
-        }
+        reload();
 
         return theView;
     }
 
     private boolean restoreValues() {
-        range = getActivity().getPreferences(0).getInt(RANGE, -1);
-        numOfDigits = getActivity().getPreferences(0).getInt(NUM_OF_DIGITS_GIVEN, -1);
+        String name = Digits.currentDigit.getName();
+
+        range = getActivity().getPreferences(0).getInt(RANGE + name, -1);
+        numOfDigits = getActivity().getPreferences(0).getInt(NUM_OF_DIGITS_GIVEN + name, -1);
+        answerLength = getActivity().getPreferences(0).getInt(LENGTH_OF_ANSWER + name, -1);
 
         showOnScreenKeyboard(getActivity().getPreferences(0).getBoolean(MainActivity.ON_SCREEN_KEYBOARD, false));
 
-        // If the values existed, return true; otherwise, false
-        return !(range == -1 || numOfDigits == -1);
+        // If the values existed, return true and if not, return false
+        return !(range == -1 || numOfDigits == -1 || answerLength == -1);
     }
 
     public void next() {
         editText.setText("");
         String digits = Digits.currentDigit.getFractionalPart().substring(0, range);
 
-        // You have to fill in 6 digits
-        final int rangeOfIndex = range - 1 - 6 - numOfDigits;
+        final int rangeOfIndex = range - 1 - answerLength - numOfDigits;
         if (rangeOfIndex < 1) {
-            Toast.makeText(getActivity(), "Check your settings", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getActivity().getString(R.string.check_your_settings),
+                    Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -102,7 +98,6 @@ public class CompleteFragment extends Fragment
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
@@ -153,7 +148,6 @@ public class CompleteFragment extends Fragment
 
             @Override
             public void afterTextChanged(Editable editable) {
-
             }
         });
     }
@@ -172,11 +166,12 @@ public class CompleteFragment extends Fragment
     }
 
     private void onClickSettings() {
-        CompleteFragmentSettingsDialog.show(this, numOfDigits, range);
+        CompleteFragmentSettingsDialog.show(this, numOfDigits, range, answerLength);
     }
 
     @Override
     public void resetCurrentDigits() {
+        reload();
         next();
     }
 
@@ -188,7 +183,24 @@ public class CompleteFragment extends Fragment
 
     @Override
     public void reload() {
-        restoreValues();
+        if (!restoreValues()) {
+            // Default settings:
+            if (Digits.currentDigit.getFractionalPart().length() >= 50) {
+                numOfDigits = 12;
+                range = 50;
+                answerLength = 6;
+            } else {
+                range = Digits.currentDigit.getFractionalPart().length();
+                numOfDigits = range / 4;
+                if (numOfDigits == 0) numOfDigits = 1;
+                answerLength = numOfDigits;
+                if (answerLength + numOfDigits >= range) {
+                    answerLength = range - numOfDigits;
+                }
+            }
+            onClickSettings();
+        }
+
         next();
     }
 }

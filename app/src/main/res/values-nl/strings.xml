@@ -21,17 +21,20 @@
     <string name="spacings">Spaties</string>
     <string name="text_size">Tekstgrootte</string>
     <string name="vibrate">Trillen</string>
-
-    <string-array name="numbers">
-        <item>Pi</item>
-        <item>Tau</item>
-        <item>Getal van Euler</item>
-        <item>Wortel van 2</item>
-    </string-array>
-    <string-array name="trainers">
-        <item>Pi Trainer</item>
-        <item>Tau Trainer</item>
-        <item>Eulers Trainer</item>
-        <item>Wortel Trainer</item>
-    </string-array>
+    <string name="add_number">Voeg toe…</string>
+    <string name="check_your_settings">Controleer je instellingen</string>
+    <string name="dismiss">Laat maar</string>
+    <string name="euler_number">Getal van Euler</string>
+    <string name="fractional_part">Fractionele deel</string>
+    <string name="fractional_part_explanation">De cijfers achter the komma</string>
+    <string name="integer_part">Integer deel</string>
+    <string name="integer_part_explanation">De cijfers voor de komma</string>
+    <string name="length_of_answer">Lengte van het antwoord</string>
+    <string name="name">Naam</string>
+    <string name="pi">Pi</string>
+    <string name="save">Opslaan</string>
+    <string name="sqrt2">Wortel 2</string>
+    <string name="tau">Tau</string>
+    <string name="title_activity_add_number">Getal toevoegen</string>
+    <string name="too_much_input_dialog_message">Goed gedaan! Je hebt het maximum aantal cijfers van het getal beriekt.</string>
 </resources>

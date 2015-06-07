@@ -2,6 +2,7 @@ package com.teinproductions.tein.pitrainer;
 
 
 import android.content.Context;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -10,6 +11,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -420,7 +422,7 @@ public class Digits {
                 NAME, name, INTEGER_PART, integerPart, FRACTIONAL_PART, fractionalPart);
     }
 
-    public String arrayToJSON(Digits[] array) {
+    public static String arrayToJSON(Digits[] array) {
         StringBuilder sb = new StringBuilder(String.format("{\"%s\":[", DIGITS));
         for (Digits digits : array) {
             sb.append(digits.toJSON());
@@ -452,6 +454,32 @@ public class Digits {
         } catch (IOException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public static void addDigits(Context context, Digits newDigits) {
+        Digits[] saved = savedDigits(context);
+        Digits[] newSaved = new Digits[saved.length + 1];
+        System.arraycopy(saved, 0, newSaved, 0, saved.length);
+        newSaved[newSaved.length - 1] = newDigits;
+
+        save(context, newSaved);
+
+        String currentName = currentDigit.getName();
+        initDigits(context);
+        currentDigit = findDigits(currentName);
+    }
+
+    public static void save(Context context, Digits[] toSave) {
+        String json = arrayToJSON(toSave);
+
+        try {
+            FileOutputStream fos = context.openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
+            fos.write(json.getBytes());
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(context, "Something went wrong while saving", Toast.LENGTH_SHORT).show();
         }
     }
 

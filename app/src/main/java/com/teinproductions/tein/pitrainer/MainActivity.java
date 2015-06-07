@@ -4,6 +4,7 @@ import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements ActivityInterface
     public static final String ON_SCREEN_KEYBOARD = "ON_SCREEN_KEYBOARD";
     public static final String CURRENT_DIGITS_NAME = "CURRENT_DIGITS_NAME";
     public static final String CURRENT_GAME = "CURRENT_GAME";
+    public static final int ADD_NUMBER_ACTIVITY_REQUEST_CODE = 1;
 
     private boolean onScreenKeyboard;
     private FragmentInterface fragmentInterface;
@@ -94,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements ActivityInterface
         Fragment fragment = null;
         try {
             fragment = (Fragment) fragmentClass.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -134,14 +136,22 @@ public class MainActivity extends AppCompatActivity implements ActivityInterface
                 return true;
 
             case R.id.number:
+                String[] digitsNames = Digits.digitsNames();
+                final String[] singleChoiceItems = new String[digitsNames.length + 1];
+                System.arraycopy(digitsNames, 0, singleChoiceItems, 0, digitsNames.length);
+                singleChoiceItems[singleChoiceItems.length - 1] = getString(R.string.add_number);
+
                 final int currentDigitsIndex = Digits.currentDigitsIndex();
 
                 new AlertDialog.Builder(this)
                         .setTitle(R.string.number_option_dialog_title)
-                        .setSingleChoiceItems(Digits.digitsNames(), currentDigitsIndex, new DialogInterface.OnClickListener() {
+                        .setSingleChoiceItems(singleChoiceItems, currentDigitsIndex, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                if (which != currentDigitsIndex) {
+                                if (which == singleChoiceItems.length - 1) {
+                                    Intent intent = new Intent(MainActivity.this, AddNumberActivity.class);
+                                    startActivityForResult(intent, ADD_NUMBER_ACTIVITY_REQUEST_CODE);
+                                } else if (which != currentDigitsIndex) {
                                     Digits newDigits = Digits.digits[which];
                                     Digits.currentDigit = newDigits;
                                     getPreferences(0).edit().putString(CURRENT_DIGITS_NAME, newDigits.getName()).apply();
@@ -159,6 +169,16 @@ public class MainActivity extends AppCompatActivity implements ActivityInterface
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == ADD_NUMBER_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+            getPreferences(0).edit().putString(CURRENT_DIGITS_NAME, Digits.currentDigit.getName()).apply();
+            fragmentInterface.resetCurrentDigits();
+            setTitle();
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
 
     @Override
     public void preventSoftKeyboardFromShowingUp(final EditText et, boolean prevent) {

@@ -34,8 +34,6 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
     private int lastTextLength = 0;
     private int errors = 0;
 
-    private MainActivity.Digits current_digits;
-
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         listener = (ActivityInterface) getActivity();
@@ -62,9 +60,7 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
     private void restoreValues() {
         errors = getActivity().getPreferences(0).getInt(ERRORS, 0);
 
-        current_digits = MainActivity.Digits.values()[
-                getActivity().getPreferences(0).getInt(MainActivity.CURRENT_DIGITS_ORDINAL, 0)];
-        integerPartTV.setText(current_digits.integerPart);
+        integerPartTV.setText(Digits.currentDigit.getIntegerPart() + ".");
 
         String input = getActivity().getPreferences(0).getString(INPUT, "");
         inputET.setText(toColoredSpannable(input));
@@ -109,7 +105,7 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
 
         int count = 0;
         for (int i = 0; i < input.length(); i++) {
-            if (input.charAt(i) == current_digits.fractionalPart.charAt(i)) {
+            if (input.charAt(i) == Digits.currentDigit.getFractionalPart().charAt(i)) {
                 count++;
             }
         }
@@ -144,7 +140,7 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
                     if (lastTextLength < inputET.length() // backspace is not pressed
                             && selection != 0 // For catching index o.o.b. exception in next line
                             && inputET.getText().toString().charAt(selection - 1)
-                            != current_digits.fractionalPart.charAt(selection - 1)) { // The typed character is wrong
+                            != Digits.currentDigit.getFractionalPart().charAt(selection - 1)) { // The typed character is wrong
 
                         errors++;
                         listener.vibrate(100);
@@ -176,7 +172,7 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
 
     public boolean isIncorrect(String stringToCheck) {
         for (int i = 0; i < stringToCheck.length(); i++) {
-            if (stringToCheck.charAt(i) != current_digits.fractionalPart.charAt(i)) {
+            if (stringToCheck.charAt(i) != Digits.currentDigit.getFractionalPart().charAt(i)) {
                 return true;
             }
         }
@@ -188,7 +184,7 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
         SpannableStringBuilder sb = new SpannableStringBuilder(string);
 
         for (int i = 0; i < string.length(); i++) {
-            if (string.charAt(i) != current_digits.fractionalPart.charAt(i)) {
+            if (string.charAt(i) != Digits.currentDigit.getFractionalPart().charAt(i)) {
                 // If the character is incorrect
                 ForegroundColorSpan redSpan = new ForegroundColorSpan(getResources().getColor(R.color.red));
                 sb.setSpan(redSpan, i, i + 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
@@ -200,9 +196,8 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
 
 
     @Override
-    public void setCurrentDigits(MainActivity.Digits digits) {
-        current_digits = digits;
-        integerPartTV.setText(current_digits.integerPart);
+    public void resetCurrentDigits() {
+        integerPartTV.setText(Digits.currentDigit.getIntegerPart() + ".");
         onClickRestart();
     }
 

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Pi Trainer</string>
+    <string name="close_drawer">Sluit menu</string>
+    <string name="complete_the_statement">Voltooi de reeks</string>
+    <string name="digits_colon">Cijfer:</string>
+    <string name="errors_colon">Fouten:</string>
+    <string name="lets_see_what_you_can_do">Laat eens zien wat je kan!</string>
+    <string name="next">Volgende</string>
+    <string name="number">Getal</string>
+    <string name="number_of_digits_given">Aantal gegeven cijfers</string>
+    <string name="number_option_dialog_title">Kies het getal om te oefenen</string>
+    <string name="on_screen_keyboard">Toetsenbord</string>
+    <string name="open_drawer">Open menu</string>
+    <string name="percentage_colon">Percentage:</string>
+    <string name="practise">Oefenen</string>
+    <string name="range">Bereik</string>
+    <string name="reference">Getal</string>
+    <string name="restart">Opnieuw</string>
+    <string name="settings">Instellingen</string>
+    <string name="spacings">Spaties</string>
+    <string name="text_size">Tekstgrootte</string>
+    <string name="vibrate">Trillen</string>
+
+    <string-array name="numbers">
+        <item>Pi</item>
+        <item>Tau</item>
+        <item>Getal van Euler</item>
+        <item>Wortel van 2</item>
+    </string-array>
+    <string-array name="trainers">
+        <item>Pi Trainer</item>
+        <item>Tau Trainer</item>
+        <item>Eulers Trainer</item>
+        <item>Wortel Trainer</item>
+    </string-array>
+</resources>

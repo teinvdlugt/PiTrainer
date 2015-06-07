@@ -31,10 +31,6 @@ public class Game {
         return fragment;
     }
 
-    public void setFragment(Class fragment) {
-        this.fragment = fragment;
-    }
-
 
     public static class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
@@ -43,7 +39,7 @@ public class Game {
         private OnClickListener clickListener;
 
         public interface OnClickListener {
-            public void onClick(int i);
+            void onClick(int i);
         }
 
         public RecyclerAdapter(Context context, Game[] data, OnClickListener clickListener) {

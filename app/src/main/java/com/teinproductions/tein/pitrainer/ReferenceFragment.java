@@ -19,8 +19,6 @@ public class ReferenceFragment extends Fragment
     private float textSize;
     private int spacings;
 
-    private MainActivity.Digits currentDigits;
-
     TextView integerPart, fractionalPart;
     ImageButton settingsButton;
 
@@ -33,8 +31,7 @@ public class ReferenceFragment extends Fragment
         settingsButton = (ImageButton) theView.findViewById(R.id.settings_button);
 
         restoreValues();
-
-        setCurrentDigits(currentDigits);
+        resetCurrentDigits();
 
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,21 +46,18 @@ public class ReferenceFragment extends Fragment
     public void restoreValues() {
         textSize = getActivity().getPreferences(0).getFloat(TEXT_SIZE, 18);
         spacings = getActivity().getPreferences(0).getInt(SPACINGS, 10);
-        currentDigits = MainActivity.Digits.values()[
-                getActivity().getPreferences(0).getInt(MainActivity.CURRENT_DIGITS_ORDINAL, 0)];
 
         fractionalPart.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
     }
 
     @Override
-    public void setCurrentDigits(MainActivity.Digits digits) {
-        currentDigits = digits;
-        integerPart.setText(digits.integerPart);
+    public void resetCurrentDigits() {
+        integerPart.setText(Digits.currentDigit.getIntegerPart() + ".");
         setFractionalPartText();
     }
 
     private void setFractionalPartText() {
-        StringBuilder sb = new StringBuilder(currentDigits.fractionalPart);
+        StringBuilder sb = new StringBuilder(Digits.currentDigit.getFractionalPart());
         if (spacings > 0) { // If 0, then no spacings
             for (int i = spacings; i < sb.length(); i += spacings + 1) {
                 sb.insert(i, " ");

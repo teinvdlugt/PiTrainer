@@ -1,6 +1,5 @@
 package com.teinproductions.tein.pitrainer;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -22,7 +21,6 @@ public class CompleteFragment extends Fragment
     public static final String NUM_OF_DIGITS_GIVEN = "NUM_OF_DIGITS_GIVEN";
 
     private ActivityInterface listener;
-    private MainActivity.Digits currentDigits;
 
     private int range, numOfDigits;
     private String answer;
@@ -30,7 +28,7 @@ public class CompleteFragment extends Fragment
     private int selection = 0, lastTextLength = 0;
     private boolean indirectTextChange = false;
 
-    private TextView statement; // I call this "statement" because it is "complete the statement"
+    private TextView statement; // I call this "statement" because this game is called "complete the statement"
     private EditText editText;
     private Keyboard keyboard;
 
@@ -74,8 +72,6 @@ public class CompleteFragment extends Fragment
     }
 
     private boolean restoreValues() {
-        currentDigits = MainActivity.Digits.values()[
-                getActivity().getPreferences(0).getInt(MainActivity.CURRENT_DIGITS_ORDINAL, 0)];
         range = getActivity().getPreferences(0).getInt(RANGE, -1);
         numOfDigits = getActivity().getPreferences(0).getInt(NUM_OF_DIGITS_GIVEN, -1);
 
@@ -87,7 +83,7 @@ public class CompleteFragment extends Fragment
 
     public void next() {
         editText.setText("");
-        String digits = currentDigits.fractionalPart.substring(0, range);
+        String digits = Digits.currentDigit.getFractionalPart().substring(0, range);
 
         // You have to fill in 6 digits
         final int rangeOfIndex = range - 1 - 6 - numOfDigits;
@@ -180,8 +176,7 @@ public class CompleteFragment extends Fragment
     }
 
     @Override
-    public void setCurrentDigits(MainActivity.Digits digits) {
-        currentDigits = digits;
+    public void resetCurrentDigits() {
         next();
     }
 

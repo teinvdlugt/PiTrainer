@@ -1,11 +1,14 @@
 package com.teinproductions.tein.pitrainer;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -92,6 +95,22 @@ public class AddNumberActivity extends AppCompatActivity {
         setResult(RESULT_OK, intent);
         finish();
         return true;
+    }
+
+    public void onClickDelete(View view) {
+        new AlertDialog.Builder(this)
+                .setMessage(R.string.sure_delete_digits)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent resultIntent = new Intent();
+                        resultIntent.putExtra(NumbersActivity.DELETE_DIGITS, true);
+                        resultIntent.putExtra(DIGITS, digits);
+                        setResult(RESULT_OK, resultIntent);
+                        finish();
+                    }
+                }).setNegativeButton(R.string.no, null)
+                .create().show();
     }
 
     public static boolean contains(String[] strings, String string) {

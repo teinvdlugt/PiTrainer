@@ -42,4 +42,7 @@
     <string name="create">Create</string>
     <string name="no_custom_numbers">You have not added any numbers yet.</string>
     <string name="delete">Delete</string>
+    <string name="sure_delete_digits">Are you sure you want to delete this number?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

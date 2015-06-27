@@ -100,13 +100,13 @@ public class NumbersActivity extends AppCompatActivity {
                 if (indexEditing == NEW_NUMBER) {
                     indexEditing = -1;
                 } else {
+                    String nameOfDeletedDigits = customDigits[indexEditing].getName();
                     customDigits = deleteDigits(customDigits, indexEditing);
                     saveCustomDigits();
-                    for (int i = 0; i < Digits.digits.length; i++) {
-                        if (!Digits.digits[i].getName().equals(customDigits[indexEditing].getName())) {
-                            Digits.currentDigit = Digits.digits[i];
-                            break;
-                        }
+                    if (Digits.currentDigit.getName().equals(nameOfDeletedDigits)) {
+                        Digits.currentDigit = Digits.digits[0];
+                    } else {
+                        Digits.currentDigit = Digits.findDigits(Digits.currentDigit.getName());
                     }
                     indexEditing = -1;
                 }

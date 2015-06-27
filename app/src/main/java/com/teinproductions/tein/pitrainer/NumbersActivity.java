@@ -26,7 +26,6 @@ public class NumbersActivity extends AppCompatActivity {
     public static final String DIGITS = "DIGITS";
 
     private RecyclerView recyclerView;
-    private String selectedDigits;
     private Digits[] customDigits;
     private int indexEditing;
 

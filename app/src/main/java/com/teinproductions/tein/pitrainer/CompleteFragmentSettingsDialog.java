@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -97,7 +98,7 @@ public class CompleteFragmentSettingsDialog extends DialogFragment {
                             && ReferenceFragmentSettingsDialog.isValidInteger(input3) // Valid integer input
                             && !input1.equals("0") && !input2.equals("0") && !input3.equals("0") // No zeros
                             && Integer.parseInt(input1) + Integer.parseInt(input3) < Integer.parseInt(input2) // statement + answer < range
-                            && Integer.parseInt(input2) < Digits.currentDigit.getFractionalPart().length(); // range < maximum digits in app
+                            && Integer.parseInt(input2) <= Digits.currentDigit.getFractionalPart().length(); // range <= maximum digits in app
 
                     if (OKButtonEnabled) {
                         ((AlertDialog) getDialog()).getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(true);
@@ -135,6 +136,10 @@ public class CompleteFragmentSettingsDialog extends DialogFragment {
         args.putSerializable(LISTENER, (Listener) fragment);
         dialog.setArguments(args);
 
-        dialog.show(fragment.getActivity().getSupportFragmentManager(), "complete_fragment_settings_dialog");
+        FragmentTransaction ft = fragment.getActivity().getSupportFragmentManager().beginTransaction();
+        ft.add(dialog, "complete_fragment_settings_dialog");
+        ft.commitAllowingStateLoss();
+
+        //dialog.show(fragment.getActivity().getSupportFragmentManager(), "complete_fragment_settings_dialog");
     }
 }

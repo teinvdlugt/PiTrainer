@@ -82,16 +82,17 @@ public class CompleteFragment extends Fragment
         String digits = Digits.currentDigit.getFractionalPart().substring(0, range);
 
         final int rangeOfIndex = range - 1 - answerLength - numOfDigits;
-        if (rangeOfIndex < 1) {
+        if (rangeOfIndex < 0) {
             Toast.makeText(getActivity(), getActivity().getString(R.string.check_your_settings),
                     Toast.LENGTH_SHORT).show();
+            onClickSettings();
             return;
         }
 
         final int index = (int) Math.floor(Math.random() * rangeOfIndex);
 
         statement.setText(digits.substring(index, index + numOfDigits) + "...");
-        answer = digits.substring(index + numOfDigits, index + numOfDigits + 6);
+        answer = digits.substring(index + numOfDigits, index + numOfDigits + answerLength);
     }
 
     public void setTextWatcher() {
@@ -112,7 +113,7 @@ public class CompleteFragment extends Fragment
                     return;
                 }
 
-                if (!answer.startsWith(editText.getText().toString()) && editText.length() <= 6) {
+                if (!answer.startsWith(editText.getText().toString()) && editText.length() <= answerLength) {
                     listener.animateToolbarColor(false);
 
                     // If the last typed character is wrong:
@@ -123,12 +124,14 @@ public class CompleteFragment extends Fragment
 
                         listener.vibrate(100);
                     }
-                } else if (!answer.startsWith(editText.getText().toString()) && editText.length() > 6) {
+                } else if (!answer.startsWith(editText.getText().toString()) && editText.length() > answerLength) {
                     // Delete the typed character
                     editText.getText().delete(selection - 1, selection);
-                } else if (editText.length() == 6) {
+                } else if (editText.length() == answerLength) {
+                    // The answer is correct, go to the next challenge
                     listener.animateToolbarColor(true);
                     next();
+                    // TODO show the correct answer for a short time before continuing to the next challenge
                     return;
                 } else {
                     listener.animateToolbarColor(true);

@@ -34,7 +34,7 @@
     <string name="dismiss">Dismiss</string>
     <string name="save">Save</string>
     <string name="too_much_input_dialog_message">Great work! You have reached the maximum amount of digits of the number.</string>
-    <string name="check_your_settings">Check your settings</string>
+    <string name="check_your_settings">Something is wrong in your settings</string>
     <string name="length_of_answer">Length of answer</string>
     <string name="title_activity_numbers">Custom Numbers</string>
     <string name="action_settings">Settings</string>

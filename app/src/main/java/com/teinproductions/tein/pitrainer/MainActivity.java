@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity implements ActivityInterface {
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements ActivityInterface
     public static final String ON_SCREEN_KEYBOARD = "ON_SCREEN_KEYBOARD";
     public static final String CURRENT_DIGITS_NAME = "CURRENT_DIGITS_NAME";
     public static final String CURRENT_GAME = "CURRENT_GAME";
-    public static final int ADD_NUMBER_ACTIVITY_REQUEST_CODE = 1;
+    public static final int NUMBERS_ACTIVITY_REQUEST_CODE = 1;
 
     private boolean onScreenKeyboard;
     private FragmentInterface fragmentInterface;
@@ -139,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements ActivityInterface
                 String[] digitsNames = Digits.digitsNames();
                 final String[] singleChoiceItems = new String[digitsNames.length + 1];
                 System.arraycopy(digitsNames, 0, singleChoiceItems, 0, digitsNames.length);
-                singleChoiceItems[singleChoiceItems.length - 1] = getString(R.string.add_number);
+                singleChoiceItems[singleChoiceItems.length - 1] = getString(R.string.custom_numbers);
 
                 final int currentDigitsIndex = Digits.currentDigitsIndex();
 
@@ -149,8 +150,8 @@ public class MainActivity extends AppCompatActivity implements ActivityInterface
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 if (which == singleChoiceItems.length - 1) {
-                                    Intent intent = new Intent(MainActivity.this, AddNumberActivity.class);
-                                    startActivityForResult(intent, ADD_NUMBER_ACTIVITY_REQUEST_CODE);
+                                    Intent intent = new Intent(MainActivity.this, NumbersActivity.class);
+                                    startActivityForResult(intent, NUMBERS_ACTIVITY_REQUEST_CODE);
                                 } else if (which != currentDigitsIndex) {
                                     Digits newDigits = Digits.digits[which];
                                     Digits.currentDigit = newDigits;
@@ -171,12 +172,10 @@ public class MainActivity extends AppCompatActivity implements ActivityInterface
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == ADD_NUMBER_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+        if (requestCode == NUMBERS_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             getPreferences(0).edit().putString(CURRENT_DIGITS_NAME, Digits.currentDigit.getName()).apply();
             fragmentInterface.resetCurrentDigits();
             setTitle();
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 

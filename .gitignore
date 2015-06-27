@@ -1,0 +1,14 @@
+/.gradle
+/local.properties
+/.idea
+.DS_Store
+/build
+/gradle
+/build.gradle
+/gradle.properties
+/gradlew
+/gradlew.bat
+/PiTrainer.iml
+/settings.gradle
+/app/build
+/app/src/androidTest

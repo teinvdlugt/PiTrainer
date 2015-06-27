@@ -14,9 +14,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 
-public class Digits {
+public class Digits implements Serializable {
 
     public static final String FILE_NAME = "saved_digits";
     public static final String DIGITS = "digits";
@@ -41,6 +42,9 @@ public class Digits {
      * the fractionalPart are the digits after it.
      */
     private String integerPart, fractionalPart;
+
+    public Digits() {
+    }
 
     public Digits(String name, String integerPart, String fractionalPart) {
         this.name = name;

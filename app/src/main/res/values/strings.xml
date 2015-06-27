@@ -36,4 +36,10 @@
     <string name="too_much_input_dialog_message">Great work! You have reached the maximum amount of digits of the number.</string>
     <string name="check_your_settings">Check your settings</string>
     <string name="length_of_answer">Length of answer</string>
+    <string name="title_activity_numbers">Custom Numbers</string>
+    <string name="action_settings">Settings</string>
+    <string name="custom_numbers">Custom numbers…</string>
+    <string name="create">Create</string>
+    <string name="no_custom_numbers">You have not added any numbers yet.</string>
+    <string name="delete">Delete</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.teinproductions.tein.pitrainer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,7 +11,11 @@ import android.widget.Toast;
 
 public class AddNumberActivity extends AppCompatActivity {
 
-    EditText nameET, integerET, fractionalET;
+    public static final String DIGITS = "DIGITS";
+
+    private EditText nameET, integerET, fractionalET;
+
+    private Digits digits;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +26,20 @@ public class AddNumberActivity extends AppCompatActivity {
         nameET = (EditText) findViewById(R.id.name_editText);
         integerET = (EditText) findViewById(R.id.integerPart_editText);
         fractionalET = (EditText) findViewById(R.id.fractionalPart_editText);
+
+        restoreValues();
+    }
+
+    private void restoreValues() {
+        digits = (Digits) getIntent().getSerializableExtra(DIGITS);
+        if (digits == null) {
+            // Most probably a new Digits
+            digits = new Digits();
+        } else {
+            nameET.setText(digits.getName());
+            integerET.setText(digits.getIntegerPart());
+            fractionalET.setText(digits.getFractionalPart());
+        }
     }
 
     @Override
@@ -44,6 +63,11 @@ public class AddNumberActivity extends AppCompatActivity {
     }
 
     private boolean save() {
+        String[] names = Digits.digitsNames();
+        String oldName = digits.getName();
+        String newName = nameET.getText().toString();
+        boolean newDigits = oldName == null;
+
         if (nameET.length() == 0) {
             Toast.makeText(this, "Please provide a name", Toast.LENGTH_SHORT).show();
             return false;
@@ -53,20 +77,19 @@ public class AddNumberActivity extends AppCompatActivity {
         } else if (fractionalET.length() == 0) {
             Toast.makeText(this, "Please provide a fractional part", Toast.LENGTH_SHORT).show();
             return false;
-        } else if (contains(Digits.digitsNames(), nameET.getText().toString())) {
+        } else if (contains(names, newName)
+                && (newDigits || !newName.equals(oldName))) {
             Toast.makeText(this, "There is already a number with that name", Toast.LENGTH_SHORT).show();
             return false;
         }
 
-        String name = nameET.getText().toString();
         String integerPart = integerET.getText().toString();
         String fractionalPart = fractionalET.getText().toString();
-        Digits newDigits = new Digits(name, integerPart, fractionalPart);
+        digits = new Digits(newName, integerPart, fractionalPart);
 
-        Digits.addDigits(this, newDigits);
-        Digits.currentDigit = Digits.findDigits(newDigits.getName());
-
-        setResult(RESULT_OK);
+        Intent intent = new Intent();
+        intent.putExtra(DIGITS, digits);
+        setResult(RESULT_OK, intent);
         finish();
         return true;
     }

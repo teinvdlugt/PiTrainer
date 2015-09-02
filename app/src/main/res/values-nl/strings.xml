@@ -37,4 +37,14 @@
     <string name="tau">Tau</string>
     <string name="title_activity_add_number">Getal toevoegen</string>
     <string name="too_much_input_dialog_message">Goed gedaan! Je hebt het maximum aantal cijfers van het getal beriekt.</string>
+    <string name="action_settings">Instellingen</string>
+    <string name="create">Toevoegen</string>
+    <string name="custom_numbers">Eigen getallen…</string>
+    <string name="delete">Verwijderen</string>
+    <string name="golden_ratio">Gulden Snede</string>
+    <string name="no">Nee</string>
+    <string name="no_custom_numbers">Je hebt nog geen eigen getallen toegevoegd.</string>
+    <string name="sure_delete_digits">Weet je zeker dat je dit getal wil verwijderen?</string>
+    <string name="title_activity_numbers">Eigen getallen</string>
+    <string name="yes">Ja</string>
 </resources>

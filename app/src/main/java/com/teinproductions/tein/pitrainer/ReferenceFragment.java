@@ -31,7 +31,7 @@ public class ReferenceFragment extends Fragment
         settingsButton = (ImageButton) theView.findViewById(R.id.settings_button);
 
         restoreValues();
-        resetCurrentDigits();
+        notifyDigitsChanged();
 
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +51,7 @@ public class ReferenceFragment extends Fragment
     }
 
     @Override
-    public void resetCurrentDigits() {
+    public void notifyDigitsChanged() {
         integerPart.setText(Digits.currentDigit.getIntegerPart() + ".");
         setFractionalPartText();
     }

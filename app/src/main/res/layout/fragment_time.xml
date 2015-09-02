@@ -15,14 +15,22 @@
 
         <TextView
             android:id="@+id/integerPart_textView"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="48sp"
             tools:text="3." />
 
+        <TextView
+            android:id="@+id/timer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:textSize="38sp"
+            tools:text="00:31" />
+
         <ImageButton
-            android:id="@+id/refresh_button"
+            android:id="@+id/restart_button"
             android:layout_width="56sp"
             android:layout_height="56sp"
             android:background="@null"
@@ -36,50 +44,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/headerLayout"
-        android:hint="@string/lets_see_what_you_can_do"
         android:maxLines="8"
         android:numeric="integer"
         android:textSize="24sp" />
 
-    <TableLayout
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/input_editText"
-        android:layout_marginTop="8dp">
+        android:layout_below="@id/input_editText">
 
-        <TableRow>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/digits_colon"
+            android:textSize="22sp" />
 
-            <TextView
-                android:text="@string/digits_colon"
-                android:textSize="22sp" />
-
-            <TextView
-                android:id="@+id/digits_textView"
-                android:textSize="22sp" />
-        </TableRow>
-
-        <TableRow android:layout_marginTop="4dp">
-
-            <TextView
-                android:text="@string/errors_colon"
-                android:textSize="22sp" />
-
-            <TextView
-                android:id="@+id/errors_textView"
-                android:textSize="22sp" />
-        </TableRow>
-
-        <TableRow android:layout_marginTop="4dp">
-
-            <TextView
-                android:text="@string/percentage_colon"
-                android:textSize="22sp" />
-
-            <TextView
-                android:id="@+id/percentage_textView"
-                android:textSize="22sp" />
-        </TableRow>
-    </TableLayout>
+        <TextView
+            android:id="@+id/digits_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="22sp" />
+    </LinearLayout>
 
     <com.teinproductions.tein.pitrainer.Keyboard
         android:id="@+id/keyboard"

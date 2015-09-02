@@ -21,7 +21,8 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
+
+import com.teinproductions.tein.pitrainer.records.TimeFragment;
 
 
 public class MainActivity extends AppCompatActivity implements ActivityInterface {
@@ -38,7 +39,8 @@ public class MainActivity extends AppCompatActivity implements ActivityInterface
     public static final Game[] GAMES = {
             new Game(R.string.practise, PractiseFragment.class),
             new Game(R.string.reference, ReferenceFragment.class),
-            new Game(R.string.complete_the_statement, CompleteFragment.class)};
+            new Game(R.string.complete_the_statement, CompleteFragment.class),
+            new Game(R.string.timed_mode_game, TimeFragment.class)};
     private int currentGame;
 
     private DrawerLayout drawerLayout;
@@ -93,7 +95,8 @@ public class MainActivity extends AppCompatActivity implements ActivityInterface
         }
     }
 
-    private void swapFragment(Class fragmentClass) {
+    @Override
+    public void swapFragment(Class fragmentClass) {
         Fragment fragment = null;
         try {
             fragment = (Fragment) fragmentClass.newInstance();
@@ -156,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements ActivityInterface
                                     Digits newDigits = Digits.digits[which];
                                     Digits.currentDigit = newDigits;
                                     getPreferences(0).edit().putString(CURRENT_DIGITS_NAME, newDigits.getName()).apply();
-                                    fragmentInterface.resetCurrentDigits();
+                                    fragmentInterface.notifyDigitsChanged();
                                     setTitle();
                                 }
 
@@ -174,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements ActivityInterface
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == NUMBERS_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             getPreferences(0).edit().putString(CURRENT_DIGITS_NAME, Digits.currentDigit.getName()).apply();
-            fragmentInterface.resetCurrentDigits();
+            fragmentInterface.notifyDigitsChanged();
             setTitle();
         }
     }
@@ -219,8 +222,8 @@ public class MainActivity extends AppCompatActivity implements ActivityInterface
     }
 
     @Override
-    public void animateToolbarColor(boolean correct) {
-        if (!correct && !toolbarCurrentlyRed) {
+    public void animateToolbarColor(boolean red) {
+        if (!red && !toolbarCurrentlyRed) {
 
             toolbarCurrentlyRed = true;
 
@@ -241,7 +244,7 @@ public class MainActivity extends AppCompatActivity implements ActivityInterface
                 toolbar.setBackgroundColor(getResources().getColor(R.color.red));
             }
 
-        } else if (correct && toolbarCurrentlyRed) {
+        } else if (red && toolbarCurrentlyRed) {
 
             toolbarCurrentlyRed = false;
 

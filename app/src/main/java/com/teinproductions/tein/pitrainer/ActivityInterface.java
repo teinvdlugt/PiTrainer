@@ -8,5 +8,7 @@ public interface ActivityInterface {
 
     void vibrate(int millis);
 
-    void animateToolbarColor(boolean correct);
+    void animateToolbarColor(boolean red);
+
+    void swapFragment(Class fragmentClass);
 }

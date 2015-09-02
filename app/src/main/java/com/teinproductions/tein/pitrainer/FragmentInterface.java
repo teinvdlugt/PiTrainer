@@ -1,7 +1,7 @@
 package com.teinproductions.tein.pitrainer;
 
 public interface FragmentInterface {
-    void resetCurrentDigits();
+    void notifyDigitsChanged();
 
     void showOnScreenKeyboard(boolean show);
 }

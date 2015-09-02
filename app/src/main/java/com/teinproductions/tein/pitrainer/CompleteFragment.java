@@ -173,7 +173,7 @@ public class CompleteFragment extends Fragment
     }
 
     @Override
-    public void resetCurrentDigits() {
+    public void notifyDigitsChanged() {
         reload();
         next();
     }

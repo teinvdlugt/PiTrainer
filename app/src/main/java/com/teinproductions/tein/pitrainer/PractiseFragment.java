@@ -66,7 +66,7 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
         String input = getActivity().getPreferences(0).getString(INPUT, "");
         inputET.setText(toColoredSpannable(input));
         inputET.setSelection(inputET.length());
-        listener.animateToolbarColor(!isIncorrect(inputET.getText().toString()));
+        listener.animateToolbarColor(!Digits.isIncorrect(inputET.getText().toString()));
 
         showOnScreenKeyboard(getActivity().getPreferences(0).getBoolean(MainActivity.ON_SCREEN_KEYBOARD, false));
     }
@@ -141,7 +141,7 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
 
                 selection = inputET.getSelectionStart();
 
-                if (isIncorrect(inputET.getText().toString()) && inputET.length() != 0) {
+                if (Digits.isIncorrect(inputET.getText().toString()) && inputET.length() != 0) {
                     listener.animateToolbarColor(false);
 
                     // If the last typed character is wrong:
@@ -177,16 +177,6 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
         });
     }
 
-    public boolean isIncorrect(String stringToCheck) {
-        for (int i = 0; i < stringToCheck.length(); i++) {
-            if (stringToCheck.charAt(i) != Digits.currentDigit.getFractionalPart().charAt(i)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     private SpannableStringBuilder toColoredSpannable(String string) {
         SpannableStringBuilder sb = new SpannableStringBuilder(string);
 
@@ -210,7 +200,7 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
 
 
     @Override
-    public void resetCurrentDigits() {
+    public void notifyDigitsChanged() {
         integerPartTV.setText(Digits.currentDigit.getIntegerPart() + ".");
         onClickRestart();
     }

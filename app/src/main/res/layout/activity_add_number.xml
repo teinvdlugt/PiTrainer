@@ -77,9 +77,9 @@
     </LinearLayout>
 
     <Button
-        android:layout_margin="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/delete"
-        android:onClick="onClickDelete" />
+        android:layout_margin="8dp"
+        android:onClick="onClickDelete"
+        android:text="@string/delete" />
 </LinearLayout>

@@ -24,6 +24,10 @@ import com.teinproductions.tein.pitrainer.Keyboard;
 import com.teinproductions.tein.pitrainer.MainActivity;
 import com.teinproductions.tein.pitrainer.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class TimeFragment extends Fragment implements FragmentInterface {
     private ActivityInterface activityInterface;
 
@@ -87,8 +91,8 @@ public class TimeFragment extends Fragment implements FragmentInterface {
                     inputET.setEnabled(false);
                     keyboard.setEnabled(false);
 
-                    RecordsHandler.addRecord(getActivity(), before, timerTask.getCentiseconds());
-                    showDialog(inputET.getText().length() - 1, timerTask.getCentiseconds());
+                    RecordsHandler.addRecord(getActivity(), before, timerTask.getMilliseconds());
+                    showDialog(inputET.getText().length() - 1, timerTask.getMilliseconds());
                     activityInterface.swapFragment(RecordsFragment.class);
                 } else {
                     if (inputET.getText().length() == 1 && before == 0) {
@@ -104,10 +108,10 @@ public class TimeFragment extends Fragment implements FragmentInterface {
         });
     }
 
-    private void showDialog(int digits, int centiseconds) {
+    private void showDialog(int digits, int milliseconds) {
         new AlertDialog.Builder(getActivity())
                 .setTitle("Great!")
-                .setMessage("You typed " + digits + " digits in " + (centiseconds / 10d) + " seconds.")
+                .setMessage("You typed " + digits + " digits in " + milliseconds + " milliseconds.")
                 .setPositiveButton(android.R.string.ok, null)
                 .create().show();
     }
@@ -126,7 +130,8 @@ public class TimeFragment extends Fragment implements FragmentInterface {
         if (timerTask != null) {
             timerTask.cancel(true);
         }
-        timer.setText("00:00.0");
+        timerTask = new TimerTask();
+        timerTask.onProgressUpdate(0);
     }
 
     @Override
@@ -142,18 +147,25 @@ public class TimeFragment extends Fragment implements FragmentInterface {
     }
 
 
-    class TimerTask extends AsyncTask<Void, Void, Void> {
+    class TimerTask extends AsyncTask<Void, Integer, Void> {
 
-        private int centiseconds = 0;
+        private final int sleepTime = 100;
+
+        private int milliseconds = 0;
+        private SimpleDateFormat format;
+
+        public TimerTask() {
+            format = new SimpleDateFormat("mm:ss.S", Locale.getDefault());
+        }
 
         @Override
         protected Void doInBackground(Void... params) {
             while (!isCancelled()) {
-                publishProgress();
+                publishProgress(milliseconds);
 
                 try {
-                    Thread.sleep(100);
-                    centiseconds++;
+                    Thread.sleep(sleepTime);
+                    milliseconds += sleepTime;
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -162,18 +174,22 @@ public class TimeFragment extends Fragment implements FragmentInterface {
             return null;
         }
 
+        private Date time = new Date(0);
+
         @Override
-        protected void onProgressUpdate(Void... values) {
-            StringBuilder text = new StringBuilder(Integer.toString(centiseconds / 600)).append(":");
+        protected void onProgressUpdate(Integer... values) {
+            time.setTime(values[0]);
+            timer.setText(format.format(time));
+            /*StringBuilder text = new StringBuilder(Integer.toString(centiseconds / 600)).append(":");
             if (text.length() == 2) text.insert(0, "0");
             text.append(centiseconds / 10 % 60);
             if (text.length() == 4) text.insert(3, "0");
             text.append(".").append(centiseconds % 10);
-            timer.setText(text);
+            timer.setText(text);*/
         }
 
-        public int getCentiseconds() {
-            return centiseconds;
+        public int getMilliseconds() {
+            return milliseconds;
         }
     }
 

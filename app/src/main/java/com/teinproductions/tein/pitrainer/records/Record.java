@@ -8,14 +8,14 @@ import java.util.ArrayList;
 
 public class Record {
     private static final String DIGITS_JSON = "digits";
-    private static final String CENTISECONDS_JSON = "centiseconds";
+    private static final String MILLISECONDS_JSON = "milliseconds";
 
     private int digits;
-    private int centiseconds;
+    private int milliseconds;
 
-    public Record(int digits, int centiseconds) {
+    public Record(int digits, int milliseconds) {
         this.digits = digits;
-        this.centiseconds = centiseconds;
+        this.milliseconds = milliseconds;
     }
 
     public Record() {
@@ -29,16 +29,16 @@ public class Record {
         this.digits = digits;
     }
 
-    public int getCentiseconds() {
-        return centiseconds;
+    public int getMilliseconds() {
+        return milliseconds;
     }
 
-    public void setCentiseconds(int centiseconds) {
-        this.centiseconds = centiseconds;
+    public void setMilliseconds(int milliseconds) {
+        this.milliseconds = milliseconds;
     }
 
     public String toJSON() {
-        return "{\"" + DIGITS_JSON + "\":" + digits + ",\"" + CENTISECONDS_JSON + "\":" + centiseconds + "}";
+        return "{\"" + DIGITS_JSON + "\":" + digits + ",\"" + MILLISECONDS_JSON + "\":" + milliseconds + "}";
     }
 
     public static Record fromJSON(String json) throws JSONException {
@@ -49,7 +49,7 @@ public class Record {
     public static Record fromJSON(JSONObject json) throws JSONException {
         Record result = new Record();
         result.setDigits(json.getInt(DIGITS_JSON));
-        result.setCentiseconds(json.getInt(CENTISECONDS_JSON));
+        result.setMilliseconds(json.getInt(MILLISECONDS_JSON));
         return result;
     }
 

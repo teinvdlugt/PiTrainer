@@ -16,14 +16,13 @@ import java.util.ArrayList;
 public class RecordsHandler {
     private static final String FILE_NAME = "minute_records_"; // Append Digits name
 
-    private static ArrayList<Record> records = new ArrayList<>();
-
-    public static boolean addRecord(Context context, int digits, int centiseconds) {
+    public static boolean addRecord(Context context, int digits, int milliseconds) {
         try {
             String file = getFile(context);
+            ArrayList<Record> records;
             if (file == null) records = new ArrayList<>();
             else records = Record.arrayFromJSON(getFile(context));
-            records.add(new Record(digits, centiseconds));
+            records.add(new Record(digits, milliseconds));
             saveFile(context, Record.arrayToJSON(records));
 
             return true;

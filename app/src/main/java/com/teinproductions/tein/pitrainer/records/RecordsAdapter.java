@@ -21,6 +21,42 @@ public class RecordsAdapter extends RecyclerView.Adapter<RecordsAdapter.ViewHold
         this.context = context;
     }
 
+    public void sortByDigitsPerMinute() {
+        final int size = data.size();
+        ArrayList<Record> sorted = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            Record highest = data.get(0);
+            for (int j = 0; j < data.size(); j++) {
+                if (data.get(j).getDigitsPerMinute() > highest.getDigitsPerMinute()) {
+                    highest = data.get(j);
+                }
+            }
+            sorted.add(highest);
+            data.remove(highest);
+        }
+
+        data = sorted;
+        notifyDataSetChanged();
+    }
+
+    public void sortByNumberOfDigits() {
+        final int size = data.size();
+        ArrayList<Record> sorted = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            Record highest = data.get(0);
+            for (int j = 0; j < data.size(); j++) {
+                if (data.get(j).getDigits() > highest.getDigits()) {
+                    highest = data.get(j);
+                }
+            }
+            sorted.add(highest);
+            data.remove(highest);
+        }
+
+        data = sorted;
+        notifyDataSetChanged();
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.list_item_record, parent, false));

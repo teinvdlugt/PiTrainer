@@ -51,4 +51,9 @@
     <string name="sort_by_spinner_text">Sort by:</string>
     <string name="num_of_digits_record_format">Number of digits: %s</string>
     <string name="digits_per_minute_record_format">Digits per minute: %.2f</string>
+
+    <string-array name="sort_methods">
+        <item>Digits per minute</item>
+        <item>Number of digits</item>
+    </string-array>
 </resources>

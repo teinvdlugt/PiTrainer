@@ -37,6 +37,10 @@ public class Record {
         this.milliseconds = milliseconds;
     }
 
+    public double getDigitsPerMinute() {
+        return (double) digits / milliseconds * 60000;
+    }
+
     public String toJSON() {
         return "{\"" + DIGITS_JSON + "\":" + digits + ",\"" + MILLISECONDS_JSON + "\":" + milliseconds + "}";
     }

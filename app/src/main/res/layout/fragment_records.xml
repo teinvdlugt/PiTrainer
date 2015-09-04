@@ -12,7 +12,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sort_by_spinner_text"
-            android:textSize="20sp" />
+            android:textSize="17sp" />
 
         <Spinner
             android:id="@+id/sortBy_spinner"
@@ -31,5 +31,5 @@
         android:id="@+id/tryAgain_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Try again" />
+        android:text="@string/try_again" />
 </LinearLayout>

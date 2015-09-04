@@ -19,10 +19,6 @@ public class Game {
         this.fragment = fragment;
     }
 
-    public int getName() {
-        return name;
-    }
-
     public void setName(int name) {
         this.name = name;
     }
@@ -34,7 +30,6 @@ public class Game {
 
     public static class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
-        private Game[] data;
         private Context context;
         private OnClickListener clickListener;
 
@@ -42,9 +37,8 @@ public class Game {
             void onClick(int i);
         }
 
-        public RecyclerAdapter(Context context, Game[] data, OnClickListener clickListener) {
+        public RecyclerAdapter(Context context, OnClickListener clickListener) {
             super();
-            this.data = data;
             this.context = context;
             this.clickListener = clickListener;
         }
@@ -57,7 +51,7 @@ public class Game {
 
         @Override
         public void onBindViewHolder(ViewHolder viewHolder, final int i) {
-            viewHolder.textView.setText(data[i].getName());
+            viewHolder.textView.setText(MainActivity.GAMES[i].name);
             viewHolder.root.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -68,7 +62,7 @@ public class Game {
 
         @Override
         public int getItemCount() {
-            return data.length;
+            return MainActivity.GAMES.length;
         }
 
         public static class ViewHolder extends RecyclerView.ViewHolder {

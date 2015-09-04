@@ -151,7 +151,7 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
                             != Digits.currentDigit.getFractionalPart().charAt(selection - 1)) { // The typed character is wrong
 
                         errors++;
-                        listener.vibrate(100);
+                        listener.vibrate();
                     }
                 } else {
                     listener.animateToolbarColor(true);

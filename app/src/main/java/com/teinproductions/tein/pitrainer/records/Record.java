@@ -25,23 +25,15 @@ public class Record {
         return digits;
     }
 
-    public void setDigits(int digits) {
-        this.digits = digits;
-    }
-
     public int getMilliseconds() {
         return milliseconds;
-    }
-
-    public void setMilliseconds(int milliseconds) {
-        this.milliseconds = milliseconds;
     }
 
     public double getDigitsPerMinute() {
         return (double) digits / milliseconds * 60000;
     }
 
-    public String toJSON() {
+    private String toJSON() {
         return "{\"" + DIGITS_JSON + "\":" + digits + ",\"" + MILLISECONDS_JSON + "\":" + milliseconds + "}";
     }
 
@@ -50,10 +42,10 @@ public class Record {
         return fromJSON(jObject);
     }
 
-    public static Record fromJSON(JSONObject json) throws JSONException {
+    private static Record fromJSON(JSONObject json) throws JSONException {
         Record result = new Record();
-        result.setDigits(json.getInt(DIGITS_JSON));
-        result.setMilliseconds(json.getInt(MILLISECONDS_JSON));
+        result.digits = json.getInt(DIGITS_JSON);
+        result.milliseconds = json.getInt(MILLISECONDS_JSON);
         return result;
     }
 

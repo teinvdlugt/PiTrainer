@@ -77,7 +77,7 @@ public class CompleteFragment extends Fragment
         return !(range == -1 || numOfDigits == -1 || answerLength == -1);
     }
 
-    public void next() {
+    private void next() {
         editText.setText("");
         String digits = Digits.currentDigit.getFractionalPart().substring(0, range);
 
@@ -95,7 +95,7 @@ public class CompleteFragment extends Fragment
         answer = digits.substring(index + numOfDigits, index + numOfDigits + answerLength);
     }
 
-    public void setTextWatcher() {
+    private void setTextWatcher() {
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -122,7 +122,7 @@ public class CompleteFragment extends Fragment
                             && editText.getText().toString().charAt(selection - 1)
                             != answer.charAt(selection - 1)) { // The typed character is wrong
 
-                        listener.vibrate(100);
+                        listener.vibrate();
                     }
                 } else if (!answer.startsWith(editText.getText().toString()) && editText.length() > answerLength) {
                     // Delete the typed character

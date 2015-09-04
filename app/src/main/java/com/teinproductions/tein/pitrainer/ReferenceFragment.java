@@ -19,8 +19,8 @@ public class ReferenceFragment extends Fragment
     private float textSize;
     private int spacings;
 
-    TextView integerPart, fractionalPart;
-    ImageButton settingsButton;
+    private TextView integerPart, fractionalPart;
+    private ImageButton settingsButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

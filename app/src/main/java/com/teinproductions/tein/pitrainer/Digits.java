@@ -19,11 +19,11 @@ import java.io.UnsupportedEncodingException;
 
 public class Digits implements Serializable {
 
-    public static final String FILE_NAME = "saved_digits";
-    public static final String DIGITS = "digits";
-    public static final String NAME = "name";
-    public static final String INTEGER_PART = "integer_part";
-    public static final String FRACTIONAL_PART = "fractional_part";
+    private static final String FILE_NAME = "saved_digits";
+    private static final String DIGITS = "digits";
+    private static final String NAME = "name";
+    private static final String INTEGER_PART = "integer_part";
+    private static final String FRACTIONAL_PART = "fractional_part";
 
     public static Digits[] digits;
 
@@ -95,7 +95,7 @@ public class Digits implements Serializable {
         this.fractionalPart = fractionalPart;
     }
 
-    public static Digits[] preloaded(Context context) {
+    private static Digits[] preloaded(Context context) {
         return new Digits[]{
                 new Digits(context.getString(R.string.pi), "3",
                         "141592653589793238462643383279502884197169399375105820974944592307816406" +
@@ -545,7 +545,7 @@ public class Digits implements Serializable {
         }
     }
 
-    public static Digits fromJSON(JSONObject jObject) {
+    private static Digits fromJSON(JSONObject jObject) {
         try {
             String name = jObject.getString(NAME);
             String integerPart = jObject.getString(INTEGER_PART);
@@ -557,12 +557,12 @@ public class Digits implements Serializable {
         }
     }
 
-    public String toJSON() {
+    private String toJSON() {
         return String.format("{\"%s\":\"%s\",\"%s\":\"%s\",\"%s\":\"%s\"}",
                 NAME, name, INTEGER_PART, integerPart, FRACTIONAL_PART, fractionalPart);
     }
 
-    public static String arrayToJSON(Digits[] array) {
+    private static String arrayToJSON(Digits[] array) {
         StringBuilder sb = new StringBuilder(String.format("{\"%s\":[", DIGITS));
         for (Digits digits : array) {
             sb.append(digits.toJSON());
@@ -570,7 +570,7 @@ public class Digits implements Serializable {
         return sb.append("]}").toString().replace("}{", "},{");
     }
 
-    public static String getFile(Context context) {
+    private static String getFile(Context context) {
         StringBuilder sb;
 
         try {

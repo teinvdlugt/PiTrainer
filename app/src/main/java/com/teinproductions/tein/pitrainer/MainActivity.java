@@ -29,9 +29,9 @@ public class MainActivity extends AppCompatActivity implements ActivityInterface
 
     private static final String VIBRATE = "VIBRATE";
     public static final String ON_SCREEN_KEYBOARD = "ON_SCREEN_KEYBOARD";
-    public static final String CURRENT_DIGITS_NAME = "CURRENT_DIGITS_NAME";
-    public static final String CURRENT_GAME = "CURRENT_GAME";
-    public static final int NUMBERS_ACTIVITY_REQUEST_CODE = 1;
+    private static final String CURRENT_DIGITS_NAME = "CURRENT_DIGITS_NAME";
+    private static final String CURRENT_GAME = "CURRENT_GAME";
+    private static final int NUMBERS_ACTIVITY_REQUEST_CODE = 1;
 
     private boolean onScreenKeyboard;
     private FragmentInterface fragmentInterface;
@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements ActivityInterface
     private int currentGame;
 
     private DrawerLayout drawerLayout;
-    private ActionBarDrawerToggle drawerToggle;
     private RecyclerView drawerRecyclerView;
     private Toolbar toolbar;
 
@@ -62,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements ActivityInterface
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerRecyclerView = (RecyclerView) findViewById(R.id.drawer_recyclerView);
         drawerRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        drawerRecyclerView.setAdapter(new Game.RecyclerAdapter(this, GAMES, new Game.RecyclerAdapter.OnClickListener() {
+        drawerRecyclerView.setAdapter(new Game.RecyclerAdapter(this, new Game.RecyclerAdapter.OnClickListener() {
             @Override
             public void onClick(int i) {
                 currentGame = i;
@@ -79,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements ActivityInterface
     }
 
     private void initDrawerToggle() {
-        drawerToggle = new ActionBarDrawerToggle(
+        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(
                 this,
                 drawerLayout,
                 toolbar,
@@ -215,7 +214,7 @@ public class MainActivity extends AppCompatActivity implements ActivityInterface
     }
 
     @Override
-    public void vibrate(int millis) {
+    public void vibrate() {
         if (vibrate) {
             ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(100);
         }

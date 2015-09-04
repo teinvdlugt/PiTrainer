@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.EditText;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 public class ReferenceFragmentSettingsDialog extends DialogFragment {
 
@@ -107,7 +106,7 @@ public class ReferenceFragmentSettingsDialog extends DialogFragment {
         }
     }
 
-    public static boolean isValidFloat(String string) {
+    private static boolean isValidFloat(String string) {
         try {
             Float.parseFloat(string);
             return true;

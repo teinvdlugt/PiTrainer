@@ -87,7 +87,7 @@ public class TimeFragment extends Fragment implements FragmentInterface {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (Digits.isIncorrect(inputET.getText().toString())) {
                     timerTask.cancel(true);
-                    activityInterface.vibrate(200);
+                    activityInterface.vibrate();
                     inputET.setEnabled(false);
                     keyboard.setEnabled(false);
 

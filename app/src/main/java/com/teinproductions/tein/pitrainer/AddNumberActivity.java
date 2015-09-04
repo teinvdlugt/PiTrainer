@@ -4,13 +4,13 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class AddNumberActivity extends AppCompatActivity {
 
@@ -71,18 +71,14 @@ public class AddNumberActivity extends AppCompatActivity {
         String newName = nameET.getText().toString();
         boolean newDigits = oldName == null;
 
-        if (nameET.length() == 0) {
-            Toast.makeText(this, "Please provide a name", Toast.LENGTH_SHORT).show();
-            return false;
-        } else if (integerET.length() == 0) {
-            Toast.makeText(this, "Please provide an integer part", Toast.LENGTH_SHORT).show();
-            return false;
-        } else if (fractionalET.length() == 0) {
-            Toast.makeText(this, "Please provide a fractional part", Toast.LENGTH_SHORT).show();
-            return false;
-        } else if (contains(names, newName)
-                && (newDigits || !newName.equals(oldName))) {
-            Toast.makeText(this, "There is already a number with that name", Toast.LENGTH_SHORT).show();
+        String errorMessage = null;
+        if (nameET.length() == 0) errorMessage = "Please provide a name";
+        else if (integerET.length() == 0) errorMessage = "Please provide an integer part";
+        else if (fractionalET.length() == 0) errorMessage = "Please provide a fractional part";
+        else if (contains(names, newName) && (newDigits || !newName.equals(oldName)))
+            errorMessage = "There is already a number with that name";
+        if (errorMessage != null) {
+            Snackbar.make(findViewById(R.id.root), errorMessage, Snackbar.LENGTH_LONG).show();
             return false;
         }
 
@@ -113,7 +109,7 @@ public class AddNumberActivity extends AppCompatActivity {
                 .create().show();
     }
 
-    public static boolean contains(String[] strings, String string) {
+    private static boolean contains(String[] strings, String string) {
         for (String string2 : strings) {
             if (string2.equals(string)) return true;
         }

@@ -23,7 +23,6 @@ public class RecordsFragment extends Fragment implements FragmentInterface {
 
     private ActivityInterface activityInterface;
     private Spinner sortBySpinner;
-    private RecyclerView recyclerView;
     private RecordsAdapter adapter;
 
     @Nullable
@@ -32,7 +31,7 @@ public class RecordsFragment extends Fragment implements FragmentInterface {
         activityInterface = (ActivityInterface) getActivity();
 
         View theView = inflater.inflate(R.layout.fragment_records, container, false);
-        recyclerView = (RecyclerView) theView.findViewById(R.id.records_recyclerView);
+        RecyclerView recyclerView = (RecyclerView) theView.findViewById(R.id.records_recyclerView);
         sortBySpinner = (Spinner) theView.findViewById(R.id.sortBy_spinner);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

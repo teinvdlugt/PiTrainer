@@ -1,6 +1,7 @@
 package com.teinproductions.tein.pitrainer.records;
 
 
+import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,7 +28,7 @@ public class TimeFragment extends Fragment implements FragmentInterface {
     private ActivityInterface activityInterface;
 
     private EditText inputET;
-    private TextView timer, digitsTV;
+    private TextView timer, digitsTV, integerPartTV;
     private Keyboard keyboard;
     private ImageButton restartButton;
     private TimerTask timerTask;
@@ -39,6 +40,7 @@ public class TimeFragment extends Fragment implements FragmentInterface {
 
         View theView = inflater.inflate(R.layout.fragment_time, container, false);
 
+        integerPartTV = (TextView) theView.findViewById(R.id.integerPart_textView);
         inputET = (EditText) theView.findViewById(R.id.input_editText);
         timer = (TextView) theView.findViewById(R.id.timer);
         digitsTV = (TextView) theView.findViewById(R.id.digits_textView);
@@ -52,6 +54,7 @@ public class TimeFragment extends Fragment implements FragmentInterface {
         showOnScreenKeyboard(getActivity().getPreferences(0).getBoolean(MainActivity.ON_SCREEN_KEYBOARD, false));
         setRestartImageResource();
         setTextWatcher();
+        onClickRestart();
 
         return theView;
     }
@@ -107,17 +110,27 @@ public class TimeFragment extends Fragment implements FragmentInterface {
     }
 
     private void onClickRestart() {
+        if (Build.VERSION.SDK_INT >= 21) {
+            ((AnimatedVectorDrawable) restartButton.getDrawable()).start();
+        }
+        inputET.setText("");
+        digitsTV.setText("" + 0);
 
+        if (timerTask != null) {
+            timerTask.cancel(true);
+        }
+        timer.setText("00:00.0");
     }
 
     @Override
     public void notifyDigitsChanged() {
-
+        integerPartTV.setText(Digits.currentDigit.getIntegerPart() + ".");
+        onClickRestart();
     }
 
     @Override
     public void showOnScreenKeyboard(boolean show) {
-
+        keyboard.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
 

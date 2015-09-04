@@ -47,4 +47,5 @@
     <string name="no">No</string>
     <string name="golden_ratio">Golden Ratio</string>
     <string name="timed_mode_game">Time mode</string>
+    <string name="digits_colon_format">Digits: %d</string>
 </resources>

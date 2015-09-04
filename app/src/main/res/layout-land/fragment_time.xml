@@ -65,23 +65,12 @@
             android:numeric="integer"
             android:textSize="24sp" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/digits_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/input_editText">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/digits_colon"
-                android:textSize="22sp" />
-
-            <TextView
-                android:id="@+id/digits_textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="22sp"
-                tools:text="7"/>
-        </LinearLayout>
+            android:layout_below="@id/input_editText"
+            android:textSize="22sp"
+            tools:text="Digits: 0" />
     </RelativeLayout>
 </LinearLayout>

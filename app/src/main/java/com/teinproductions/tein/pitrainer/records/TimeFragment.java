@@ -50,7 +50,7 @@ public class TimeFragment extends Fragment implements FragmentInterface {
 
         keyboard.setEditText(inputET);
         integerPartTV.setText(Digits.currentDigit.getIntegerPart() + ".");
-        digitsTV.setText(" " + 0);
+        updateDigitsText();
         showOnScreenKeyboard(getActivity().getPreferences(0).getBoolean(MainActivity.ON_SCREEN_KEYBOARD, false));
         setRestartImageResource();
         setTextWatcher();
@@ -90,9 +90,12 @@ public class TimeFragment extends Fragment implements FragmentInterface {
                     RecordsHandler.addRecord(getActivity(), before, timerTask.getCentiseconds());
                     showDialog(inputET.getText().length() - 1, timerTask.getCentiseconds());
                     activityInterface.swapFragment(RecordsFragment.class);
-                } else if (inputET.getText().length() == 1 && before == 0) {
-                    timerTask = new TimerTask();
-                    timerTask.execute();
+                } else {
+                    if (inputET.getText().length() == 1 && before == 0) {
+                        timerTask = new TimerTask();
+                        timerTask.execute();
+                    }
+                    updateDigitsText();
                 }
             }
 
@@ -109,12 +112,16 @@ public class TimeFragment extends Fragment implements FragmentInterface {
                 .create().show();
     }
 
+    private void updateDigitsText() {
+        digitsTV.setText(String.format(getString(R.string.digits_colon_format), inputET.getText().length()));
+    }
+
     private void onClickRestart() {
         if (Build.VERSION.SDK_INT >= 21) {
             ((AnimatedVectorDrawable) restartButton.getDrawable()).start();
         }
         inputET.setText("");
-        digitsTV.setText("" + 0);
+        updateDigitsText();
 
         if (timerTask != null) {
             timerTask.cancel(true);
@@ -130,6 +137,7 @@ public class TimeFragment extends Fragment implements FragmentInterface {
 
     @Override
     public void showOnScreenKeyboard(boolean show) {
+        activityInterface.preventSoftKeyboardFromShowingUp(inputET, show);
         keyboard.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 

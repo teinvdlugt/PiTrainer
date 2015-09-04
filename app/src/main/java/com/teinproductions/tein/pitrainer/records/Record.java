@@ -59,6 +59,8 @@ public class Record {
             sb.append(record.toJSON());
             sb.append(",");
         }
+        // Delete last comma
+        sb.deleteCharAt(sb.length() - 1);
 
         return sb.append("]").toString();
     }

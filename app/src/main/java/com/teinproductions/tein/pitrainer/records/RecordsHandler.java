@@ -2,6 +2,7 @@ package com.teinproductions.tein.pitrainer.records;
 
 
 import android.content.Context;
+import android.util.Log;
 
 import com.teinproductions.tein.pitrainer.Digits;
 
@@ -16,23 +17,22 @@ import java.util.ArrayList;
 public class RecordsHandler {
     private static final String FILE_NAME = "minute_records_"; // Append Digits name
 
-    public static boolean addRecord(Context context, int digits, int milliseconds) {
-        try {
-            String file = getFile(context);
-            ArrayList<Record> records;
-            if (file == null) records = new ArrayList<>();
-            else records = Record.arrayFromJSON(getFile(context));
-            records.add(new Record(digits, milliseconds));
-            saveFile(context, Record.arrayToJSON(records));
+    public static void addRecord(Context context, int digits, int milliseconds) {
+        ArrayList<Record> records = loadRecords(context);
+        records.add(new Record(digits, milliseconds));
+        saveFile(context, Record.arrayToJSON(records));
+    }
 
-            return true;
-        } catch (JSONException e) {
+    public static ArrayList<Record> loadRecords(Context context) {
+        try {
+            return Record.arrayFromJSON(getFile(context));
+        } catch (JSONException | NullPointerException e) {
             e.printStackTrace();
-            return false;
+            return new ArrayList<>();
         }
     }
 
-    public static String getFile(Context context) {
+    private static String getFile(Context context) {
         try {
             BufferedReader buffReader = new BufferedReader(new InputStreamReader(
                     context.openFileInput(FILE_NAME + Digits.currentDigit.getName())));
@@ -44,6 +44,8 @@ public class RecordsHandler {
             }
 
             buffReader.close();
+
+            Log.d("confetti", sb.toString());
             return sb.toString();
         } catch (IOException e) {
             e.printStackTrace();
@@ -51,7 +53,7 @@ public class RecordsHandler {
         }
     }
 
-    public static void saveFile(Context context, String toSave) {
+    private static void saveFile(Context context, String toSave) {
         try {
             FileOutputStream fos = context.openFileOutput(FILE_NAME + Digits.currentDigit.getName(), Context.MODE_PRIVATE);
             fos.write(toSave.getBytes());

@@ -91,7 +91,7 @@ public class TimeFragment extends Fragment implements FragmentInterface {
                     inputET.setEnabled(false);
                     keyboard.setEnabled(false);
 
-                    RecordsHandler.addRecord(getActivity(), before, timerTask.getMilliseconds());
+                    RecordsHandler.addRecord(getActivity(), inputET.getText().length(), timerTask.getMilliseconds());
                     showDialog(inputET.getText().length() - 1, timerTask.getMilliseconds());
                     activityInterface.swapFragment(RecordsFragment.class);
                 } else {
@@ -111,7 +111,7 @@ public class TimeFragment extends Fragment implements FragmentInterface {
     private void showDialog(int digits, int milliseconds) {
         new AlertDialog.Builder(getActivity())
                 .setTitle("Great!")
-                .setMessage("You typed " + digits + " digits in " + milliseconds + " milliseconds.")
+                .setMessage("You typed " + digits + " digits in " + (milliseconds / 1000d) + " seconds.")
                 .setPositiveButton(android.R.string.ok, null)
                 .create().show();
     }

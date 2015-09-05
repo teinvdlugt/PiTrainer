@@ -1,21 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card-view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="8dp"
-    android:paddingTop="8dp">
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:minHeight="72dp"
+    card-view:cardBackgroundColor="@color/cardview_dark_background"
+    card-view:cardCornerRadius="2dp"
+    card-view:cardElevation="4dp">
 
-    <TextView
-        android:id="@+id/numOfDigits_textView"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp" />
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/digitsPerMinute_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp" />
+        <com.teinproductions.tein.pitrainer.records.FontFitTextView
+            android:id="@+id/rank_textView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            tools:text="100" />
 
-</LinearLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingStart="16dp">
+
+            <TextView
+                android:id="@+id/title_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:textSize="14sp"
+                tools:text="Tein" />
+
+            <TextView
+                android:textColor="@android:color/darker_gray"
+                android:id="@+id/date_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:textSize="14sp"
+                tools:text="5-9-2015" />
+
+            <TextView
+                android:id="@+id/numbers_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:textSize="14sp"
+                tools:text="@string/record_card_description" />
+
+        </RelativeLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>
+

@@ -3,6 +3,7 @@ package com.teinproductions.tein.pitrainer.records;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,7 +65,7 @@ public class RecordsAdapter extends RecyclerView.Adapter<RecordsAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.displayRecordData(context, data.get(position));
+        holder.displayRecordData(context, data.get(position), position + 1);
     }
 
     @Override
@@ -77,19 +78,24 @@ public class RecordsAdapter extends RecyclerView.Adapter<RecordsAdapter.ViewHold
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView numOfDigitsTV, digitsPerMinuteTV;
+        TextView rankTextView, titleTextView, dateTextView, descriptionTextView;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            numOfDigitsTV = (TextView) itemView.findViewById(R.id.numOfDigits_textView);
-            digitsPerMinuteTV = (TextView) itemView.findViewById(R.id.digitsPerMinute_textView);
+            rankTextView = (TextView) itemView.findViewById(R.id.rank_textView);
+            titleTextView = (TextView) itemView.findViewById(R.id.title_textView);
+            descriptionTextView = (TextView) itemView.findViewById(R.id.numbers_textView);
+            dateTextView = (TextView) itemView.findViewById(R.id.date_textView);
         }
 
-        public void displayRecordData(Context context, Record record) {
-            numOfDigitsTV.setText(String.format(context.getString(R.string.num_of_digits_record_format), record.getDigits()));
+        public void displayRecordData(Context context, Record record, int rank) {
+            rankTextView.setText("" + rank);
+            titleTextView.setText("Tein");
+            dateTextView.setText("5-9-2015");
 
             double digitsPerMinute = (double) record.getDigits() / record.getMilliseconds() * 60000;
-            digitsPerMinuteTV.setText(String.format(context.getString(R.string.digits_per_minute_record_format), digitsPerMinute));
+            descriptionTextView.setText(context.getString(
+                    R.string.record_card_description, record.getDigits(), digitsPerMinute));
         }
     }
 }

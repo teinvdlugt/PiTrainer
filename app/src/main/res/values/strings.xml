@@ -48,8 +48,7 @@
     <string name="timed_mode_game">Timed mode</string>
     <string name="digits_colon_format">Digits: %d</string>
     <string name="sort_by_spinner_text">Sort by:</string>
-    <string name="num_of_digits_record_format">Number of digits: %s</string>
-    <string name="digits_per_minute_record_format">Digits per minute: %.2f</string>
+    <string name="record_card_description" formatted="false">%d digits at %.2f digits per minute"</string>
     <string name="try_again">Try again</string>
 
     <string-array name="sort_methods">

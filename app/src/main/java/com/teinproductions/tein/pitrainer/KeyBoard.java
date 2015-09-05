@@ -34,7 +34,7 @@ public class Keyboard extends TableLayout {
     }
 
     public void setEditText(final EditText editText) {
-        this.setOnTypeListener(new OnTypeListener() {
+        onTypeListener = new OnTypeListener() {
             @Override
             public void onTypeDigit(int digit) {
                 final int selection = editText.getSelectionStart();
@@ -48,11 +48,7 @@ public class Keyboard extends TableLayout {
                     editText.getText().replace(selection - 1, selection, "");
                 }
             }
-        });
-    }
-
-    public void setOnTypeListener(OnTypeListener listener) {
-        onTypeListener = listener;
+        };
     }
 
     private void setDigitListeners() {

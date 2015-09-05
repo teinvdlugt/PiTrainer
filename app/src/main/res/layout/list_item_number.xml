@@ -26,6 +26,6 @@
         android:paddingEnd="16dp"
         android:paddingRight="16dp"
         android:paddingTop="8dp"
-        android:src="@mipmap/ic_delete_white_36dp" />
+        android:src="@mipmap/ic_delete_black_36dp" />
 
 </LinearLayout>

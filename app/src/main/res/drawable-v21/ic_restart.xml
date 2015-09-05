@@ -15,14 +15,14 @@
                 a 50 50 0 0 1 50 50
                 a 50 50 0 0 1 -50 50
                 a 50 50 0 0 1 -50 -50"
-            android:strokeColor="@android:color/white"
+            android:strokeColor="@color/restart_arrow_color"
             android:strokeWidth="8" />
 
         <path
             android:name="triangle"
-            android:fillColor="@android:color/white"
+            android:fillColor="@color/restart_arrow_color"
             android:pathData="M 10 55 l 30 0 l -15 -20 z"
-            android:strokeColor="@android:color/white"
+            android:strokeColor="@color/restart_arrow_color"
             android:strokeWidth="8" />
     </group>
 </vector>

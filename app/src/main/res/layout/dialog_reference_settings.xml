@@ -5,25 +5,27 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/text_size" />
-
-    <EditText
-        android:id="@+id/textSize_textView"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/spacings" />
+        <EditText
+            android:id="@+id/textSize_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:hint="@string/text_size"/>
+    </android.support.design.widget.TextInputLayout>
 
-    <EditText
-        android:id="@+id/spacings_textView"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="number" />
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/spacings_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="@string/spacings"/>
+    </android.support.design.widget.TextInputLayout>
 </LinearLayout>

@@ -11,7 +11,7 @@
     <string name="digits_colon">Digits:</string>
     <string name="errors_colon">Errors:</string>
     <string name="percentage_colon">Percentage:</string>
-    <string name="number">Number</string>
+    <string name="number">Number…</string>
     <string name="open_drawer">Open navigation drawer</string>
     <string name="close_drawer">Close Navigation Drawer</string>
     <string name="practise">Practise</string>
@@ -26,9 +26,9 @@
     <string name="complete_the_statement">Complete the statement</string>
     <string name="title_activity_add_number">Add Number</string>
     <string name="integer_part">Integer part</string>
-    <string name="integer_part_explanation">The digits in front of the point</string>
+    <string name="integer_part_explanation">The digits in front of the floating point</string>
     <string name="fractional_part">Fractional part</string>
-    <string name="fractional_part_explanation">The digits that come after the point</string>
+    <string name="fractional_part_explanation">The digits after the floating point</string>
     <string name="name">Name</string>
     <string name="add_number">Add number…</string>
     <string name="dismiss">Dismiss</string>

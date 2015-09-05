@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/practise_navigation_item"
+            android:title="@string/practise" />
+        <item
+            android:id="@+id/reference_navigation_item"
+            android:title="@string/reference" />
+        <item
+            android:id="@+id/complete_the_statement_navigation_item"
+            android:title="@string/complete_the_statement" />
+        <item
+            android:id="@+id/timed_mode_navigation_item"
+            android:title="@string/timed_mode_game" />
+    </group>
+</menu>

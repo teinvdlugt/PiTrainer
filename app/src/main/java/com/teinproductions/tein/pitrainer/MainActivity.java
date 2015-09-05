@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -25,7 +27,8 @@ import android.widget.EditText;
 import com.teinproductions.tein.pitrainer.records.TimeFragment;
 
 
-public class MainActivity extends AppCompatActivity implements ActivityInterface {
+public class MainActivity extends AppCompatActivity
+        implements ActivityInterface, NavigationView.OnNavigationItemSelectedListener {
 
     private static final String VIBRATE = "VIBRATE";
     public static final String ON_SCREEN_KEYBOARD = "ON_SCREEN_KEYBOARD";
@@ -44,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements ActivityInterface
     private int currentGame;
 
     private DrawerLayout drawerLayout;
-    private RecyclerView drawerRecyclerView;
     private Toolbar toolbar;
 
     private boolean vibrate;
@@ -59,16 +61,8 @@ public class MainActivity extends AppCompatActivity implements ActivityInterface
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerRecyclerView = (RecyclerView) findViewById(R.id.drawer_recyclerView);
-        drawerRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        drawerRecyclerView.setAdapter(new Game.RecyclerAdapter(this, new Game.RecyclerAdapter.OnClickListener() {
-            @Override
-            public void onClick(int i) {
-                currentGame = i;
-                drawerLayout.closeDrawer(drawerRecyclerView);
-                swapFragment(GAMES[i].getFragment());
-            }
-        }));
+        NavigationView navView = (NavigationView) findViewById(R.id.navigationView);
+        navView.setNavigationItemSelectedListener(this);
         initDrawerToggle();
 
         Digits.initDigits(this);
@@ -282,5 +276,26 @@ public class MainActivity extends AppCompatActivity implements ActivityInterface
                 getPreferences(0).getString(CURRENT_DIGITS_NAME, Digits.digits[0].getName()));
         onScreenKeyboard = getPreferences(0).getBoolean(ON_SCREEN_KEYBOARD, false);
         currentGame = getPreferences(0).getInt(CURRENT_GAME, 0);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.practise_navigation_item:
+                currentGame = 0;
+                break;
+            case R.id.reference_navigation_item:
+                currentGame = 1;
+                break;
+            case R.id.complete_the_statement_navigation_item:
+                currentGame = 2;
+                break;
+            case R.id.timed_mode_navigation_item:
+                currentGame = 3;
+        }
+
+        drawerLayout.closeDrawer(GravityCompat.START);
+        swapFragment(GAMES[currentGame].getFragment());
+        return true;
     }
 }

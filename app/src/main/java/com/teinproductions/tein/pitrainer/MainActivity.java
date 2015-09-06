@@ -14,8 +14,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.Menu;
@@ -24,11 +22,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 
+import com.teinproductions.tein.pitrainer.records.RecordDialog;
 import com.teinproductions.tein.pitrainer.records.TimeFragment;
 
 
 public class MainActivity extends AppCompatActivity
-        implements ActivityInterface, NavigationView.OnNavigationItemSelectedListener {
+        implements ActivityInterface, NavigationView.OnNavigationItemSelectedListener,
+        RecordDialog.OnAppliedListener {
 
     private static final String VIBRATE = "VIBRATE";
     public static final String ON_SCREEN_KEYBOARD = "ON_SCREEN_KEYBOARD";
@@ -297,5 +297,10 @@ public class MainActivity extends AppCompatActivity
         drawerLayout.closeDrawer(GravityCompat.START);
         swapFragment(GAMES[currentGame].getFragment());
         return true;
+    }
+
+    @Override
+    public void reloadRecords() {
+        fragmentInterface.notifyDigitsChanged();
     }
 }

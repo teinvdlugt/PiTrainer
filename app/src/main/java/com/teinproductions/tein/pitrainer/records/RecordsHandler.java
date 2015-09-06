@@ -17,9 +17,9 @@ import java.util.ArrayList;
 public class RecordsHandler {
     private static final String FILE_NAME = "minute_records_"; // Append Digits name
 
-    public static void addRecord(Context context, int digits, int milliseconds) {
+    public static void addRecord(Context context, int digits, int milliseconds, String name) {
         ArrayList<Record> records = loadRecords(context);
-        records.add(new Record(digits, milliseconds));
+        records.add(new Record(digits, milliseconds, name, System.currentTimeMillis()));
         saveFile(context, Record.arrayToJSON(records));
     }
 

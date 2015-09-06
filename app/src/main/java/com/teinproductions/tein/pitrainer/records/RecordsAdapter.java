@@ -89,8 +89,8 @@ public class RecordsAdapter extends RecyclerView.Adapter<RecordsAdapter.ViewHold
 
         public void displayRecordData(Context context, Record record, int rank) {
             rankTextView.setText("" + rank);
-            titleTextView.setText("Tein");
-            dateTextView.setText("5-9-2015");
+            titleTextView.setText(record.getRecordHolder());
+            dateTextView.setText(record.getDateString());
 
             double digitsPerMinute = (double) record.getDigits() / record.getMilliseconds() * 60000;
             descriptionTextView.setText(context.getString(

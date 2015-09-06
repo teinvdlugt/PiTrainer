@@ -29,7 +29,7 @@ public class CompleteFragmentSettingsDialog extends DialogFragment {
     public interface Listener extends Serializable {
         /**
          * Called when OK is clicked and changes
-         * must be applied
+         * have to be applied
          */
         void reload();
     }
@@ -79,7 +79,7 @@ public class CompleteFragmentSettingsDialog extends DialogFragment {
     }
 
     private void setTextWatchers() {
-        // This TextWatcher has to make sure that a zero can't
+        // This TextWatcher makes sure that a zero can't
         // be filled in as the first number in the TextViews.
         for (final EditText e : new EditText[]{numOfDigitsET, rangeET}) {
             e.addTextChangedListener(new TextWatcher() {

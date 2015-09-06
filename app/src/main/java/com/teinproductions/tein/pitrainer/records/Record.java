@@ -4,18 +4,26 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Record {
     private static final String DIGITS_JSON = "digits";
     private static final String MILLISECONDS_JSON = "milliseconds";
+    private static final String RECORD_HOLDER_NAME_JSON = "recordHolder";
+    private static final String DATE_MILLIS = "date_unixStamp";
 
     private int digits;
     private int milliseconds;
+    private String recordHolder;
+    private long dateMillis;
 
-    public Record(int digits, int milliseconds) {
+    public Record(int digits, int milliseconds, String recordHolder, long dateMillis) {
         this.digits = digits;
         this.milliseconds = milliseconds;
+        this.recordHolder = recordHolder;
+        this.dateMillis = dateMillis;
     }
 
     public Record() {
@@ -33,8 +41,17 @@ public class Record {
         return (double) digits / milliseconds * 60000;
     }
 
+    public String getDateString() {
+        return DateFormat.getDateInstance().format(new Date(dateMillis));
+    }
+
+    public String getRecordHolder() {
+        return recordHolder;
+    }
+
     private String toJSON() {
-        return "{\"" + DIGITS_JSON + "\":" + digits + ",\"" + MILLISECONDS_JSON + "\":" + milliseconds + "}";
+        return "{\"" + DIGITS_JSON + "\":" + digits + ",\"" + MILLISECONDS_JSON + "\":" + milliseconds +
+                ",\"" + RECORD_HOLDER_NAME_JSON + "\":" + recordHolder + ",\"" + DATE_MILLIS + "\":" + dateMillis + "}";
     }
 
     public static Record fromJSON(String json) throws JSONException {
@@ -46,6 +63,8 @@ public class Record {
         Record result = new Record();
         result.digits = json.getInt(DIGITS_JSON);
         result.milliseconds = json.getInt(MILLISECONDS_JSON);
+        result.recordHolder = json.getString(RECORD_HOLDER_NAME_JSON);
+        result.dateMillis = json.getLong(DATE_MILLIS);
         return result;
     }
 

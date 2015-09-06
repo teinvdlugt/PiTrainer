@@ -91,8 +91,8 @@ public class TimeFragment extends Fragment implements FragmentInterface {
                     inputET.setEnabled(false);
                     keyboard.setEnabled(false);
 
-                    RecordsHandler.addRecord(getActivity(), inputET.getText().length(), timerTask.getMilliseconds());
-                    showDialog(inputET.getText().length() - 1, timerTask.getMilliseconds());
+                    //RecordsHandler.addRecord(getActivity(), inputET.getText().length(), timerTask.getMilliseconds());
+                    RecordDialog.show(TimeFragment.this, inputET.length(), timerTask.getMilliseconds());
                     activityInterface.swapFragment(RecordsFragment.class);
                 } else {
                     if (inputET.getText().length() == 1 && before == 0) {

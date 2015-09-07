@@ -1,13 +1,14 @@
 package com.teinproductions.tein.pitrainer.records;
 
 
+import android.graphics.Color;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -34,8 +35,9 @@ public class TimeFragment extends Fragment implements FragmentInterface {
     private EditText inputET;
     private TextView timer, digitsTV, integerPartTV;
     private Keyboard keyboard;
-    private ImageButton restartButton;
+    private ImageButton restartButton, doneButton, highScoresButton;
     private TimerTask timerTask;
+    private ViewGroup root;
 
     @Nullable
     @Override
@@ -51,12 +53,16 @@ public class TimeFragment extends Fragment implements FragmentInterface {
         TextView integerPartTV = (TextView) theView.findViewById(R.id.integerPart_textView);
         keyboard = (Keyboard) theView.findViewById(R.id.keyboard);
         restartButton = (ImageButton) theView.findViewById(R.id.restart_button);
+        doneButton = (ImageButton) theView.findViewById(R.id.done_button);
+        highScoresButton = (ImageButton) theView.findViewById(R.id.highscores_button);
+        root = (ViewGroup) theView.findViewById(R.id.root);
 
         keyboard.setEditText(inputET);
         integerPartTV.setText(Digits.currentDigit.getIntegerPart() + ".");
         updateDigitsText();
         showOnScreenKeyboard(getActivity().getPreferences(0).getBoolean(MainActivity.ON_SCREEN_KEYBOARD, false));
         setRestartImageResource();
+        setButtonOnClickListeners();
         setTextWatcher();
         onClickRestart();
 
@@ -69,11 +75,33 @@ public class TimeFragment extends Fragment implements FragmentInterface {
         } else {
             restartButton.setImageResource(R.mipmap.ic_refresh_white_36dp);
         }
+    }
 
+    private void setButtonOnClickListeners() {
         restartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onClickRestart();
+            }
+        });
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (inputET.length() > 0) {
+                    end(inputET.length(), false);
+                } else {
+                    Snackbar snack = Snackbar.make(root, R.string.please_type_more_digits_snackbar, Snackbar.LENGTH_LONG);
+                    View snackView = snack.getView();
+                    ((TextView) snackView.findViewById(android.support.design.R.id.snackbar_text)).setTextColor(Color.WHITE);
+                    snack.show();
+                }
+            }
+        });
+        highScoresButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (timerTask != null) timerTask.cancel(true);
+                activityInterface.swapFragment(RecordsFragment.class);
             }
         });
     }
@@ -86,14 +114,7 @@ public class TimeFragment extends Fragment implements FragmentInterface {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (Digits.isIncorrect(inputET.getText().toString())) {
-                    timerTask.cancel(true);
-                    activityInterface.vibrate();
-                    inputET.setEnabled(false);
-                    keyboard.setEnabled(false);
-
-                    //RecordsHandler.addRecord(getActivity(), inputET.getText().length(), timerTask.getMilliseconds());
-                    RecordDialog.show(TimeFragment.this, inputET.length() - 1, timerTask.getMilliseconds());
-                    activityInterface.swapFragment(RecordsFragment.class);
+                    end(inputET.length() - 1, true);
                 } else {
                     if (inputET.getText().length() == 1 && before == 0) {
                         timerTask = new TimerTask();
@@ -108,12 +129,14 @@ public class TimeFragment extends Fragment implements FragmentInterface {
         });
     }
 
-    private void showDialog(int digits, int milliseconds) {
-        new AlertDialog.Builder(getActivity())
-                .setTitle("Great!")
-                .setMessage("You typed " + digits + " digits in " + (milliseconds / 1000d) + " seconds.")
-                .setPositiveButton(android.R.string.ok, null)
-                .create().show();
+    private void end(int numOfDigits, boolean vibrate) {
+        if (timerTask != null) timerTask.cancel(true);
+        if (vibrate) activityInterface.vibrate();
+        inputET.setEnabled(false);
+        keyboard.setEnabled(false);
+
+        RecordDialog.show(TimeFragment.this, numOfDigits, timerTask.getMilliseconds());
+        activityInterface.swapFragment(RecordsFragment.class);
     }
 
     private void updateDigitsText() {

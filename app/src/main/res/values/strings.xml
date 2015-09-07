@@ -51,6 +51,7 @@
     <string name="record_card_description" formatted="false">%d digits at %.2f digits per minute"</string>
     <string name="try_again">Try again</string>
     <string name="record_holder_name">Name</string>
+    <string name="do_not_save_record">Don\'t save</string>
 
     <string-array name="sort_methods">
         <item>Digits per minute</item>

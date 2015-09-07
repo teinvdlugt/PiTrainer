@@ -37,7 +37,6 @@ public class RecordDialog extends DialogFragment {
 
         return new AlertDialog.Builder(getActivity())
                 .setView(getContentView())
-                .setTitle("Great!")
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -46,7 +45,9 @@ public class RecordDialog extends DialogFragment {
                         RecordsHandler.addRecord(getActivity(), numOfDigits, milliseconds, name);
                         ((OnAppliedListener) getActivity()).reloadRecords();
                     }
-                }).setCancelable(false)
+                })
+                .setNegativeButton(R.string.do_not_save_record, null)
+                .setCancelable(false)
                 .create();
     }
 

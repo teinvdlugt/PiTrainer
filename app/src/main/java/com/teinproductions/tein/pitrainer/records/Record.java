@@ -41,6 +41,10 @@ public class Record {
         return (double) digits / milliseconds * 60000;
     }
 
+    public long getDateMillis() {
+        return dateMillis;
+    }
+
     public String getDateString() {
         return DateFormat.getDateInstance().format(new Date(dateMillis));
     }

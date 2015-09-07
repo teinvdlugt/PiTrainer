@@ -22,39 +22,45 @@ public class RecordsAdapter extends RecyclerView.Adapter<RecordsAdapter.ViewHold
     }
 
     public void sortByDigitsPerMinute() {
-        final int size = data.size();
-        ArrayList<Record> sorted = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            Record highest = data.get(0);
-            for (int j = 0; j < data.size(); j++) {
-                if (data.get(j).getDigitsPerMinute() > highest.getDigitsPerMinute()) {
-                    highest = data.get(j);
+        // This method uses the bubble sort algorithm
+        for (int i = data.size() - 1; i > 0; i--) {
+            for (int j = 0; j < i; j++) {
+                if (data.get(j).getDigitsPerMinute() < data.get(j + 1).getDigitsPerMinute()) {
+                    swapRecords(j, j + 1);
                 }
             }
-            sorted.add(highest);
-            data.remove(highest);
         }
-
-        data = sorted;
         notifyDataSetChanged();
     }
 
     public void sortByNumberOfDigits() {
-        final int size = data.size();
-        ArrayList<Record> sorted = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            Record highest = data.get(0);
-            for (int j = 0; j < data.size(); j++) {
-                if (data.get(j).getDigits() > highest.getDigits()) {
-                    highest = data.get(j);
+        // This method uses the bubble sort algorithm
+        for (int i = data.size() - 1; i > 0; i--) {
+            for (int j = 0; j < i; j++) {
+                if (data.get(j).getDigits() < data.get(j + 1).getDigits()) {
+                    swapRecords(j, j + 1);
                 }
             }
-            sorted.add(highest);
-            data.remove(highest);
         }
-
-        data = sorted;
         notifyDataSetChanged();
+    }
+
+    public void sortByDate() {
+        // This method uses the bubble sort algorithm
+        for (int i = data.size() - 1; i > 0; i--) {
+            for (int j = 0; j < i; j++) {
+                if (data.get(j).getDateMillis() < data.get(j + 1).getDateMillis()){
+                    swapRecords(j, j + 1);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    private void swapRecords(int index1, int index2) {
+        Record temp = data.get(index1);
+        data.set(index1, data.get(index2));
+        data.set(index2, temp);
     }
 
     @Override

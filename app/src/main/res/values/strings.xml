@@ -55,5 +55,6 @@
     <string-array name="sort_methods">
         <item>Digits per minute</item>
         <item>Number of digits</item>
+        <item>Date</item>
     </string-array>
 </resources>

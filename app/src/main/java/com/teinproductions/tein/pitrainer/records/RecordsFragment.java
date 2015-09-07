@@ -52,7 +52,17 @@ public class RecordsFragment extends Fragment implements FragmentInterface {
 
     private void reloadRecords() {
         adapter.setData(RecordsHandler.loadRecords(getActivity()));
-        adapter.sortByDigitsPerMinute();
+        switch (sortBySpinner.getSelectedItemPosition()) {
+            case 0:
+                adapter.sortByDigitsPerMinute();
+                break;
+            case 1:
+                adapter.sortByNumberOfDigits();
+                break;
+            case 2:
+                adapter.sortByDate();
+                break;
+        }
     }
 
     private void setSpinnerAdapter() {
@@ -60,13 +70,6 @@ public class RecordsFragment extends Fragment implements FragmentInterface {
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, sortMethods);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sortBySpinner.setAdapter(spinnerAdapter);
-
-        int savedSelection = getActivity().getPreferences(Context.MODE_PRIVATE).getInt(SPINNER_SELECTION, 0);
-        try {
-            sortBySpinner.setSelection(savedSelection);
-        } catch (Exception e) {
-            sortBySpinner.setSelection(0);
-        }
 
         sortBySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -78,11 +81,21 @@ public class RecordsFragment extends Fragment implements FragmentInterface {
                         break;
                     case 1:
                         adapter.sortByNumberOfDigits();
+                        break;
+                    case 2:
+                        adapter.sortByDate();
                 }
             }
 
             public void onNothingSelected(AdapterView<?> parent) {/*ignored*/}
         });
+
+        int savedSelection = getActivity().getPreferences(Context.MODE_PRIVATE).getInt(SPINNER_SELECTION, 0);
+        try {
+            sortBySpinner.setSelection(savedSelection);
+        } catch (Exception e) {
+            sortBySpinner.setSelection(0);
+        }
     }
 
     @Override

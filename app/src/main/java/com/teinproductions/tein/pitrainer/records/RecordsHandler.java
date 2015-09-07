@@ -45,7 +45,6 @@ public class RecordsHandler {
 
             buffReader.close();
 
-            Log.d("confetti", sb.toString());
             return sb.toString();
         } catch (IOException e) {
             e.printStackTrace();

@@ -72,11 +72,11 @@ public class AddNumberActivity extends AppCompatActivity {
         boolean newDigits = oldName == null;
 
         String errorMessage = null;
-        if (nameET.length() == 0) errorMessage = "Please provide a name";
-        else if (integerET.length() == 0) errorMessage = "Please provide an integer part";
-        else if (fractionalET.length() == 0) errorMessage = "Please provide a fractional part";
+        if (nameET.length() == 0) errorMessage = getString(R.string.please_provide_a_name);
+        else if (integerET.length() == 0) errorMessage = getString(R.string.please_provide_an_integer_part);
+        else if (fractionalET.length() == 0) errorMessage = getString(R.string.please_provide_a_fractional_part);
         else if (contains(names, newName) && (newDigits || !newName.equals(oldName)))
-            errorMessage = "There is already a number with that name";
+            errorMessage = getString(R.string.there_is_already_a_number_with_that_name);
         if (errorMessage != null) {
             Snackbar.make(findViewById(R.id.root), errorMessage, Snackbar.LENGTH_LONG).show();
             return false;

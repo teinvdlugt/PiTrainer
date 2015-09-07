@@ -52,9 +52,15 @@
     <string name="try_again">Try again</string>
     <string name="record_holder_name">Name</string>
     <string name="do_not_save_record">Don\'t save</string>
-    <string name="highscores">Highscores</string>
+    <string name="highscores">High scores</string>
     <string name="done">Done</string>
     <string name="please_type_more_digits_snackbar">Please type more digits</string>
+    <string name="please_provide_a_name">Please provide a name</string>
+    <string name="please_provide_an_integer_part">Please provide an integer part</string>
+    <string name="please_provide_a_fractional_part">Please provide a fractional part</string>
+    <string name="there_is_already_a_number_with_that_name">There is already a number with that name</string>
+    <string name="save_error_message">Something went wrong while saving</string>
+    <string name="record_dialog_message_format" formatted="false">You typed %d digits in %.1f seconds.</string>
 
     <string-array name="sort_methods">
         <item>Digits per minute</item>

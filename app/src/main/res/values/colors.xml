@@ -6,7 +6,6 @@
     <color name="colorAccent">#00C853</color>
 
     <color name="red">#ffff0000</color>
-    <color name="drawer_listView_background">@android:color/white</color>
     <color name="restart_arrow_color">#ff000000</color>
     <color name="key_board_text_color">#ff000000</color>
 </resources>

@@ -63,7 +63,7 @@ public class RecordDialog extends DialogFragment {
         nameEditText = (EditText) theView.findViewById(R.id.name_editText);
         TextView messageTV = (TextView) theView.findViewById(R.id.message_textView);
 
-        messageTV.setText("You typed " + numOfDigits + " digits in " + (milliseconds / 1000d) + " seconds.");
+        messageTV.setText(getActivity().getString(R.string.record_dialog_message_format, numOfDigits, milliseconds / 1000d));
 
         setTextWatcher();
         setNameText();

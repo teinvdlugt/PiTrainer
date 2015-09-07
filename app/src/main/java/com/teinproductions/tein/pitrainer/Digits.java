@@ -619,7 +619,7 @@ public class Digits implements Serializable {
             fos.close();
         } catch (IOException e) {
             e.printStackTrace();
-            Toast.makeText(context, "Something went wrong while saving", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.save_error_message, Toast.LENGTH_SHORT).show();
         }
     }
 

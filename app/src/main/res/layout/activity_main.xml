@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
-            android:elevation="6dp"
+            android:elevation="4dp"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
@@ -28,10 +28,10 @@
 
     <android.support.design.widget.NavigationView
         android:id="@+id/navigationView"
+        app:headerLayout="@layout/nav_header_layout"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:menu="@menu/menu_drawer"
         app:theme="@style/AppTheme.Drawer" />
-
 </android.support.v4.widget.DrawerLayout>

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Pi Trainer</string>
     <string name="vibrate">Vibrate</string>
-    <string name="on_screen_keyboard">\"On Screen\" Keyboard</string>
+    <string name="on_screen_keyboard">In-app keyboard</string>
     <string name="pi">Pi</string>
     <string name="tau">Tau</string>
     <string name="euler_number">Euler\'s number</string>
@@ -23,7 +23,7 @@
     <string name="number_of_digits_given">Number of digits given</string>
     <string name="range">Range</string>
     <string name="next">next</string>
-    <string name="complete_the_statement">Complete the statement</string>
+    <string name="complete_the_statement">Complete</string>
     <string name="title_activity_add_number">Add Number</string>
     <string name="integer_part">Integer part</string>
     <string name="integer_part_explanation">The digits in front of the floating point</string>

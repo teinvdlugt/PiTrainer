@@ -1,5 +1,6 @@
 package com.teinproductions.tein.pitrainer;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -8,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.widget.TextView;
 
 public class InfiniteSeriesActivity extends AppCompatActivity {
+    public static final String MESSAGE_SHOWN_PREF = "message_shown";
 
     private FloatingActionButton fab;
     private TextView resultTV, nTextView;
@@ -37,16 +40,33 @@ public class InfiniteSeriesActivity extends AppCompatActivity {
                 onClickFab();
             }
         });
+
+        if (!getPreferences(0).getBoolean(MESSAGE_SHOWN_PREF, false))
+            showMessage();
+    }
+
+    private void showMessage() {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.infinite_series_disclaimer_title)
+                .setMessage(R.string.infinite_series_disclaimer_message)
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        getPreferences(0).edit().putBoolean(MESSAGE_SHOWN_PREF, true).apply();
+                    }
+                })
+                .setCancelable(false)
+                .create().show();
     }
 
     private void onClickFab() {
         if (piTask != null && piTask.getStatus() == AsyncTask.Status.RUNNING) {
             piTask.cancel(true);
-            fab.setImageDrawable(getDrawableCompat(android.R.drawable.ic_media_play));
+            fab.setImageDrawable(getDrawableCompat(R.mipmap.ic_play_arrow_white_24dp));
         } else {
             piTask = new PiTask();
             piTask.execute();
-            fab.setImageDrawable(getDrawableCompat(android.R.drawable.ic_media_pause));
+            fab.setImageDrawable(getDrawableCompat(R.mipmap.ic_pause_white_24dp));
         }
     }
 
@@ -86,7 +106,7 @@ public class InfiniteSeriesActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         if (piTask != null) piTask.cancel(true);
-        fab.setImageDrawable(getDrawableCompat(android.R.drawable.ic_media_play));
+        fab.setImageDrawable(getDrawableCompat(R.mipmap.ic_play_arrow_white_24dp));
         super.onPause();
     }
 

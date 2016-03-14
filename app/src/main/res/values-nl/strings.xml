@@ -69,4 +69,10 @@
     <string name="learn_more">Meer informatie</string>
     <string name="n_textView_format">…+1/%d…</string>
     <string name="ok">OK</string>
+
+    <string-array name="sort_methods">
+        <item>Cijfers per minuut</item>
+        <item>Aantal cijfers</item>
+        <item>Datum</item>
+    </string-array>
 </resources>

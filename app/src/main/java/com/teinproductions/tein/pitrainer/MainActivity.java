@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.annotation.IdRes;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity
 
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
+    private NavigationView navigationView;
 
     private boolean vibrate;
     private boolean toolbarCurrentlyRed = false;
@@ -61,8 +63,8 @@ public class MainActivity extends AppCompatActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        NavigationView navView = (NavigationView) findViewById(R.id.navigationView);
-        navView.setNavigationItemSelectedListener(this);
+        navigationView = (NavigationView) findViewById(R.id.navigationView);
+        navigationView.setNavigationItemSelectedListener(this);
         initDrawerToggle();
 
         Digits.initDigits(this);
@@ -276,6 +278,25 @@ public class MainActivity extends AppCompatActivity
                 getPreferences(0).getString(CURRENT_DIGITS_NAME, Digits.digits[0].getName()));
         onScreenKeyboard = getPreferences(0).getBoolean(ON_SCREEN_KEYBOARD, false);
         currentGame = getPreferences(0).getInt(CURRENT_GAME, 0);
+        // For the NavigationView
+        @IdRes int checkedItem;
+        switch (currentGame) {
+            case 0:
+                checkedItem = R.id.practise_navigation_item;
+                break;
+            case 1:
+                checkedItem = R.id.reference_navigation_item;
+                break;
+            case 2:
+                checkedItem = R.id.complete_the_statement_navigation_item;
+                break;
+            case 3:
+                checkedItem = R.id.timed_mode_navigation_item;
+                break;
+            default:
+                checkedItem = R.id.practise_navigation_item;
+        }
+        navigationView.setCheckedItem(checkedItem);
     }
 
     @Override

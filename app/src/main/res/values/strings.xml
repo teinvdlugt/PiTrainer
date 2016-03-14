@@ -67,7 +67,7 @@
     <string name="learn_more">Learn more</string>
     <string name="ok">OK</string>
     <string name="infinite_series_disclaimer_title">Welcome!</string>
-    <string name="infinite_series_disclaimer_message">Here, you can let your device calculate the digits of π, using the infinite series by Leibniz. For more info on the formula, click the info-icon in the toolbar. I will improve this feature soon, and I will also add more infinite series!</string>
+    <string name="infinite_series_disclaimer_message">Here, you can let your device calculate the digits of π, using the infinite series by Leibniz. For more info on the formula, click the info-icon in the toolbar. I will improve this feature soon and will also add more infinite series!</string>
 
     <string-array name="sort_methods">
         <item>Digits per minute</item>

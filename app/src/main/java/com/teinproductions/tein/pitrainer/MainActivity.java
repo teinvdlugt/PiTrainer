@@ -317,6 +317,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.infinite_series_navigation_item:
                 Intent intent = new Intent(this, InfiniteSeriesActivity.class);
                 startActivity(intent);
+                drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
         }
 

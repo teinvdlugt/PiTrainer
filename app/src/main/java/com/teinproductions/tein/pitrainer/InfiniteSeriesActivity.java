@@ -30,6 +30,7 @@ public class InfiniteSeriesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_infinite_series);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         resultTV = (TextView) findViewById(R.id.result_textView);
         nTextView = (TextView) findViewById(R.id.n_textView);
@@ -42,7 +43,7 @@ public class InfiniteSeriesActivity extends AppCompatActivity {
         });
 
         if (!getPreferences(0).getBoolean(MESSAGE_SHOWN_PREF, false))
-            showMessage();
+        showMessage();
     }
 
     private void showMessage() {
@@ -122,6 +123,9 @@ public class InfiniteSeriesActivity extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse("https://en.wikipedia.org/wiki/Leibniz_formula_for_%CF%80"));
             startActivity(intent);
+            return true;
+        } else if (item.getItemId() == android.R.id.home) {
+            finish();
             return true;
         }
         return false;

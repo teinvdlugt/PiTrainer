@@ -21,5 +21,4 @@
         android:id="@+id/number"
         android:title="@string/number"
         app:showAsAction="never" />
-
 </menu>

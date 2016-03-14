@@ -21,13 +21,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".AddNumberActivity"
             android:label="@string/title_activity_add_number" />
+
         <activity
             android:name=".NumbersActivity"
             android:label="@string/title_activity_numbers"
             android:theme="@style/AppTheme.BlackText" />
-    </application>
 
+        <activity
+            android:name=".InfiniteSeriesActivity"
+            android:label="@string/infinite_series" />
+    </application>
 </manifest>

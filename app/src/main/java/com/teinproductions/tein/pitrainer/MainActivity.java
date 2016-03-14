@@ -292,6 +292,11 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.timed_mode_navigation_item:
                 currentGame = 3;
+                break;
+            case R.id.infinite_series_navigation_item:
+                Intent intent = new Intent(this, InfiniteSeriesActivity.class);
+                startActivity(intent);
+                return true;
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);

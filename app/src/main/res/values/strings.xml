@@ -52,7 +52,7 @@
     <string name="try_again">Try again</string>
     <string name="record_holder_name">Name</string>
     <string name="do_not_save_record">Don\'t save</string>
-    <string name="highscores">High scores</string>
+    <string name="high_scores">High scores</string>
     <string name="done">Done</string>
     <string name="please_type_more_digits_snackbar">Please type more digits</string>
     <string name="please_provide_a_name">Please provide a name</string>

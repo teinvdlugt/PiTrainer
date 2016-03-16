@@ -11,7 +11,7 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:icon="@mipmap/ic_done_white_36dp"
+        android:icon="@mipmap/ic_done_36dp"
         android:id="@+id/save"
         android:orderInCategory="100"
         android:title="@string/save"

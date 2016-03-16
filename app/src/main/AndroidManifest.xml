@@ -16,8 +16,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.BlackText">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,8 +30,7 @@
 
         <activity
             android:name=".NumbersActivity"
-            android:label="@string/title_activity_numbers"
-            android:theme="@style/AppTheme.BlackText" />
+            android:label="@string/title_activity_numbers" />
 
         <activity
             android:name=".InfiniteSeriesActivity"

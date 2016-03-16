@@ -12,7 +12,7 @@
             style="?attr/buttonBarButtonStyle"
             android:layout_weight="1"
             android:text="7"
-            android:textColor="@color/key_board_text_color"
+            android:textColor="?android:textColorPrimary"
             android:textSize="26sp" />
 
         <Button
@@ -20,7 +20,7 @@
             style="?attr/buttonBarButtonStyle"
             android:layout_weight="1"
             android:text="8"
-            android:textColor="@color/key_board_text_color"
+            android:textColor="?android:textColorPrimary"
             android:textSize="26sp" />
 
         <Button
@@ -28,7 +28,7 @@
             style="?attr/buttonBarButtonStyle"
             android:layout_weight="1"
             android:text="9"
-            android:textColor="@color/key_board_text_color"
+            android:textColor="?android:textColorPrimary"
             android:textSize="26sp" />
     </TableRow>
 
@@ -39,7 +39,7 @@
             style="?attr/buttonBarButtonStyle"
             android:layout_weight="1"
             android:text="4"
-            android:textColor="@color/key_board_text_color"
+            android:textColor="?android:textColorPrimary"
             android:textSize="26sp" />
 
         <Button
@@ -47,7 +47,7 @@
             style="?attr/buttonBarButtonStyle"
             android:layout_weight="1"
             android:text="5"
-            android:textColor="@color/key_board_text_color"
+            android:textColor="?android:textColorPrimary"
             android:textSize="26sp" />
 
         <Button
@@ -55,7 +55,7 @@
             style="?attr/buttonBarButtonStyle"
             android:layout_weight="1"
             android:text="6"
-            android:textColor="@color/key_board_text_color"
+            android:textColor="?android:textColorPrimary"
             android:textSize="26sp" />
     </TableRow>
 
@@ -66,7 +66,7 @@
             style="?attr/buttonBarButtonStyle"
             android:layout_weight="1"
             android:text="1"
-            android:textColor="@color/key_board_text_color"
+            android:textColor="?android:textColorPrimary"
             android:textSize="26sp" />
 
         <Button
@@ -74,7 +74,7 @@
             style="?attr/buttonBarButtonStyle"
             android:layout_weight="1"
             android:text="2"
-            android:textColor="@color/key_board_text_color"
+            android:textColor="?android:textColorPrimary"
             android:textSize="26sp" />
 
         <Button
@@ -82,7 +82,7 @@
             style="?attr/buttonBarButtonStyle"
             android:layout_weight="1"
             android:text="3"
-            android:textColor="@color/key_board_text_color"
+            android:textColor="?android:textColorPrimary"
             android:textSize="26sp" />
     </TableRow>
 
@@ -93,7 +93,7 @@
             style="?attr/buttonBarButtonStyle"
             android:layout_weight="1"
             android:text="0"
-            android:textColor="@color/key_board_text_color"
+            android:textColor="?android:textColorPrimary"
             android:textSize="26sp" />
 
         <android.support.v4.widget.Space android:layout_weight="1" />
@@ -105,7 +105,6 @@
             android:layout_weight="1"
             android:contentDescription="backspace"
             android:scaleType="fitCenter"
-            android:src="@mipmap/ic_backspace_black_24dp" />
+            android:src="@mipmap/ic_backspace_24dp" />
     </TableRow>
-
 </TableLayout>

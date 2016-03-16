@@ -82,7 +82,7 @@
             android:background="@null"
             android:contentDescription="@string/done"
             android:padding="8dp"
-            android:src="@mipmap/ic_done_black_36dp" />
+            android:src="@mipmap/ic_done_36dp" />
 
         <ImageButton
             android:id="@+id/high_scores_button"
@@ -94,6 +94,6 @@
             android:background="@null"
             android:contentDescription="@string/high_scores"
             android:padding="8dp"
-            android:src="@mipmap/ic_crown_black_36dp" />
+            android:src="@mipmap/ic_crown_36dp" />
     </RelativeLayout>
 </LinearLayout>

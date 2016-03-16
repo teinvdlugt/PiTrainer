@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- This Google Analytics tracking id is used for debugging -->
+    <string name="ga_trackingId">UA-71651722-2</string>
+    <bool name="ga_autoActivityTracking">true</bool>
+    <bool name="ga_reportUncaughtExceptions">true</bool>
+
+    <screenName name="com.teinproductions.tein.pitrainer.MainActivity">
+        MainActivity
+    </screenName>
+    <screenName name="com.teinproductions.tein.pitrainer.AddNumberActivity">
+        AddNumberActivity
+    </screenName>
+    <screenName name="com.teinproductions.tein.pitrainer.InfiniteSeriesActivity">
+        InfiniteSeriesActivity
+    </screenName>
+    <screenName name="com.teinproductions.tein.pitrainer.NumbersActivity">
+        NumbersActivity
+    </screenName>
+</resources>

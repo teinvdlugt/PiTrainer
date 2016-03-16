@@ -69,10 +69,19 @@
     <string name="learn_more">Meer informatie</string>
     <string name="n_textView_format">…+1/%d…</string>
     <string name="ok">OK</string>
+    <string name="theme">Thema</string>
+    <string name="theme_ellipsis">Thema…</string>
+    <string name="night_mode_not_available_message">Sorry, die functie is niet beschikbaar op deze Android versie.</string>
 
     <string-array name="sort_methods">
         <item>Cijfers per minuut</item>
         <item>Aantal cijfers</item>
         <item>Datum</item>
+    </string-array>
+
+    <string-array name="themes">
+        <item>Automatisch</item>
+        <item>Dag thema</item>
+        <item>Nacht thema</item>
     </string-array>
 </resources>

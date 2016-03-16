@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.support.annotation.IdRes;
 import android.support.design.widget.NavigationView;
@@ -26,6 +25,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.teinproductions.tein.pitrainer.records.RecordDialog;
 import com.teinproductions.tein.pitrainer.records.TimeFragment;
@@ -81,9 +81,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void applyNightMode() {
-        int mode = PreferenceManager.getDefaultSharedPreferences(this)
-                .getInt(THEME_MODE, 0);
-        AppCompatDelegate.setDefaultNightMode(mode);
+        if (Build.VERSION.SDK_INT >= 14) {
+            int mode = PreferenceManager.getDefaultSharedPreferences(this)
+                    .getInt(THEME_MODE, 0);
+            AppCompatDelegate.setDefaultNightMode(mode);
+        }
     }
 
     private void initDrawerToggle() {
@@ -177,6 +179,11 @@ public class MainActivity extends AppCompatActivity
 
                 return true;
             case R.id.menu_action_theme:
+                if (Build.VERSION.SDK_INT < 14) {
+                    Toast.makeText(this, R.string.night_mode_not_available_message, Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+
                 final SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
                 final int currentNightMode = pref.getInt(THEME_MODE, 0);
 
@@ -200,6 +207,7 @@ public class MainActivity extends AppCompatActivity
                             }
                         })
                         .create().show();
+                return true;
             default:
                 return false;
         }

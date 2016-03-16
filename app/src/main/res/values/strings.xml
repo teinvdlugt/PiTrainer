@@ -70,6 +70,7 @@
     <string name="infinite_series_disclaimer_message">Here, you can let your device calculate the digits of π, using the infinite series by Leibniz. For more info on the formula, click the info-icon in the toolbar. I will improve this feature soon and will also add more infinite series!</string>
     <string name="theme_ellipsis">Theme…</string>
     <string name="theme">Theme</string>
+    <string name="night_mode_not_available_message">Sorry, this feature is not available on your Android version.</string>
 
     <string-array name="sort_methods">
         <item>Digits per minute</item>

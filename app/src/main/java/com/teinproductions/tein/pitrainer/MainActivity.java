@@ -5,9 +5,12 @@ import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.support.annotation.IdRes;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -15,6 +18,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.Menu;
@@ -31,6 +35,7 @@ public class MainActivity extends AppCompatActivity
         implements ActivityInterface, NavigationView.OnNavigationItemSelectedListener,
         RecordDialog.OnAppliedListener {
 
+    public static final String THEME_MODE = "theme_mode";
     private static final String VIBRATE = "VIBRATE";
     public static final String ON_SCREEN_KEYBOARD = "ON_SCREEN_KEYBOARD";
     private static final String CURRENT_DIGITS_NAME = "CURRENT_DIGITS_NAME";
@@ -56,6 +61,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        applyNightMode();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ((GAApplication) getApplication()).startTracking();
@@ -72,6 +78,12 @@ public class MainActivity extends AppCompatActivity
         restoreValues();
         setTitle();
         swapFragment(GAMES[currentGame].getFragment());
+    }
+
+    private void applyNightMode() {
+        int mode = PreferenceManager.getDefaultSharedPreferences(this)
+                .getInt(THEME_MODE, 0);
+        AppCompatDelegate.setDefaultNightMode(mode);
     }
 
     private void initDrawerToggle() {
@@ -164,6 +176,30 @@ public class MainActivity extends AppCompatActivity
                         }).show();
 
                 return true;
+            case R.id.menu_action_theme:
+                final SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+                final int currentNightMode = pref.getInt(THEME_MODE, 0);
+
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.theme)
+                        .setSingleChoiceItems(R.array.themes, currentNightMode, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (which != currentNightMode) {
+                                    pref.edit().putInt(THEME_MODE, which).apply();
+                                    // UiModeManager.MODE_NIGHT_AUTO = 0, NO = 1, YES = 2
+                                    AppCompatDelegate.setDefaultNightMode(which);
+                                    if (Build.VERSION.SDK_INT >= 11) {
+                                        recreate();
+                                    } else {
+                                        startActivity(getIntent());
+                                        finish();
+                                    }
+                                }
+                                dialog.dismiss();
+                            }
+                        })
+                        .create().show();
             default:
                 return false;
         }

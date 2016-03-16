@@ -68,10 +68,18 @@
     <string name="ok">OK</string>
     <string name="infinite_series_disclaimer_title">Welcome!</string>
     <string name="infinite_series_disclaimer_message">Here, you can let your device calculate the digits of π, using the infinite series by Leibniz. For more info on the formula, click the info-icon in the toolbar. I will improve this feature soon and will also add more infinite series!</string>
+    <string name="theme_ellipsis">Theme…</string>
+    <string name="theme">Theme</string>
 
     <string-array name="sort_methods">
         <item>Digits per minute</item>
         <item>Number of digits</item>
         <item>Date</item>
+    </string-array>
+
+    <string-array name="themes">
+        <item>Auto</item>
+        <item>Day theme</item>
+        <item>Night theme</item>
     </string-array>
 </resources>

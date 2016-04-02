@@ -61,7 +61,7 @@
     <string name="there_is_already_a_number_with_that_name">There is already a number with that name</string>
     <string name="save_error_message">Something went wrong while saving</string>
     <string name="record_dialog_message_format" formatted="false">You typed %d digits in %.1f seconds.</string>
-    <string name="infinite_series">Leibniz infinite series</string>
+    <string name="gregory_leibniz_series">Gregory-Leibniz series</string>
     <string name="click_start">Click start</string>
     <string name="n_textView_format">…+1/%d…</string>
     <string name="learn_more">Learn more</string>
@@ -71,6 +71,10 @@
     <string name="theme_ellipsis">Theme…</string>
     <string name="theme">Theme</string>
     <string name="night_mode_not_available_message">Sorry, this feature is not available on your Android version.</string>
+    <string name="euler">Euler</string>
+    <string name="gregory_leibniz">Gregory-Leibniz</string>
+    <string name="infinite_series_euler_progress_format">...+1/(%s^2)</string>
+    <string name="infinite_series">Infinite series</string>
 
     <string-array name="sort_methods">
         <item>Digits per minute</item>

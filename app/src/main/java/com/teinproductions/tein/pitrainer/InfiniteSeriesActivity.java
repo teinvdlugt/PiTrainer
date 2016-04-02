@@ -23,6 +23,8 @@ public class InfiniteSeriesActivity extends AppCompatActivity {
     private FloatingActionButton fab;
     private TextView resultTV, nTextView;
     private PiTask piTask;
+    private long n = 1;
+    private double pi = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,12 +73,9 @@ public class InfiniteSeriesActivity extends AppCompatActivity {
         }
     }
 
-    private class PiTask extends AsyncTask<Void, Double, Void> {
+    private class PiTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
-            int n = 1;
-            double pi = 0;
-
             while (!isCancelled()) {
                 if ((n + 1) % 4 == 0) {
                     pi -= 4. / n;
@@ -86,7 +85,7 @@ public class InfiniteSeriesActivity extends AppCompatActivity {
 
                 // Update delay = 20000
                 if ((n + 1) % 20000 == 0) {
-                    publishProgress(pi, (double) n);
+                    publishProgress();
                 }
 
                 n += 2;
@@ -96,10 +95,10 @@ public class InfiniteSeriesActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onProgressUpdate(Double... values) {
+        protected void onProgressUpdate(Void... values) {
             if (!isCancelled()) {
-                resultTV.setText(Double.toString(values[0]));
-                nTextView.setText(getString(R.string.n_textView_format, values[1].intValue()));
+                resultTV.setText(Double.toString(pi));
+                nTextView.setText(getString(R.string.n_textView_format, n));
             }
         }
     }

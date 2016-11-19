@@ -18,6 +18,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.teinproductions.tein.pitrainer.keyboard.Keyboard;
+
 public class PractiseFragment extends Fragment implements FragmentInterface {
 
     private static final String ERRORS = "ERRORS";

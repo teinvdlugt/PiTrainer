@@ -21,7 +21,7 @@ import android.widget.TextView;
 import com.teinproductions.tein.pitrainer.ActivityInterface;
 import com.teinproductions.tein.pitrainer.Digits;
 import com.teinproductions.tein.pitrainer.FragmentInterface;
-import com.teinproductions.tein.pitrainer.Keyboard;
+import com.teinproductions.tein.pitrainer.keyboard.Keyboard;
 import com.teinproductions.tein.pitrainer.MainActivity;
 import com.teinproductions.tein.pitrainer.R;
 

@@ -22,4 +22,8 @@
         android:title="@string/number"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/action_customise_keyboard"
+        android:title="@string/customise_keyboard"
+        app:showAsAction="never" />
 </menu>

@@ -22,6 +22,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 
+import com.teinproductions.tein.pitrainer.keyboard.CustomiseKeyboardActivity;
 import com.teinproductions.tein.pitrainer.records.RecordDialog;
 import com.teinproductions.tein.pitrainer.records.TimeFragment;
 
@@ -160,6 +161,9 @@ public class MainActivity extends AppCompatActivity
                             }
                         }).show();
 
+                return true;
+            case R.id.action_customise_keyboard:
+                startActivity(new Intent(this, CustomiseKeyboardActivity.class));
                 return true;
             default:
                 return false;

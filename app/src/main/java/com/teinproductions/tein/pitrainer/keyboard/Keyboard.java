@@ -1,4 +1,4 @@
-package com.teinproductions.tein.pitrainer;
+package com.teinproductions.tein.pitrainer.keyboard;
 
 
 import android.content.Context;
@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
+
+import com.teinproductions.tein.pitrainer.R;
 
 public class Keyboard extends TableLayout {
 

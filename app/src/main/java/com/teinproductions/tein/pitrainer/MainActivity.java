@@ -22,6 +22,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 
+import com.teinproductions.tein.pitrainer.keyboard.ChooseKeyboardActivity;
 import com.teinproductions.tein.pitrainer.records.RecordDialog;
 import com.teinproductions.tein.pitrainer.records.TimeFragment;
 
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity
     private static final String CURRENT_DIGITS_NAME = "CURRENT_DIGITS_NAME";
     private static final String CURRENT_GAME = "CURRENT_GAME";
     private static final int NUMBERS_ACTIVITY_REQUEST_CODE = 1;
+    private static final int CHOOSE_KEYBOARD_ACTIVITY_REQUEST_CODE = 2;
 
     private boolean onScreenKeyboard;
     private FragmentInterface fragmentInterface;
@@ -161,6 +163,9 @@ public class MainActivity extends AppCompatActivity
                         }).show();
 
                 return true;
+            case R.id.choose_keyboard_layout:
+                startActivityForResult(new Intent(this, ChooseKeyboardActivity.class),
+                        CHOOSE_KEYBOARD_ACTIVITY_REQUEST_CODE);
             default:
                 return false;
         }
@@ -172,6 +177,8 @@ public class MainActivity extends AppCompatActivity
             getPreferences(0).edit().putString(CURRENT_DIGITS_NAME, Digits.currentDigit.getName()).apply();
             fragmentInterface.notifyDigitsChanged();
             setTitle();
+        } else if (requestCode == CHOOSE_KEYBOARD_ACTIVITY_REQUEST_CODE) {
+            fragmentInterface.refreshKeyboard();
         }
     }
 
@@ -189,7 +196,7 @@ public class MainActivity extends AppCompatActivity
                         et.onTouchEvent(motionEvent); // call native handler
                         et.setInputType(inputType); // restore input type
                         et.setFocusable(true);
-                        return true; // consume touch even
+                        return true; // consume touch event
                     }
                 });
             }

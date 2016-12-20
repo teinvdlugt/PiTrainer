@@ -18,6 +18,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.teinproductions.tein.pitrainer.keyboard.Keyboard;
+
 public class PractiseFragment extends Fragment implements FragmentInterface {
 
     private static final String ERRORS = "ERRORS";
@@ -75,6 +77,11 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
     public void showOnScreenKeyboard(boolean show) {
         listener.preventSoftKeyboardFromShowingUp(inputET, show);
         keyboard.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void refreshKeyboard() {
+        keyboard.refreshKeyboardLayout();
     }
 
     private void setRestartImageResource() {

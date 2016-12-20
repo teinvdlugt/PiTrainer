@@ -28,6 +28,8 @@
             android:name=".NumbersActivity"
             android:label="@string/title_activity_numbers"
             android:theme="@style/AppTheme.BlackText" />
+        <activity
+            android:name=".keyboard.ChooseKeyboardActivity"
+            android:label="@string/choose_keyboard_layout" />
     </application>
-
 </manifest>

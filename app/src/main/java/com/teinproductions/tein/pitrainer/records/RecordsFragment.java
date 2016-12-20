@@ -105,4 +105,7 @@ public class RecordsFragment extends Fragment implements FragmentInterface {
 
     @Override
     public void showOnScreenKeyboard(boolean show) {/* ignored */}
+
+    @Override
+    public void refreshKeyboard() {/* ignored */}
 }

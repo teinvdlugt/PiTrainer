@@ -81,7 +81,7 @@
         android:padding="8dp"
         android:src="@mipmap/ic_crown_black_36dp" />
 
-    <com.teinproductions.tein.pitrainer.Keyboard
+    <com.teinproductions.tein.pitrainer.keyboard.Keyboard
         android:id="@+id/keyboard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

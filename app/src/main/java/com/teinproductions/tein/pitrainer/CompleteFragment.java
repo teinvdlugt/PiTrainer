@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.teinproductions.tein.pitrainer.keyboard.Keyboard;
+
 public class CompleteFragment extends Fragment
         implements FragmentInterface, CompleteFragmentSettingsDialog.Listener {
 
@@ -182,6 +184,11 @@ public class CompleteFragment extends Fragment
     public void showOnScreenKeyboard(boolean show) {
         keyboard.setVisibility(show ? View.VISIBLE : View.GONE);
         listener.preventSoftKeyboardFromShowingUp(editText, show);
+    }
+
+    @Override
+    public void refreshKeyboard() {
+        keyboard.refreshKeyboardLayout();
     }
 
     @Override

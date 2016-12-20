@@ -81,4 +81,9 @@ public class ReferenceFragment extends Fragment
     public void showOnScreenKeyboard(boolean show) {
         // N/A
     }
+
+    @Override
+    public void refreshKeyboard() {
+        // N/A
+    }
 }

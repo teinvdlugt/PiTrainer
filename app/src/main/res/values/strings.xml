@@ -67,15 +67,9 @@
     <string name="n_textView_format">…+1/%d…</string>
     <string name="learn_more">Learn more</string>
     <string name="ok">OK</string>
-    <string name="infinite_series_disclaimer_title">Welcome!</string>
-    <string name="infinite_series_disclaimer_message">Here, you can let your device calculate the digits of π, using the infinite series by Leibniz. For more info on the formula, click the info-icon in the toolbar. I will improve this feature soon and will also add more infinite series!</string>
     <string name="theme_ellipsis">Theme…</string>
     <string name="theme">Theme</string>
     <string name="night_mode_not_available_message">Sorry, this feature is not available on your Android version.</string>
-    <string name="euler">Euler</string>
-    <string name="gregory_leibniz">Gregory-Leibniz</string>
-    <string name="infinite_series_euler_progress_format">...+1/(%s^2)</string>
-    <string name="infinite_series">Infinite series</string>
 
     <string-array name="sort_methods">
         <item>Digits per minute</item>

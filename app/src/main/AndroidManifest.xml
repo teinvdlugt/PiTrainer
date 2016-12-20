@@ -37,9 +37,5 @@
         <activity
             android:name=".keyboard.ChooseKeyboardActivity"
             android:label="@string/choose_keyboard_layout" />
-
-        <activity
-            android:name=".InfiniteSeriesActivity"
-            android:label="@string/infinite_series" />
     </application>
 </manifest>

@@ -2,7 +2,6 @@ package com.teinproductions.tein.pitrainer.records;
 
 
 import android.content.Context;
-import android.util.Log;
 
 import com.teinproductions.tein.pitrainer.Digits;
 

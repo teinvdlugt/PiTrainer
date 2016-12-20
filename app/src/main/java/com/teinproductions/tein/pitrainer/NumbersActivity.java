@@ -183,18 +183,18 @@ public class NumbersActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(NumberViewHolder holder, final int position) {
+        public void onBindViewHolder(final NumberViewHolder holder, int position) {
             holder.nameTV.setText(data[position].getName());
             holder.root.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onClickListener.onClickEdit(position);
+                    onClickListener.onClickEdit(holder.getAdapterPosition());
                 }
             });
             holder.deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onClickListener.onClickDelete(position);
+                    onClickListener.onClickDelete(holder.getAdapterPosition());
                 }
             });
         }

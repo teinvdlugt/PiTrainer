@@ -54,7 +54,7 @@ public class TimeFragment extends Fragment implements FragmentInterface {
         keyboard = (Keyboard) theView.findViewById(R.id.keyboard);
         restartButton = (ImageButton) theView.findViewById(R.id.restart_button);
         doneButton = (ImageButton) theView.findViewById(R.id.done_button);
-        highScoresButton = (ImageButton) theView.findViewById(R.id.highscores_button);
+        highScoresButton = (ImageButton) theView.findViewById(R.id.high_scores_button);
         root = (ViewGroup) theView.findViewById(R.id.root);
 
         keyboard.setEditText(inputET);

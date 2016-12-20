@@ -5,15 +5,19 @@ import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.preference.PreferenceManager;
+import android.support.annotation.IdRes;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.Menu;
@@ -21,6 +25,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.teinproductions.tein.pitrainer.keyboard.ChooseKeyboardActivity;
 import com.teinproductions.tein.pitrainer.records.RecordDialog;
@@ -31,6 +36,7 @@ public class MainActivity extends AppCompatActivity
         implements ActivityInterface, NavigationView.OnNavigationItemSelectedListener,
         RecordDialog.OnAppliedListener {
 
+    public static final String THEME_MODE = "theme_mode";
     private static final String VIBRATE = "VIBRATE";
     public static final String ON_SCREEN_KEYBOARD = "ON_SCREEN_KEYBOARD";
     private static final String CURRENT_DIGITS_NAME = "CURRENT_DIGITS_NAME";
@@ -50,27 +56,38 @@ public class MainActivity extends AppCompatActivity
 
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
+    private NavigationView navigationView;
 
     private boolean vibrate;
     private boolean toolbarCurrentlyRed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        applyNightMode();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ((GAApplication) getApplication()).startTracking();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        NavigationView navView = (NavigationView) findViewById(R.id.navigationView);
-        navView.setNavigationItemSelectedListener(this);
+        navigationView = (NavigationView) findViewById(R.id.navigationView);
+        navigationView.setNavigationItemSelectedListener(this);
         initDrawerToggle();
 
         Digits.initDigits(this);
         restoreValues();
         setTitle();
         swapFragment(GAMES[currentGame].getFragment());
+    }
+
+    private void applyNightMode() {
+        if (Build.VERSION.SDK_INT >= 14) {
+            int mode = PreferenceManager.getDefaultSharedPreferences(this)
+                    .getInt(THEME_MODE, 0);
+            AppCompatDelegate.setDefaultNightMode(mode);
+        }
     }
 
     private void initDrawerToggle() {
@@ -161,11 +178,43 @@ public class MainActivity extends AppCompatActivity
                                 dialog.dismiss();
                             }
                         }).show();
-
                 return true;
+
             case R.id.choose_keyboard_layout:
                 startActivityForResult(new Intent(this, ChooseKeyboardActivity.class),
                         CHOOSE_KEYBOARD_ACTIVITY_REQUEST_CODE);
+                return true;
+
+            case R.id.menu_action_theme:
+                if (Build.VERSION.SDK_INT < 14) {
+                    Toast.makeText(this, R.string.night_mode_not_available_message, Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+
+                final SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+                final int currentNightMode = pref.getInt(THEME_MODE, 0);
+
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.theme)
+                        .setSingleChoiceItems(R.array.themes, currentNightMode, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (which != currentNightMode) {
+                                    pref.edit().putInt(THEME_MODE, which).apply();
+                                    // UiModeManager.MODE_NIGHT_AUTO = 0, NO = 1, YES = 2
+                                    AppCompatDelegate.setDefaultNightMode(which);
+                                    if (Build.VERSION.SDK_INT >= 11) {
+                                        recreate();
+                                    } else {
+                                        startActivity(getIntent());
+                                        finish();
+                                    }
+                                }
+                                dialog.dismiss();
+                            }
+                        })
+                        .create().show();
+                return true;
             default:
                 return false;
         }
@@ -283,6 +332,25 @@ public class MainActivity extends AppCompatActivity
                 getPreferences(0).getString(CURRENT_DIGITS_NAME, Digits.digits[0].getName()));
         onScreenKeyboard = getPreferences(0).getBoolean(ON_SCREEN_KEYBOARD, false);
         currentGame = getPreferences(0).getInt(CURRENT_GAME, 0);
+        // For the NavigationView
+        @IdRes int checkedItem;
+        switch (currentGame) {
+            case 0:
+                checkedItem = R.id.practise_navigation_item;
+                break;
+            case 1:
+                checkedItem = R.id.reference_navigation_item;
+                break;
+            case 2:
+                checkedItem = R.id.complete_the_statement_navigation_item;
+                break;
+            case 3:
+                checkedItem = R.id.timed_mode_navigation_item;
+                break;
+            default:
+                checkedItem = R.id.practise_navigation_item;
+        }
+        navigationView.setCheckedItem(checkedItem);
     }
 
     @Override
@@ -299,6 +367,12 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.timed_mode_navigation_item:
                 currentGame = 3;
+                break;
+            case R.id.infinite_series_navigation_item:
+                Intent intent = new Intent(this, InfiniteSeriesActivity.class);
+                startActivity(intent);
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return true;
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);

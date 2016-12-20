@@ -7,6 +7,8 @@
     android:background="@drawable/recycler_view_item_background"
     android:orientation="horizontal">
 
+    <!-- TODO Material design! -->
+
     <TextView
         android:id="@+id/name_textView"
         android:layout_width="0dp"
@@ -14,6 +16,7 @@
         android:layout_weight="1"
         android:gravity="center_vertical"
         android:paddingLeft="16dp"
+        android:textColor="?android:textColorPrimary"
         android:textSize="20sp"
         tools:text="Name" />
 
@@ -26,6 +29,5 @@
         android:paddingEnd="16dp"
         android:paddingRight="16dp"
         android:paddingTop="8dp"
-        android:src="@mipmap/ic_delete_black_36dp" />
-
+        android:src="@mipmap/ic_delete_36dp" />
 </LinearLayout>

@@ -52,7 +52,7 @@
     <string name="try_again">Try again</string>
     <string name="record_holder_name">Name</string>
     <string name="do_not_save_record">Don\'t save</string>
-    <string name="highscores">High scores</string>
+    <string name="high_scores">High scores</string>
     <string name="done">Done</string>
     <string name="please_type_more_digits_snackbar">Please type more digits</string>
     <string name="please_provide_a_name">Please provide a name</string>
@@ -62,10 +62,30 @@
     <string name="save_error_message">Something went wrong while saving</string>
     <string name="record_dialog_message_format" formatted="false">You typed %d digits in %.1f seconds.</string>
     <string name="choose_keyboard_layout">Choose keyboard layout</string>
+    <string name="gregory_leibniz_series">Gregory-Leibniz series</string>
+    <string name="click_start">Click start</string>
+    <string name="n_textView_format">…+1/%d…</string>
+    <string name="learn_more">Learn more</string>
+    <string name="ok">OK</string>
+    <string name="infinite_series_disclaimer_title">Welcome!</string>
+    <string name="infinite_series_disclaimer_message">Here, you can let your device calculate the digits of π, using the infinite series by Leibniz. For more info on the formula, click the info-icon in the toolbar. I will improve this feature soon and will also add more infinite series!</string>
+    <string name="theme_ellipsis">Theme…</string>
+    <string name="theme">Theme</string>
+    <string name="night_mode_not_available_message">Sorry, this feature is not available on your Android version.</string>
+    <string name="euler">Euler</string>
+    <string name="gregory_leibniz">Gregory-Leibniz</string>
+    <string name="infinite_series_euler_progress_format">...+1/(%s^2)</string>
+    <string name="infinite_series">Infinite series</string>
 
     <string-array name="sort_methods">
         <item>Digits per minute</item>
         <item>Number of digits</item>
         <item>Date</item>
+    </string-array>
+
+    <string-array name="themes">
+        <item>Auto</item>
+        <item>Day theme</item>
+        <item>Night theme</item>
     </string-array>
 </resources>

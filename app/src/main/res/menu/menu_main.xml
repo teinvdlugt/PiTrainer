@@ -26,4 +26,9 @@
         android:id="@+id/choose_keyboard_layout"
         android:title="@string/choose_keyboard_layout"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_action_theme"
+        android:title="@string/theme_ellipsis"
+        app:showAsAction="never" />
 </menu>

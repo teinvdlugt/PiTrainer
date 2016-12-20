@@ -14,4 +14,7 @@
             android:id="@+id/timed_mode_navigation_item"
             android:title="@string/timed_mode_game" />
     </group>
+    <item
+        android:id="@+id/infinite_series_navigation_item"
+        android:title="@string/infinite_series" />
 </menu>

@@ -16,21 +16,21 @@
                 android:id="@+id/button1"
                 style="?attr/buttonBarButtonStyle"
                 android:layout_weight="1"
-                android:textColor="@color/key_board_text_color"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="26sp" />
 
             <Button
                 android:id="@+id/button2"
                 style="?attr/buttonBarButtonStyle"
                 android:layout_weight="1"
-                android:textColor="@color/key_board_text_color"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="26sp" />
 
             <Button
                 android:id="@+id/button3"
                 style="?attr/buttonBarButtonStyle"
                 android:layout_weight="1"
-                android:textColor="@color/key_board_text_color"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="26sp" />
         </TableRow>
 
@@ -40,21 +40,21 @@
                 android:id="@+id/button4"
                 style="?attr/buttonBarButtonStyle"
                 android:layout_weight="1"
-                android:textColor="@color/key_board_text_color"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="26sp" />
 
             <Button
                 android:id="@+id/button5"
                 style="?attr/buttonBarButtonStyle"
                 android:layout_weight="1"
-                android:textColor="@color/key_board_text_color"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="26sp" />
 
             <Button
                 android:id="@+id/button6"
                 style="?attr/buttonBarButtonStyle"
                 android:layout_weight="1"
-                android:textColor="@color/key_board_text_color"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="26sp" />
         </TableRow>
 
@@ -64,21 +64,21 @@
                 android:id="@+id/button7"
                 style="?attr/buttonBarButtonStyle"
                 android:layout_weight="1"
-                android:textColor="@color/key_board_text_color"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="26sp" />
 
             <Button
                 android:id="@+id/button8"
                 style="?attr/buttonBarButtonStyle"
                 android:layout_weight="1"
-                android:textColor="@color/key_board_text_color"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="26sp" />
 
             <Button
                 android:id="@+id/button9"
                 style="?attr/buttonBarButtonStyle"
                 android:layout_weight="1"
-                android:textColor="@color/key_board_text_color"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="26sp" />
         </TableRow>
 
@@ -89,7 +89,7 @@
                 style="?attr/buttonBarButtonStyle"
                 android:layout_weight="1"
                 android:text="0"
-                android:textColor="@color/key_board_text_color"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="26sp" />
 
             <android.support.v4.widget.Space
@@ -103,7 +103,7 @@
                 android:layout_weight="1"
                 android:contentDescription="backspace"
                 android:scaleType="fitCenter"
-                android:src="@mipmap/ic_backspace_black_24dp" />
+                android:src="@mipmap/ic_backspace_24dp" />
         </TableRow>
     </TableLayout>
 </FrameLayout>

@@ -62,6 +62,7 @@
     <string name="save_error_message">Something went wrong while saving</string>
     <string name="record_dialog_message_format" formatted="false">You typed %d digits in %.1f seconds.</string>
     <string name="customise_keyboard">Customize keyboard</string>
+    <string name="customize_keyboard_text">Customize the keys to your liking</string>
 
     <string-array name="sort_methods">
         <item>Digits per minute</item>

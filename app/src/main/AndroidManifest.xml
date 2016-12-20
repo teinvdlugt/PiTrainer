@@ -30,6 +30,7 @@
             android:theme="@style/AppTheme.BlackText" />
         <activity
             android:name=".keyboard.CustomiseKeyboardActivity"
-            android:label="@string/customise_keyboard" />
+            android:label="@string/customise_keyboard"
+            android:theme="@style/AppTheme.BlackText"/>
     </application>
 </manifest>

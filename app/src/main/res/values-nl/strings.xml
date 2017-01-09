@@ -64,8 +64,6 @@
     <string name="there_is_already_a_number_with_that_name">Er is al een getal met die naam.</string>
     <string name="click_start">Druk op start</string>
     <string name="gregory_leibniz_series">Leibniz oneindige reeks</string>
-    <string name="infinite_series_disclaimer_message">Hier kan je je apparaat π uit laten rekenen, met de oneindige reeks van Leibniz. Klik voor meer informatie over de formule op het info-icoontje in de toolbar. Ik zal deze feature gauw verbeteren en ik zal ook meer oneindige reeksen toevoegen.</string>
-    <string name="infinite_series_disclaimer_title">Welkom!</string>
     <string name="learn_more">Meer informatie</string>
     <string name="n_textView_format">…+1/%d…</string>
     <string name="ok">OK</string>
@@ -84,4 +82,5 @@
         <item>Dag thema</item>
         <item>Nacht thema</item>
     </string-array>
+    <string name="choose_keyboard_layout">Kies toetsenbord</string>
 </resources>

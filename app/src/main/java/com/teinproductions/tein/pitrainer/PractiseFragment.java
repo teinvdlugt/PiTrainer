@@ -1,9 +1,11 @@
 package com.teinproductions.tein.pitrainer;
 
 import android.graphics.drawable.AnimatedVectorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
@@ -100,9 +102,12 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
     }
 
     private void onClickRestart() {
-        if (Build.VERSION.SDK_INT >= 21) {
-            ((AnimatedVectorDrawable) restartButton.getDrawable()).start();
-        }
+        Drawable drawable = restartButton.getDrawable();
+        if (drawable instanceof AnimatedVectorDrawable)
+            ((AnimatedVectorDrawable) drawable).start();
+        else if (drawable instanceof AnimatedVectorDrawableCompat)
+            ((AnimatedVectorDrawableCompat) drawable).start();
+
         inputET.setText("");
         errors = 0;
         fillTextViews();

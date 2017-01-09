@@ -3,11 +3,13 @@ package com.teinproductions.tein.pitrainer.records;
 
 import android.graphics.Color;
 import android.graphics.drawable.AnimatedVectorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -21,9 +23,9 @@ import android.widget.TextView;
 import com.teinproductions.tein.pitrainer.ActivityInterface;
 import com.teinproductions.tein.pitrainer.Digits;
 import com.teinproductions.tein.pitrainer.FragmentInterface;
-import com.teinproductions.tein.pitrainer.keyboard.Keyboard;
 import com.teinproductions.tein.pitrainer.MainActivity;
 import com.teinproductions.tein.pitrainer.R;
+import com.teinproductions.tein.pitrainer.keyboard.Keyboard;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -144,9 +146,12 @@ public class TimeFragment extends Fragment implements FragmentInterface {
     }
 
     private void onClickRestart() {
-        if (Build.VERSION.SDK_INT >= 21) {
-            ((AnimatedVectorDrawable) restartButton.getDrawable()).start();
-        }
+        Drawable drawable = restartButton.getDrawable();
+        if (drawable instanceof AnimatedVectorDrawable)
+            ((AnimatedVectorDrawable) drawable).start();
+        else if (drawable instanceof AnimatedVectorDrawableCompat)
+            ((AnimatedVectorDrawableCompat) drawable).start();
+
         inputET.setText("");
         updateDigitsText();
 

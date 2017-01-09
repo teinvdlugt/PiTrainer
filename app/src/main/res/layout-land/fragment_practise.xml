@@ -16,81 +16,85 @@
         android:visibility="gone"
         tools:visibility="visible" />
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingStart="@dimen/activity_horizontal_margin">
+        android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/integerPart_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="42sp"
-            tools:text="3." />
-
-        <ImageButton
-            android:id="@+id/refresh_button"
-            android:layout_width="42sp"
-            android:layout_height="42sp"
-            android:layout_alignBottom="@id/integerPart_textView"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:background="@null"
-            android:contentDescription="@string/restart"
-            android:scaleType="fitCenter"
-            tools:src="@mipmap/ic_refresh_black_36dp" />
-
-        <EditText
-            android:id="@+id/input_editText"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/integerPart_textView"
-            android:hint="@string/lets_see_what_you_can_do"
-            android:maxLines="8"
-            android:numeric="integer"
-            android:textSize="24sp" />
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingStart="@dimen/activity_horizontal_margin">
 
-        <TableLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/input_editText"
-            android:layout_marginTop="8dp">
+            <TextView
+                android:id="@+id/integerPart_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="42sp"
+                tools:text="3." />
 
-            <TableRow>
+            <ImageButton
+                android:id="@+id/refresh_button"
+                android:layout_width="42sp"
+                android:layout_height="42sp"
+                android:layout_alignBottom="@id/integerPart_textView"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:background="@null"
+                android:contentDescription="@string/restart"
+                android:scaleType="fitCenter"
+                tools:src="@mipmap/ic_refresh_black_36dp" />
 
-                <TextView
-                    android:text="@string/digits_colon"
-                    android:textSize="22sp" />
+            <EditText
+                android:id="@+id/input_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/integerPart_textView"
+                android:hint="@string/lets_see_what_you_can_do"
+                android:maxLines="8"
+                android:numeric="integer"
+                android:textSize="24sp" />
 
-                <TextView
-                    android:id="@+id/digits_textView"
-                    android:textSize="22sp" />
-            </TableRow>
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/input_editText"
+                android:layout_marginTop="8dp">
 
-            <TableRow android:layout_marginTop="4dp">
+                <TableRow>
 
-                <TextView
-                    android:text="@string/errors_colon"
-                    android:textSize="22sp" />
+                    <TextView
+                        android:text="@string/digits_colon"
+                        android:textSize="22sp" />
 
-                <TextView
-                    android:id="@+id/errors_textView"
-                    android:textSize="22sp" />
-            </TableRow>
+                    <TextView
+                        android:id="@+id/digits_textView"
+                        android:textSize="22sp" />
+                </TableRow>
 
-            <TableRow android:layout_marginTop="4dp">
+                <TableRow android:layout_marginTop="4dp">
 
-                <TextView
-                    android:text="@string/percentage_colon"
-                    android:textSize="22sp" />
+                    <TextView
+                        android:text="@string/errors_colon"
+                        android:textSize="22sp" />
 
-                <TextView
-                    android:id="@+id/percentage_textView"
-                    android:textSize="22sp" />
-            </TableRow>
-        </TableLayout>
-    </RelativeLayout>
+                    <TextView
+                        android:id="@+id/errors_textView"
+                        android:textSize="22sp" />
+                </TableRow>
 
+                <TableRow android:layout_marginTop="4dp">
+
+                    <TextView
+                        android:text="@string/percentage_colon"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:id="@+id/percentage_textView"
+                        android:textSize="22sp" />
+                </TableRow>
+            </TableLayout>
+        </RelativeLayout>
+    </ScrollView>
 </LinearLayout>

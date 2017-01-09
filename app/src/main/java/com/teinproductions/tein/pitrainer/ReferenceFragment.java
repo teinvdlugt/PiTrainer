@@ -86,4 +86,9 @@ public class ReferenceFragment extends Fragment
     public void refreshKeyboard() {
         // N/A
     }
+
+    @Override
+    public Class getPreviousFragment() {
+        return null;
+    }
 }

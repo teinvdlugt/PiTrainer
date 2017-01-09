@@ -232,6 +232,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public void onBackPressed() {
+        if (fragmentInterface.getPreviousFragment() != null) {
+            swapFragment(fragmentInterface.getPreviousFragment());
+        } else super.onBackPressed();
+    }
+
+    @Override
     public void preventSoftKeyboardFromShowingUp(final EditText et, boolean prevent) {
         if (prevent) {
             if (Build.VERSION.SDK_INT >= 21) {

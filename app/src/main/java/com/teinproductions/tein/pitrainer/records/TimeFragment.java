@@ -179,6 +179,11 @@ public class TimeFragment extends Fragment implements FragmentInterface {
         keyboard.refreshKeyboardLayout();
     }
 
+    @Override
+    public Class getPreviousFragment() {
+        return null;
+    }
+
 
     class TimerTask extends AsyncTask<Void, Integer, Void> {
 

@@ -192,6 +192,11 @@ public class CompleteFragment extends Fragment
     }
 
     @Override
+    public Class getPreviousFragment() {
+        return null;
+    }
+
+    @Override
     public void reload() {
         if (!restoreValues()) {
             // Default settings:

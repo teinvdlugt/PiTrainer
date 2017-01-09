@@ -108,4 +108,9 @@ public class RecordsFragment extends Fragment implements FragmentInterface {
 
     @Override
     public void refreshKeyboard() {/* ignored */}
+
+    @Override
+    public Class getPreviousFragment() {
+        return TimeFragment.class;
+    }
 }

@@ -83,19 +83,17 @@ public class RecordsAdapter extends RecyclerView.Adapter<RecordsAdapter.ViewHold
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView rankTextView, titleTextView, dateTextView, descriptionTextView;
+        TextView titleTextView, dateTextView, descriptionTextView;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            rankTextView = (TextView) itemView.findViewById(R.id.rank_textView);
             titleTextView = (TextView) itemView.findViewById(R.id.title_textView);
             descriptionTextView = (TextView) itemView.findViewById(R.id.numbers_textView);
             dateTextView = (TextView) itemView.findViewById(R.id.date_textView);
         }
 
         public void displayRecordData(Context context, Record record, int rank) {
-            rankTextView.setText("" + rank);
-            titleTextView.setText(record.getRecordHolder());
+            titleTextView.setText(String.format("%d. %s", rank, record.getRecordHolder()));
             dateTextView.setText(record.getDateString());
 
             double digitsPerMinute = (double) record.getDigits() / record.getMilliseconds() * 60000;

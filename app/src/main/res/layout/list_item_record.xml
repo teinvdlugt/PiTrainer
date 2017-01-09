@@ -14,19 +14,10 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <com.teinproductions.tein.pitrainer.records.FontFitTextView
-            android:id="@+id/rank_textView"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:gravity="center"
-            tools:text="100" />
-
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingLeft="16dp"
-            android:paddingStart="16dp">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/title_textView"
@@ -35,7 +26,7 @@
                 android:layout_alignParentTop="true"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="18sp"
-                tools:text="Tein" />
+                tools:text="1. Tein" />
 
             <TextView
                 android:id="@+id/date_textView"
@@ -51,7 +42,7 @@
                 android:id="@+id/numbers_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:layout_below="@id/title_textView"
                 android:textSize="14sp"
                 tools:text="@string/record_card_description" />
 

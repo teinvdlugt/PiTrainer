@@ -86,6 +86,11 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
         keyboard.refreshKeyboardLayout();
     }
 
+    @Override
+    public Class getPreviousFragment() {
+        return null;
+    }
+
     private void setRestartImageResource() {
         if (Build.VERSION.SDK_INT >= 21) {
             restartButton.setImageResource(R.drawable.anim_ic_restart);

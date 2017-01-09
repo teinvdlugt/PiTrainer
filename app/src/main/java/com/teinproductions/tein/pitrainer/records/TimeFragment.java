@@ -146,11 +146,13 @@ public class TimeFragment extends Fragment implements FragmentInterface {
     }
 
     private void onClickRestart() {
-        Drawable drawable = restartButton.getDrawable();
-        if (drawable instanceof AnimatedVectorDrawable)
-            ((AnimatedVectorDrawable) drawable).start();
-        else if (drawable instanceof AnimatedVectorDrawableCompat)
-            ((AnimatedVectorDrawableCompat) drawable).start();
+        if (Build.VERSION.SDK_INT >= 21) {
+            Drawable drawable = restartButton.getDrawable();
+            if (drawable instanceof AnimatedVectorDrawable)
+                ((AnimatedVectorDrawable) drawable).start();
+            else if (drawable instanceof AnimatedVectorDrawableCompat)
+                ((AnimatedVectorDrawableCompat) drawable).start();
+        }
 
         inputET.setText("");
         updateDigitsText();

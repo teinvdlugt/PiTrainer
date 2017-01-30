@@ -28,6 +28,11 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/keyboard_size"
+        android:title="@string/keyboard_size_ellipsis"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/menu_action_theme"
         android:title="@string/theme_ellipsis"
         app:showAsAction="never" />

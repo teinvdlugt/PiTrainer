@@ -1,109 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/keyboard_root"
-    android:layout_width="match_parent"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/keyboard_tableLayout"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <TableLayout
-        android:id="@+id/keyboard_tableLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+    <TableRow>
 
-        <TableRow>
+        <Button
+            android:id="@+id/button1"
+            style="?attr/buttonBarButtonStyle"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="26sp" />
 
-            <Button
-                android:id="@+id/button1"
-                style="?attr/buttonBarButtonStyle"
-                android:layout_weight="1"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="26sp" />
+        <Button
+            android:id="@+id/button2"
+            style="?attr/buttonBarButtonStyle"
+            android:layout_weight="1"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="26sp" />
 
-            <Button
-                android:id="@+id/button2"
-                style="?attr/buttonBarButtonStyle"
-                android:layout_weight="1"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="26sp" />
+        <Button
+            android:id="@+id/button3"
+            style="?attr/buttonBarButtonStyle"
+            android:layout_weight="1"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="26sp" />
+    </TableRow>
 
-            <Button
-                android:id="@+id/button3"
-                style="?attr/buttonBarButtonStyle"
-                android:layout_weight="1"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="26sp" />
-        </TableRow>
+    <TableRow>
 
-        <TableRow>
+        <Button
+            android:id="@+id/button4"
+            style="?attr/buttonBarButtonStyle"
+            android:layout_weight="1"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="26sp" />
 
-            <Button
-                android:id="@+id/button4"
-                style="?attr/buttonBarButtonStyle"
-                android:layout_weight="1"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="26sp" />
+        <Button
+            android:id="@+id/button5"
+            style="?attr/buttonBarButtonStyle"
+            android:layout_weight="1"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="26sp" />
 
-            <Button
-                android:id="@+id/button5"
-                style="?attr/buttonBarButtonStyle"
-                android:layout_weight="1"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="26sp" />
+        <Button
+            android:id="@+id/button6"
+            style="?attr/buttonBarButtonStyle"
+            android:layout_weight="1"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="26sp" />
+    </TableRow>
 
-            <Button
-                android:id="@+id/button6"
-                style="?attr/buttonBarButtonStyle"
-                android:layout_weight="1"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="26sp" />
-        </TableRow>
+    <TableRow>
 
-        <TableRow>
+        <Button
+            android:id="@+id/button7"
+            style="?attr/buttonBarButtonStyle"
+            android:layout_weight="1"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="26sp" />
 
-            <Button
-                android:id="@+id/button7"
-                style="?attr/buttonBarButtonStyle"
-                android:layout_weight="1"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="26sp" />
+        <Button
+            android:id="@+id/button8"
+            style="?attr/buttonBarButtonStyle"
+            android:layout_weight="1"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="26sp" />
 
-            <Button
-                android:id="@+id/button8"
-                style="?attr/buttonBarButtonStyle"
-                android:layout_weight="1"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="26sp" />
+        <Button
+            android:id="@+id/button9"
+            style="?attr/buttonBarButtonStyle"
+            android:layout_weight="1"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="26sp" />
+    </TableRow>
 
-            <Button
-                android:id="@+id/button9"
-                style="?attr/buttonBarButtonStyle"
-                android:layout_weight="1"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="26sp" />
-        </TableRow>
+    <TableRow android:id="@+id/last_keyboard_row">
+        <!-- Buttons in this row will be reordered programmatically -->
+        <Button
+            android:id="@+id/button0"
+            style="?attr/buttonBarButtonStyle"
+            android:layout_weight="1"
+            android:text="0"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="26sp" />
 
-        <TableRow android:id="@+id/last_keyboard_row">
-            <!-- Buttons in this row will be reordered programmatically -->
-            <Button
-                android:id="@+id/button0"
-                style="?attr/buttonBarButtonStyle"
-                android:layout_weight="1"
-                android:text="0"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="26sp" />
+        <android.support.v4.widget.Space
+            android:id="@+id/keyboard_space"
+            android:layout_weight="1" />
 
-            <android.support.v4.widget.Space
-                android:id="@+id/keyboard_space"
-                android:layout_weight="1" />
-
-            <ImageButton
-                android:id="@+id/buttonBackspace"
-                style="?attr/buttonBarButtonStyle"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:contentDescription="backspace"
-                android:scaleType="fitCenter"
-                android:src="@mipmap/ic_backspace_24dp" />
-        </TableRow>
-    </TableLayout>
-</FrameLayout>
+        <ImageButton
+            android:id="@+id/buttonBackspace"
+            style="?attr/buttonBarButtonStyle"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="backspace"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/ic_backspace_24dp" />
+    </TableRow>
+</TableLayout>

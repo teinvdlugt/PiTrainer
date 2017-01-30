@@ -37,5 +37,8 @@
         <activity
             android:name=".keyboard.ChooseKeyboardActivity"
             android:label="@string/choose_keyboard_layout" />
+
+        <activity android:name=".keyboard.KeyboardSizeActivity"
+            android:label="@string/keyboard_size" />
     </application>
 </manifest>

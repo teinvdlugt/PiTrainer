@@ -70,6 +70,16 @@
     <string name="theme_ellipsis">Theme…</string>
     <string name="theme">Theme</string>
     <string name="night_mode_not_available_message">Sorry, this feature is not available on your Android version.</string>
+    <string name="keyboard_size">Keyboard size</string>
+    <string name="keyboard_size_ellipsis">Keyboard size…</string>
+    <string name="keyboard_width_format" formatted="false">Keyboard width: %s</string>
+    <string name="keyboard_height_format" formatted="false">Keyboard height: %s</string>
+    <string name="keyboard_size_wrap_content">lowest</string>
+    <string name="keyboard_size_save">Save</string>
+    <string name="keyboard_size_discard">Discard</string>
+    <string name="keyboard_size_save_or_discard">Save or discard?</string>
+    <string name="keyboard_size_smallest">Smallest</string>
+    <string name="keyboard_size_largest">Largest</string>
 
     <string-array name="sort_methods">
         <item>Digits per minute</item>

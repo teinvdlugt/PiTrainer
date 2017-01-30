@@ -84,6 +84,7 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
     @Override
     public void refreshKeyboard() {
         keyboard.refreshKeyboardLayout();
+        keyboard.refreshKeyboardSize();
     }
 
     @Override

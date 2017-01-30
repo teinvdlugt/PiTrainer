@@ -61,7 +61,8 @@
 
     <com.teinproductions.tein.pitrainer.keyboard.Keyboard
         android:id="@+id/keyboard"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:visibility="gone"

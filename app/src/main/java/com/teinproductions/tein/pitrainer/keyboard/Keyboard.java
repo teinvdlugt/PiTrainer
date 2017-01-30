@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.widget.Space;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -19,6 +20,7 @@ public class Keyboard extends TableLayout {
     private Space space;
     private TableRow lastRow;
     private OnTypeListener onTypeListener;
+    private int keyboardWidth, keyboardHeight; // Custom, defined by the user in KeyboardSizeActivity. In pixels, 0 means wrap_content
 
     public interface OnTypeListener {
         void onTypeDigit(int digit);
@@ -29,6 +31,12 @@ public class Keyboard extends TableLayout {
         inflate(getContext(), R.layout.layout_keyboard, this);
         initViews();
         refreshKeyboardLayout();
+        post(new Runnable() {
+            @Override
+            public void run() {
+                refreshKeyboardSize();
+            }
+        });
 
         // Set button clickListeners
         for (final Button key : new Button[]{button1, button2, button3, button4,
@@ -93,6 +101,31 @@ public class Keyboard extends TableLayout {
                     lastRow.addView(space);
             }
         }
+    }
+
+    public void refreshKeyboardSize() {
+        setKeyboardWidth(KeyboardSizeActivity.getKeyboardWidth(getContext()));
+        setKeyboardHeight(KeyboardSizeActivity.getKeyboardHeight(getContext()));
+    }
+
+    public void setKeyboardWidth(int keyboardWidth) {
+        this.keyboardWidth = keyboardWidth;
+        getLayoutParams().width = keyboardWidth;
+        requestLayout();
+    }
+
+    public void setKeyboardHeight(int keyboardHeight) {
+        this.keyboardHeight = keyboardHeight;
+        getLayoutParams().height = keyboardHeight;
+        requestLayout();
+    }
+
+    public int getKeyboardWidth() {
+        return keyboardWidth;
+    }
+
+    public int getKeyboardHeight() {
+        return keyboardHeight;
     }
 
     public void setEditText(final EditText editText) {

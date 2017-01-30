@@ -6,4 +6,7 @@
 
     <color name="red">#ffff0000</color>
     <color name="restart_arrow_color">#ff000000</color>
+
+    <color name="background_shade">#c3ffffff</color>
+    <color name="primary_text">#ff000000</color>
 </resources>

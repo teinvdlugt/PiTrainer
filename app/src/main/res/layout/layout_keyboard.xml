@@ -1,39 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/keyboard_tableLayout"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TableRow>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <Button
             android:id="@+id/button1"
             style="?attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
             android:textColor="?android:textColorPrimary"
-            android:textSize="26sp" />
+            android:textSize="26sp"
+            tools:text="1" />
 
         <Button
             android:id="@+id/button2"
             style="?attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:textColor="?android:textColorPrimary"
-            android:textSize="26sp" />
+            android:textSize="26sp"
+            tools:text="2" />
 
         <Button
             android:id="@+id/button3"
             style="?attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:textColor="?android:textColorPrimary"
-            android:textSize="26sp" />
-    </TableRow>
+            android:textSize="26sp"
+            tools:text="3" />
+    </LinearLayout>
 
-    <TableRow>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <Button
             android:id="@+id/button4"
             style="?attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:textColor="?android:textColorPrimary"
             android:textSize="26sp" />
@@ -41,6 +60,8 @@
         <Button
             android:id="@+id/button5"
             style="?attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:textColor="?android:textColorPrimary"
             android:textSize="26sp" />
@@ -48,16 +69,23 @@
         <Button
             android:id="@+id/button6"
             style="?attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:textColor="?android:textColorPrimary"
             android:textSize="26sp" />
-    </TableRow>
+    </LinearLayout>
 
-    <TableRow>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <Button
             android:id="@+id/button7"
             style="?attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:textColor="?android:textColorPrimary"
             android:textSize="26sp" />
@@ -65,6 +93,8 @@
         <Button
             android:id="@+id/button8"
             style="?attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:textColor="?android:textColorPrimary"
             android:textSize="26sp" />
@@ -72,16 +102,25 @@
         <Button
             android:id="@+id/button9"
             style="?attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:textColor="?android:textColorPrimary"
             android:textSize="26sp" />
-    </TableRow>
+    </LinearLayout>
 
-    <TableRow android:id="@+id/last_keyboard_row">
+    <LinearLayout
+        android:id="@+id/last_keyboard_row"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
         <!-- Buttons in this row will be reordered programmatically -->
+
         <Button
             android:id="@+id/button0"
             style="?attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="0"
             android:textColor="?android:textColorPrimary"
@@ -89,15 +128,18 @@
 
         <android.support.v4.widget.Space
             android:id="@+id/keyboard_space"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1" />
 
         <ImageButton
             android:id="@+id/buttonBackspace"
             style="?attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:contentDescription="backspace"
-            android:scaleType="fitCenter"
+            android:contentDescription="@string/xs_backspace"
+            android:scaleType="centerInside"
             android:src="@mipmap/ic_backspace_24dp" />
-    </TableRow>
-</TableLayout>
+    </LinearLayout>
+</LinearLayout>

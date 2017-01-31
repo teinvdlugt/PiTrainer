@@ -4,21 +4,19 @@ import android.content.Context;
 import android.support.v4.widget.Space;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TableLayout;
-import android.widget.TableRow;
+import android.widget.LinearLayout;
 
 import com.teinproductions.tein.pitrainer.R;
 
-public class Keyboard extends TableLayout {
+public class Keyboard extends LinearLayout {
 
     private Button button1, button2, button3, button4, button5, button6, button7, button8, button9, button0;
     private ImageButton backspace;
     private Space space;
-    private TableRow lastRow;
+    private LinearLayout lastRow;
     private OnTypeListener onTypeListener;
     private int keyboardWidth, keyboardHeight; // Custom, defined by the user in KeyboardSizeActivity. In pixels, 0 means wrap_content
 
@@ -69,7 +67,7 @@ public class Keyboard extends TableLayout {
         button7 = (Button) findViewById(R.id.button7);
         button8 = (Button) findViewById(R.id.button8);
         button9 = (Button) findViewById(R.id.button9);
-        lastRow = (TableRow) findViewById(R.id.last_keyboard_row);
+        lastRow = (LinearLayout) findViewById(R.id.last_keyboard_row);
         space = (Space) findViewById(R.id.keyboard_space);
         button0 = (Button) findViewById(R.id.button0);
         backspace = (ImageButton) findViewById(R.id.buttonBackspace);
@@ -87,7 +85,7 @@ public class Keyboard extends TableLayout {
         button7.setText(String.valueOf(layout[6]));
         button8.setText(String.valueOf(layout[7]));
         button9.setText(String.valueOf(layout[8]));
-        // Reorder the last TableRow according to the order in layout
+        // Reorder the last LinearLayout according to the order in layout
         lastRow.removeAllViews();
         for (int i = 9; i < 12; i++) {
             switch (layout[i]) {

@@ -80,6 +80,7 @@
     <string name="keyboard_size_save_or_discard">Save or discard?</string>
     <string name="keyboard_size_smallest">Smallest</string>
     <string name="keyboard_size_largest">Largest</string>
+    <string name="xs_backspace">backspace</string>
 
     <string-array name="sort_methods">
         <item>Digits per minute</item>

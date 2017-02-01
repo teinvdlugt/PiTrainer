@@ -4,7 +4,8 @@
     android:id="@+id/keyboard_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="ButtonStyle">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,8 +16,9 @@
             android:id="@+id/button1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="6dp"
+            android:layout_margin="3dp"
             android:layout_weight="1"
+            android:background="@null"
             android:textColor="?android:textColorPrimary"
             android:textSize="26sp"
             tools:text="1" />
@@ -25,8 +27,9 @@
             android:id="@+id/button2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="6dp"
+            android:layout_margin="3dp"
             android:layout_weight="1"
+            android:background="@null"
             android:textColor="?android:textColorPrimary"
             android:textSize="26sp"
             tools:text="2" />
@@ -35,8 +38,9 @@
             android:id="@+id/button3"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="6dp"
+            android:layout_margin="3dp"
             android:layout_weight="1"
+            android:background="@null"
             android:textColor="?android:textColorPrimary"
             android:textSize="26sp"
             tools:text="3" />
@@ -50,10 +54,10 @@
         <Button
             android:id="@+id/button4"
             android:layout_width="0dp"
-
             android:layout_height="match_parent"
-            android:layout_margin="6dp"
+            android:layout_margin="3dp"
             android:layout_weight="1"
+            android:background="@null"
             android:textColor="?android:textColorPrimary"
             android:textSize="26sp" />
 
@@ -61,8 +65,9 @@
             android:id="@+id/button5"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="6dp"
+            android:layout_margin="3dp"
             android:layout_weight="1"
+            android:background="@null"
             android:textColor="?android:textColorPrimary"
             android:textSize="26sp" />
 
@@ -70,8 +75,9 @@
             android:id="@+id/button6"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="6dp"
+            android:layout_margin="3dp"
             android:layout_weight="1"
+            android:background="@null"
             android:textColor="?android:textColorPrimary"
             android:textSize="26sp" />
     </LinearLayout>
@@ -85,8 +91,9 @@
             android:id="@+id/button7"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="6dp"
+            android:layout_margin="3dp"
             android:layout_weight="1"
+            android:background="@null"
             android:textColor="?android:textColorPrimary"
             android:textSize="26sp" />
 
@@ -94,8 +101,9 @@
             android:id="@+id/button8"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="6dp"
+            android:layout_margin="3dp"
             android:layout_weight="1"
+            android:background="@null"
             android:textColor="?android:textColorPrimary"
             android:textSize="26sp" />
 
@@ -103,8 +111,9 @@
             android:id="@+id/button9"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="6dp"
+            android:layout_margin="3dp"
             android:layout_weight="1"
+            android:background="@null"
             android:textColor="?android:textColorPrimary"
             android:textSize="26sp" />
     </LinearLayout>
@@ -120,8 +129,9 @@
             android:id="@+id/button0"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="6dp"
+            android:layout_margin="3dp"
             android:layout_weight="1"
+            android:background="@null"
             android:text="0"
             android:textColor="?android:textColorPrimary"
             android:textSize="26sp" />
@@ -130,14 +140,16 @@
             android:id="@+id/keyboard_space"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_margin="3dp"
             android:layout_weight="1" />
 
         <ImageButton
             android:id="@+id/buttonBackspace"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="6dp"
+            android:layout_margin="3dp"
             android:layout_weight="1"
+            android:background="@null"
             android:contentDescription="@string/xs_backspace"
             android:scaleType="centerInside"
             android:src="@mipmap/ic_backspace_24dp" />

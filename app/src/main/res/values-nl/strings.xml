@@ -96,4 +96,5 @@
     <string name="xs_backspace">backspace</string>
     <string name="keyboard_width_warning_message">De breedte op Grootst zetten werkt niet met landscape</string>
     <string name="warning">Waarschuwing</string>
+    <string name="keyboard_feedback">Toetsenbord feedback</string>
 </resources>

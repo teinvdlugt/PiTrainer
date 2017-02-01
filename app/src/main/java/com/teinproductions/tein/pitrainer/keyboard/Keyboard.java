@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.widget.Space;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,7 +16,7 @@ import android.widget.LinearLayout;
 import com.teinproductions.tein.pitrainer.MainActivity;
 import com.teinproductions.tein.pitrainer.R;
 
-public class Keyboard extends LinearLayout {
+public class Keyboard extends LinearLayout implements View.OnLongClickListener {
     // TODO: 1-2-17 Delete many characters when backspace key is held
 
     private Button button1, button2, button3, button4, button5, button6, button7, button8, button9, button0;
@@ -24,6 +25,7 @@ public class Keyboard extends LinearLayout {
     private LinearLayout lastRow;
     private OnTypeListener onTypeListener;
     private int keyboardWidth, keyboardHeight; // Custom, defined by the user in KeyboardSizeActivity. In pixels, 0 means wrap_content
+    private boolean backspaceLongClicking = false;
 
     public interface OnTypeListener {
         void onTypeDigit(int digit);
@@ -39,6 +41,17 @@ public class Keyboard extends LinearLayout {
             @Override
             public void run() {
                 refreshKeyboardSize();
+            }
+        });
+
+        // Backspace long-click (See also this.onLongClick)
+        backspace.setOnLongClickListener(this);
+        backspace.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP)
+                    backspaceLongClicking = false;
+                return false;
             }
         });
 
@@ -61,6 +74,33 @@ public class Keyboard extends LinearLayout {
                 if (onTypeListener != null) onTypeListener.onTypeBackspace();
             }
         });
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        // Called when backspace is long clicked
+        backspaceLongClicking = true;
+        if (onTypeListener != null) {
+            final Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    if (onTypeListener != null) onTypeListener.onTypeBackspace();
+                }
+            };
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (backspaceLongClicking) {
+                        post(runnable);
+                        try {
+                            Thread.sleep(50);
+                        } catch (InterruptedException ignored) {}
+                    }
+                }
+            }).start();
+        }
+
+        return false;
     }
 
     private void initViews() {

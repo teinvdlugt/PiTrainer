@@ -209,6 +209,26 @@ public class Keyboard extends LinearLayout implements View.OnLongClickListener {
         };
     }
 
+    // A few overrides to make sure that there won't be problems with the
+    // backspace thread. Similar to onPause() in an Activity.
+    @Override
+    protected void onVisibilityChanged(View changedView, int visibility) {
+        super.onVisibilityChanged(changedView, visibility);
+        if (visibility != View.VISIBLE) backspaceLongClicking = false;
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        backspaceLongClicking = false;
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasWindowFocus) {
+        super.onWindowFocusChanged(hasWindowFocus);
+        if (!hasWindowFocus) backspaceLongClicking = false;
+    }
+
     public Keyboard(Context context) {
         super(context);
         init();

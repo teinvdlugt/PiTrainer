@@ -187,6 +187,7 @@ public class KeyboardSizeActivity extends AppCompatActivity implements SeekBar.O
                     widthSeekBar.setEnabled(false);
                     keyboard.setKeyboardWidth(-1); // MATCH_PARENT
                     setupWidthButtons(-1);
+                    showWidthWarning();
                 }
             });
         } else if (width == -1) { // MATCH_PARENT
@@ -229,6 +230,7 @@ public class KeyboardSizeActivity extends AppCompatActivity implements SeekBar.O
                     keyboard.setKeyboardWidth(-1); // MATCH_PARENT
                     setupWidthButtons(-1);
                     widthTV.setText(getString(R.string.keyboard_width_format, getString(R.string.keyboard_size_largest)));
+                    showWidthWarning();
                 }
             });
         }
@@ -298,6 +300,14 @@ public class KeyboardSizeActivity extends AppCompatActivity implements SeekBar.O
                 }
             });
         }
+    }
+
+    private void showWidthWarning() {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.warning)
+                .setMessage(R.string.keyboard_width_warning_message)
+                .setPositiveButton(R.string.ok, null)
+                .create().show();
     }
 
     public int getColorCompat(@ColorRes int resId) {

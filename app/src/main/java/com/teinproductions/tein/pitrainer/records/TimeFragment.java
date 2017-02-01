@@ -180,6 +180,7 @@ public class TimeFragment extends Fragment implements FragmentInterface {
     public void refreshKeyboard() {
         keyboard.refreshKeyboardLayout();
         keyboard.refreshKeyboardSize();
+        keyboard.resetBackgrounds();
     }
 
     @Override

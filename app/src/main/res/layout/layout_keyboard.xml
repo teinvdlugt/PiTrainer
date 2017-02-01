@@ -13,20 +13,19 @@
 
         <Button
             android:id="@+id/button1"
-            style="?attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_margin="6dp"
             android:layout_weight="1"
-            android:gravity="center"
             android:textColor="?android:textColorPrimary"
             android:textSize="26sp"
             tools:text="1" />
 
         <Button
             android:id="@+id/button2"
-            style="?attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_margin="6dp"
             android:layout_weight="1"
             android:textColor="?android:textColorPrimary"
             android:textSize="26sp"
@@ -34,9 +33,9 @@
 
         <Button
             android:id="@+id/button3"
-            style="?attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_margin="6dp"
             android:layout_weight="1"
             android:textColor="?android:textColorPrimary"
             android:textSize="26sp"
@@ -50,27 +49,28 @@
 
         <Button
             android:id="@+id/button4"
-            style="?attr/buttonBarButtonStyle"
             android:layout_width="0dp"
+
             android:layout_height="match_parent"
+            android:layout_margin="6dp"
             android:layout_weight="1"
             android:textColor="?android:textColorPrimary"
             android:textSize="26sp" />
 
         <Button
             android:id="@+id/button5"
-            style="?attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_margin="6dp"
             android:layout_weight="1"
             android:textColor="?android:textColorPrimary"
             android:textSize="26sp" />
 
         <Button
             android:id="@+id/button6"
-            style="?attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_margin="6dp"
             android:layout_weight="1"
             android:textColor="?android:textColorPrimary"
             android:textSize="26sp" />
@@ -83,27 +83,27 @@
 
         <Button
             android:id="@+id/button7"
-            style="?attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_margin="6dp"
             android:layout_weight="1"
             android:textColor="?android:textColorPrimary"
             android:textSize="26sp" />
 
         <Button
             android:id="@+id/button8"
-            style="?attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_margin="6dp"
             android:layout_weight="1"
             android:textColor="?android:textColorPrimary"
             android:textSize="26sp" />
 
         <Button
             android:id="@+id/button9"
-            style="?attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_margin="6dp"
             android:layout_weight="1"
             android:textColor="?android:textColorPrimary"
             android:textSize="26sp" />
@@ -114,13 +114,13 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
-        <!-- Buttons in this row will be reordered programmatically -->
+        <!-- Buttons in this row will be reordered pro`mmatically -->
 
         <Button
             android:id="@+id/button0"
-            style="?attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_margin="6dp"
             android:layout_weight="1"
             android:text="0"
             android:textColor="?android:textColorPrimary"
@@ -134,9 +134,9 @@
 
         <ImageButton
             android:id="@+id/buttonBackspace"
-            style="?attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_margin="6dp"
             android:layout_weight="1"
             android:contentDescription="@string/xs_backspace"
             android:scaleType="centerInside"

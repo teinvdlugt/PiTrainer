@@ -190,6 +190,7 @@ public class CompleteFragment extends Fragment
     public void refreshKeyboard() {
         keyboard.refreshKeyboardLayout();
         keyboard.refreshKeyboardSize();
+        keyboard.resetBackgrounds();
     }
 
     @Override

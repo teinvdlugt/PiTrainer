@@ -83,6 +83,7 @@
     <string name="xs_backspace">backspace</string>
     <string name="warning">Warning</string>
     <string name="keyboard_width_warning_message">Setting the width to Largest won\'t work with landscape</string>
+    <string name="keyboard_feedback">Keyboard feedback</string>
 
     <string-array name="sort_methods">
         <item>Digits per minute</item>

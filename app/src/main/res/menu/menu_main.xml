@@ -4,6 +4,11 @@
     tools:context=".MainActivity">
 
     <item
+        android:id="@+id/number"
+        android:title="@string/number"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/vibrate"
         android:checkable="true"
         android:checked="true"
@@ -18,13 +23,15 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/number"
-        android:title="@string/number"
+        android:id="@+id/keyboard_feedback"
+        android:checkable="true"
+        android:checked="true"
+        android:title="@string/keyboard_feedback"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/choose_keyboard_layout"
-        android:title="@string/choose_keyboard_layout"
+        android:title="@string/keyboard_layout_ellipsis"
         app:showAsAction="never" />
 
     <item

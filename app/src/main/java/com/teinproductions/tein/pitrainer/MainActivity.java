@@ -37,9 +37,10 @@ public class MainActivity extends AppCompatActivity
         implements ActivityInterface, NavigationView.OnNavigationItemSelectedListener,
         RecordDialog.OnAppliedListener {
 
-    public static final String THEME_MODE = "theme_mode";
-    private static final String VIBRATE = "VIBRATE";
-    public static final String ON_SCREEN_KEYBOARD = "ON_SCREEN_KEYBOARD";
+    public static final String THEME_MODE = "theme_mode"; // Int preference
+    private static final String VIBRATE = "VIBRATE"; // Boolean preference
+    public static final String ON_SCREEN_KEYBOARD = "ON_SCREEN_KEYBOARD"; // Boolean preference
+    public static final String KEYBOARD_FEEDBACK = "keyboard_feedback"; // Boolean preference
     private static final String CURRENT_DIGITS_NAME = "CURRENT_DIGITS_NAME";
     private static final String CURRENT_GAME = "CURRENT_GAME";
     private static final int NUMBERS_ACTIVITY_REQUEST_CODE = 1;
@@ -88,6 +89,7 @@ public class MainActivity extends AppCompatActivity
         if (Build.VERSION.SDK_INT >= 14) {
             int mode = PreferenceManager.getDefaultSharedPreferences(this)
                     .getInt(THEME_MODE, 0);
+            //noinspection WrongConstant
             AppCompatDelegate.setDefaultNightMode(mode);
         }
     }
@@ -151,6 +153,15 @@ public class MainActivity extends AppCompatActivity
 
                 getPreferences(0).edit().putBoolean(ON_SCREEN_KEYBOARD, item.isChecked()).apply();
                 fragmentInterface.showOnScreenKeyboard(item.isChecked());
+                return true;
+
+            case R.id.keyboard_feedback:
+                if (item.isChecked()) item.setChecked(false);
+                else item.setChecked(true);
+
+                PreferenceManager.getDefaultSharedPreferences(this)
+                        .edit().putBoolean(KEYBOARD_FEEDBACK, item.isChecked()).apply();
+                fragmentInterface.refreshKeyboard();
                 return true;
 
             case R.id.number:

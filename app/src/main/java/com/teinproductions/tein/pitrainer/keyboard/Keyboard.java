@@ -1,17 +1,22 @@
 package com.teinproductions.tein.pitrainer.keyboard;
 
 import android.content.Context;
+import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.v4.widget.Space;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import com.teinproductions.tein.pitrainer.MainActivity;
 import com.teinproductions.tein.pitrainer.R;
 
 public class Keyboard extends LinearLayout {
+    // TODO: 1-2-17 Delete many characters when backspace key is held
 
     private Button button1, button2, button3, button4, button5, button6, button7, button8, button9, button0;
     private ImageButton backspace;
@@ -28,6 +33,7 @@ public class Keyboard extends LinearLayout {
     private void init() {
         inflate(getContext(), R.layout.layout_keyboard, this);
         initViews();
+        resetBackgrounds();
         refreshKeyboardLayout();
         post(new Runnable() {
             @Override
@@ -71,6 +77,25 @@ public class Keyboard extends LinearLayout {
         space = (Space) findViewById(R.id.keyboard_space);
         button0 = (Button) findViewById(R.id.button0);
         backspace = (ImageButton) findViewById(R.id.buttonBackspace);
+    }
+
+    public void resetBackgrounds() {
+        boolean keyFeedback = PreferenceManager.getDefaultSharedPreferences(getContext())
+                .getBoolean(MainActivity.KEYBOARD_FEEDBACK, true);
+        View[] buttons = new View[]{button1, button2, button3, button4, button5,
+                button6, button7, button8, button9, button0, backspace};
+        if (keyFeedback) {
+            TypedValue outValue = new TypedValue();
+            getContext().getTheme().resolveAttribute(android.R.attr.selectableItemBackground, outValue, true);
+            for (View button : buttons)
+                button.setBackgroundResource(outValue.resourceId);
+        } else {
+            for (View button : buttons) {
+                if (Build.VERSION.SDK_INT >= 16)
+                    button.setBackground(null);
+                else button.setBackgroundDrawable(null);
+            }
+        }
     }
 
     public void refreshKeyboardLayout() {

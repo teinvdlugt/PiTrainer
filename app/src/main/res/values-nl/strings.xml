@@ -83,4 +83,15 @@
         <item>Nacht thema</item>
     </string-array>
     <string name="choose_keyboard_layout">Kies toetsenbord</string>
+    <string name="keyboard_height_format">Hoogte toetsenbord: %s</string>
+    <string name="keyboard_layout_ellipsis">Lay-out toetsenbord…</string>
+    <string name="keyboard_size">Toetsenbordgrootte</string>
+    <string name="keyboard_size_ellipsis">Grootte toetsenbord…</string>
+    <string name="keyboard_size_discard">Verwerpen</string>
+    <string name="keyboard_size_largest">Grootst</string>
+    <string name="keyboard_size_save">Opslaan</string>
+    <string name="keyboard_size_save_or_discard">Opslaan of verwerpen?</string>
+    <string name="keyboard_size_smallest">Kleinst</string>
+    <string name="keyboard_width_format">Hoogte toetsenbord: %s</string>
+    <string name="xs_backspace">backspace</string>
 </resources>

@@ -94,16 +94,12 @@ public class KeyboardSizeActivity extends AppCompatActivity implements SeekBar.O
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        String text; // Text to display in widthTV or heightTV
-        if (progress == 0)
-            text = getString(R.string.keyboard_size_wrap_content);
-        else
-            text = progress + " px";
+        String px = progress + " px";
 
         if (seekBar.equals(widthSeekBar))
-            widthTV.setText(getString(R.string.keyboard_width_format, text));
+            widthTV.setText(getString(R.string.keyboard_width_format, px));
         else if (seekBar.equals(heightSeekBar))
-            heightTV.setText(getString(R.string.keyboard_height_format, text));
+            heightTV.setText(getString(R.string.keyboard_height_format, px));
 
         if (fromUser) {
             if (seekBar.equals(widthSeekBar))

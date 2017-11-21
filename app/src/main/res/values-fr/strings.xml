@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Pi Trainer</string>
+    <string name="vibrate">Vibrer</string>
+    <string name="on_screen_keyboard">Clavier de l\'application</string>
+    <string name="pi">Pi</string>
+    <string name="tau">Tau</string>
+    <string name="euler_number">Nombre e</string>
+    <string name="sqrt2">Racine carrée de 2</string>
+    <string name="restart">Recommencer</string>
+    <string name="digits_colon">Chiffres :</string>
+    <string name="errors_colon">Erreurs :</string>
+    <string name="percentage_colon">Pourcentage :</string>
+    <string name="number">Nombre…</string>
+    <string name="open_drawer">Open navigation drawer</string>
+    <string name="close_drawer">Close Navigation Drawer</string>
+    <string name="practise">S\'entraîner</string>
+    <string name="reference">Référence</string>
+    <string name="number_option_dialog_title">Sélectionner le nombre</string>
+    <string name="settings">Réglages</string>
+    <string name="text_size">Taille du texte</string>
+    <string name="spacings">Espaces</string>
+    <string name="number_of_digits_given">Nombre de chiffres donnés</string>
+    <string name="range">Intervalle</string>
+    <string name="next">Suivant</string>
+    <string name="complete_the_statement">Compléter</string>
+    <string name="title_activity_add_number">Ajouter un nombre</string>
+    <string name="integer_part">Partie entière</string>
+    <string name="integer_part_explanation">Chiffres précédant la virgule</string>
+    <string name="fractional_part">Partie fractionnaire</string>
+    <string name="fractional_part_explanation">Chiffres suivant la virgule</string>
+    <string name="name">Nom</string>
+    <string name="add_number">Ajouter un nombre…</string>
+    <string name="dismiss">Annuler</string>
+    <string name="save">Enregistrer</string>
+    <string name="too_much_input_dialog_message">Bravo ! Vous connaissez tous les chiffres de ce nombre enregistrés dans l’application.</string>
+    <string name="check_your_settings">Erreur dans vos réglages</string>
+    <string name="length_of_answer">Longueur de la réponse</string>
+    <string name="title_activity_numbers">Nombres personnalisés</string>
+    <string name="custom_numbers">Nombres personnalisés…</string>
+    <string name="create">Créer</string>
+    <string name="no_custom_numbers">Vous n\'avez pas encore ajouté de nombre.</string>
+    <string name="delete">Effacer</string>
+    <string name="sure_delete_digits">Êtes-vous certain de vouloir effacer ce nombre ?</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="golden_ratio">Nombre d\'or</string>
+    <string name="timed_mode_game">Mode chronométré</string>
+    <string name="digits_colon_format">Chiffres : %d</string>
+    <string name="sort_by_spinner_text">Trier par :</string>
+    <string name="record_card_description">%d chiffres à %.2f chiffres par minute</string>
+    <string name="record_holder_name">Nom</string>
+    <string name="do_not_save_record">Ne pas enregistrer</string>
+    <string name="high_scores">Meilleurs scores</string>
+    <string name="done">Terminé</string>
+    <string name="please_type_more_digits_snackbar">Veuillez saisir plus de chiffres</string>
+    <string name="please_provide_a_name">Veuillez saisir un nom</string>
+    <string name="please_provide_an_integer_part">Veuillez saisir une partie entière</string>
+    <string name="please_provide_a_fractional_part">Veuillez saisir une partie fractionnaire</string>
+    <string name="there_is_already_a_number_with_that_name">Il existe déjà un nombre avec ce nom</string>
+    <string name="save_error_message">Problème durant l\'enregistrement</string>
+    <string name="record_dialog_message_format">Vous avez saisi %d chiffres en %.1f secondes.</string>
+    <string name="choose_keyboard_layout">Choisir la disposition du clavier</string>
+    <string name="keyboard_layout_ellipsis">Disposition du clavier</string>
+    <string name="gregory_leibniz_series">Gregory-Leibniz series</string>
+    <string name="click_start">Click start</string>
+    <string name="n_textView_format">…+1/%d…</string>
+    <string name="learn_more">Learn more</string>
+    <string name="ok">OK</string>
+    <string name="theme_ellipsis">Thème…</string>
+    <string name="theme">Thème</string>
+    <string name="night_mode_not_available_message">Désolé, cette fonctionnalité n\'est pas disponible sur votre version d\'Android.</string>
+    <string name="keyboard_size">Taille du clavier</string>
+    <string name="keyboard_size_ellipsis">Taille du clavier…</string>
+    <string name="keyboard_width_format">Largeur du clavier : %s</string>
+    <string name="keyboard_height_format">Hauteur du clavier : %s</string>
+    <string name="keyboard_size_save">Enregistrer</string>
+    <string name="keyboard_size_discard">Annuler</string>
+    <string name="keyboard_size_save_or_discard">Enregistrer ou annuler ?</string>
+    <string name="keyboard_size_smallest">Plus petit</string>
+    <string name="keyboard_size_largest">Plus grand</string>
+    <string name="xs_backspace">retour arrière</string>
+    <string name="warning">Avertissement</string>
+    <string name="keyboard_width_warning_message">Vous ne pourrez pas utiliser le mode paysage avec le clavier en largeur maximale.</string>
+    <string name="keyboard_feedback">Retour du clavier</string>
+    <string name="try_again">Réessayer</string>
+
+    <string-array name="sort_methods">
+        <item>Chiffres par minute</item>
+        <item>Nombre de chiffres</item>
+        <item>Date</item>
+    </string-array>
+
+    <string-array name="themes">
+        <item>Automatique</item>
+        <item>Jour</item>
+        <item>Nuit</item>
+    </string-array>
+</resources>

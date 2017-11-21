@@ -51,7 +51,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/integerPart_textView"
-                android:hint="@string/lets_see_what_you_can_do"
                 android:maxLines="8"
                 android:numeric="integer"
                 android:textSize="24sp" />

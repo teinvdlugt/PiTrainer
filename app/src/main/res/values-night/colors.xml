@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="restart_arrow_color">#ffffffff</color>
-    <color name="background_shade">#e3000000</color>
+    <color name="background_shade">#4d000000</color>
     <color name="primary_text">#ffffffff</color>
 </resources>

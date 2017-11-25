@@ -27,6 +27,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.teinproductions.tein.pitrainer.keyboard.ChooseKeyboardActivity;
 import com.teinproductions.tein.pitrainer.keyboard.KeyboardSizeActivity;
 import com.teinproductions.tein.pitrainer.records.RecordDialog;
@@ -47,6 +48,8 @@ public class MainActivity extends AppCompatActivity
     private static final int CHOOSE_KEYBOARD_ACTIVITY_REQUEST_CODE = 2;
     private static final int KEYBOARD_SIZE_ACTIVITY_REQUEST_CODE = 3;
 
+    private FirebaseAnalytics mFirebaseAnalytics;
+
     private boolean onScreenKeyboard;
     private FragmentInterface fragmentInterface;
 
@@ -66,6 +69,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         applyNightMode();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

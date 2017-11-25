@@ -9,12 +9,12 @@
     <!-- TODO Material design! -->
 
     <LinearLayout
-        android:layout_centerVertical="true"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
 
         <TextView
             android:id="@+id/name_textView"
@@ -33,14 +33,13 @@
     </LinearLayout>
 
     <ImageView
-        android:layout_centerVertical="true"
         android:id="@+id/delete_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:contentDescription="@string/delete"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:padding="16dp"
         android:src="@mipmap/ic_delete_24dp" />
 </RelativeLayout>

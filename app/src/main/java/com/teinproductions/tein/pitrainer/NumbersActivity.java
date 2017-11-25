@@ -1,7 +1,9 @@
 package com.teinproductions.tein.pitrainer;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -63,16 +65,24 @@ public class NumbersActivity extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onClickDelete(int which) {
-                            if (Digits.currentDigit.getName().equals(customDigits[which].getName())) {
+                        public void onClickDelete(final int which, Context context) {
+                            if (Digits.currentDigit.getName().equals(customDigits[which].getName()))
                                 Digits.currentDigit = Digits.digits[0];
-                            }
-                            customDigits = deleteDigits(customDigits, which);
 
-                            saveCustomDigits();
-                            setResult(RESULT_OK);
-                            // TODO notify data set changed
-                            setupViews();
+                            new AlertDialog.Builder(context)
+                                    .setMessage(R.string.sure_delete_digits)
+                                    .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int wh) {
+                                            // Delete the number from the array and save the new array
+                                            customDigits = deleteDigits(customDigits, which);
+                                            saveCustomDigits();
+                                            setResult(RESULT_OK);
+                                            // Refresh the views
+                                            setupViews();
+                                        }
+                                    }).setNegativeButton(R.string.no, null)
+                                    .create().show();
                         }
                     }));
         }
@@ -162,7 +172,6 @@ public class NumbersActivity extends AppCompatActivity {
     }
 
     public static class NumberRecyclerAdapter extends RecyclerView.Adapter<NumberRecyclerAdapter.NumberViewHolder> {
-
         private Digits[] data;
         private LayoutInflater layoutInflater;
         private Context context;
@@ -197,7 +206,7 @@ public class NumbersActivity extends AppCompatActivity {
             holder.deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onClickListener.onClickDelete(holder.getAdapterPosition());
+                    onClickListener.onClickDelete(holder.getAdapterPosition(), context);
                 }
             });
         }
@@ -240,7 +249,7 @@ public class NumbersActivity extends AppCompatActivity {
         interface OnClickListener {
             void onClickEdit(int which);
 
-            void onClickDelete(int which);
+            void onClickDelete(int which, Context context);
         }
     }
 

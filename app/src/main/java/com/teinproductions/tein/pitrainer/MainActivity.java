@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity
         applyNightMode();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ((GAApplication) getApplication()).startTracking();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

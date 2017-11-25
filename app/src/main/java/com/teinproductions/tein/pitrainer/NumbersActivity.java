@@ -184,7 +184,10 @@ public class NumbersActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(final NumberViewHolder holder, int position) {
-            holder.nameTV.setText(data[position].getName());
+            Digits number = data[position];
+            holder.nameTV.setText(number.getName());
+            holder.numberTV.setText(createDigitsString(number));
+
             holder.root.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -199,21 +202,38 @@ public class NumbersActivity extends AppCompatActivity {
             });
         }
 
+        private static String createDigitsString(Digits number) {
+            String integerPart = number.getIntegerPart();
+            String fractionalPart = number.getFractionalPart();
+            if (integerPart == null) return "";
+
+            String wholeNumber;
+            if (fractionalPart == null || fractionalPart.isEmpty())
+                wholeNumber = integerPart;
+            else
+                wholeNumber = integerPart + "." + fractionalPart;
+
+            if (wholeNumber.length() > 15)
+                return wholeNumber.substring(0, 15) + "…";
+            else return wholeNumber;
+        }
+
         @Override
         public int getItemCount() {
             return data.length;
         }
 
         static class NumberViewHolder extends RecyclerView.ViewHolder {
-            TextView nameTV;
+            TextView nameTV, numberTV;
             ImageView deleteButton;
             ViewGroup root;
 
-            public NumberViewHolder(View itemView) {
+            NumberViewHolder(View itemView) {
                 super(itemView);
-                nameTV = (TextView) itemView.findViewById(R.id.name_textView);
-                root = (ViewGroup) itemView.findViewById(R.id.root);
-                deleteButton = (ImageView) itemView.findViewById(R.id.delete_button);
+                nameTV = itemView.findViewById(R.id.name_textView);
+                numberTV = itemView.findViewById(R.id.number_textView);
+                root = itemView.findViewById(R.id.root);
+                deleteButton = itemView.findViewById(R.id.delete_button);
             }
         }
 

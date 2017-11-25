@@ -1,33 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
-    android:layout_height="48dp"
-    android:background="@drawable/recycler_view_item_background"
-    android:orientation="horizontal">
+    android:layout_height="72dp"
+    android:background="@drawable/recycler_view_item_background">
 
     <!-- TODO Material design! -->
 
-    <TextView
-        android:id="@+id/name_textView"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center_vertical"
+    <LinearLayout
+        android:layout_centerVertical="true"
         android:paddingLeft="16dp"
-        android:textColor="?android:textColorPrimary"
-        android:textSize="20sp"
-        tools:text="Name" />
+        android:paddingRight="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/name_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="18sp"
+            tools:text="Gamma" />
+
+        <TextView
+            android:id="@+id/number_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            tools:text="0.3331779238" />
+    </LinearLayout>
 
     <ImageView
+        android:layout_centerVertical="true"
         android:id="@+id/delete_button"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:contentDescription="@string/delete"
-        android:paddingBottom="8dp"
-        android:paddingEnd="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="8dp"
-        android:src="@mipmap/ic_delete_36dp" />
-</LinearLayout>
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:src="@mipmap/ic_delete_24dp" />
+</RelativeLayout>

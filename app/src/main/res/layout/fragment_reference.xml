@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,10 +14,65 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin">
 
+        <android.support.v7.widget.CardView
+            android:visibility="gone"
+            android:id="@+id/settings_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@android:color/darker_gray"
+            app:cardCornerRadius="8dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp">
+
+                <ImageButton
+                    android:id="@+id/closeSettings_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_close_black_24dp" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/textSize_textInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/closeSettings_button"
+                    android:layout_toStartOf="@id/closeSettings_button">
+
+                    <EditText
+                        android:id="@+id/textSize_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/text_size"
+                        android:inputType="numberDecimal" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textSize_textInputLayout">
+
+                    <EditText
+                        android:id="@+id/spacings_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/spacings"
+                        android:inputType="number" />
+                </android.support.design.widget.TextInputLayout>
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
         <TextView
             android:id="@+id/integerPart_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/settings_layout"
             android:textColor="?android:textColorPrimary"
             android:textSize="56sp"
             tools:text="3." />
@@ -31,17 +87,16 @@
             tools:text="1415926535" />
 
         <ImageButton
-            android:id="@+id/settings_button"
+            android:id="@+id/openSettings_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/integerPart_textView"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignTop="@id/integerPart_textView"
-            android:background="@null"
+            android:layout_alignParentTop="true"
+            android:layout_margin="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/settings"
-            android:padding="16dp"
             android:scaleType="fitCenter"
-            android:src="@mipmap/ic_settings_36dp" />
+            android:src="@mipmap/ic_keyboard_arrow_down_black_24dp" />
     </RelativeLayout>
 </ScrollView>

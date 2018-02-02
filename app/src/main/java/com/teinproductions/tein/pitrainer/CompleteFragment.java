@@ -45,7 +45,7 @@ public class CompleteFragment extends Fragment
         editText = (EditText) theView.findViewById(R.id.editText);
         keyboard = (Keyboard) theView.findViewById(R.id.keyboard);
 
-        theView.findViewById(R.id.settings_button).setOnClickListener(new View.OnClickListener() {
+        theView.findViewById(R.id.openSettings_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onClickSettings();

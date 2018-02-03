@@ -65,7 +65,7 @@ public class ReferenceFragment extends Fragment
 
     @Override
     public void notifyDigitsChanged() {
-        integerPart.setText(Digits.currentDigit.getIntegerPart() + ".");
+        integerPart.setText(Digits.currentDigit.getIntegerPart() + "."); // TODO Use point or comma depending on locale
         setFractionalPartText();
     }
 
@@ -86,10 +86,10 @@ public class ReferenceFragment extends Fragment
         final int targetHeight = settingsLayout.getMeasuredHeight();
 
         // Set initial values for animation
-        settingsLayout.setAlpha(0);
+        settingsLayout.setAlpha(0f);
         settingsLayout.setVisibility(View.VISIBLE);
         settingsLayout.getLayoutParams().height = 1; // On older versions of Android, the animation gets cancelled if we set height to 0.
-        openSettingsButton.setAlpha(1);
+        openSettingsButton.setAlpha(1f);
         openSettingsButton.setVisibility(View.VISIBLE);
 
         // Create the animation
@@ -131,7 +131,7 @@ public class ReferenceFragment extends Fragment
         final int initialHeight = settingsLayout.getMeasuredHeight();
 
         // Set initial values for animation
-        openSettingsButton.setAlpha(0);
+        openSettingsButton.setAlpha(0f);
         openSettingsButton.setVisibility(View.VISIBLE);
 
         // Create the animation
@@ -141,7 +141,7 @@ public class ReferenceFragment extends Fragment
                 // Update settingsLayout appearance
                 settingsLayout.getLayoutParams().height = initialHeight - (int) (initialHeight * interpolatedTime);
                 settingsLayout.requestLayout();
-                settingsLayout.setAlpha(1 - interpolatedTime);
+                settingsLayout.setAlpha(1f - interpolatedTime);
 
                 // Update openSettingsButton appearance
                 openSettingsButton.setAlpha((float) Math.cbrt(interpolatedTime));

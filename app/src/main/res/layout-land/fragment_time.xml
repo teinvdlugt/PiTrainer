@@ -56,7 +56,7 @@
                     android:background="@null"
                     android:contentDescription="@string/restart"
                     android:scaleType="fitCenter"
-                    tools:src="@mipmap/ic_refresh_black_36dp" />
+                    tools:src="@drawable/ic_refresh_36dp" />
             </LinearLayout>
 
             <EditText
@@ -86,7 +86,7 @@
                 android:background="@null"
                 android:contentDescription="@string/done"
                 android:padding="8dp"
-                android:src="@mipmap/ic_done_36dp" />
+                android:src="@drawable/ic_done_36dp" />
 
             <ImageButton
                 android:id="@+id/high_scores_button"
@@ -95,11 +95,10 @@
                 android:layout_below="@id/input_editText"
                 android:layout_toLeftOf="@id/done_button"
                 android:layout_toStartOf="@id/done_button"
-                android:background="@null"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/high_scores"
                 android:padding="8dp"
-                android:src="@mipmap/ic_crown_36dp" />
+                android:src="@drawable/ic_crown_36dp" />
         </RelativeLayout>
     </ScrollView>
-
 </LinearLayout>

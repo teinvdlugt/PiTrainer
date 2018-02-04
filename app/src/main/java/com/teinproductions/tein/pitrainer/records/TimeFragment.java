@@ -75,7 +75,7 @@ public class TimeFragment extends Fragment implements FragmentInterface {
         if (Build.VERSION.SDK_INT >= 21) {
             restartButton.setImageResource(R.drawable.anim_ic_restart);
         } else {
-            restartButton.setImageResource(R.mipmap.ic_refresh_white_36dp);
+            restartButton.setImageResource(R.drawable.ic_refresh_36dp);
         }
     }
 

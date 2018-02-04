@@ -152,6 +152,6 @@
             android:background="@null"
             android:contentDescription="@string/xs_backspace"
             android:scaleType="centerInside"
-            android:src="@mipmap/ic_backspace_24dp" />
+            android:src="@drawable/ic_backspace_24dp" />
     </LinearLayout>
 </LinearLayout>

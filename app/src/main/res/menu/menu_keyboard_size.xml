@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/keyboard_size_save"
-        android:icon="@drawable/ic_check_black_24dp"
+        android:icon="@drawable/ic_done_white_36dp"
         android:orderInCategory="101"
         android:title="@string/keyboard_size_save"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/keyboard_size_discard"
-        android:icon="@drawable/ic_close_black_24dp"
+        android:icon="@drawable/ic_close_white_36dp"
         android:orderInCategory="100"
         android:title="@string/keyboard_size_discard"
         app:showAsAction="ifRoom" />

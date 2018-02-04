@@ -93,9 +93,9 @@ public class CompleteFragmentSettingsDialog extends DialogFragment {
                     final String input2 = rangeET.getText().toString();
                     final String input3 = answerLengthET.getText().toString();
 
-                    boolean OKButtonEnabled = ReferenceFragmentSettingsDialog.isValidInteger(input1) // Valid integer input
-                            && ReferenceFragmentSettingsDialog.isValidInteger(input2) // Valid integer input
-                            && ReferenceFragmentSettingsDialog.isValidInteger(input3) // Valid integer input
+                    boolean OKButtonEnabled = isValidInteger(input1) // Valid integer input
+                            && isValidInteger(input2) // Valid integer input
+                            && isValidInteger(input3) // Valid integer input
                             && !input1.equals("0") && !input2.equals("0") && !input3.equals("0") // No zeros
                             && Integer.parseInt(input1) + Integer.parseInt(input3) < Integer.parseInt(input2) // statement + answer < range
                             && Integer.parseInt(input2) <= Digits.currentDigit.getFractionalPart().length(); // range <= maximum digits in app
@@ -141,5 +141,14 @@ public class CompleteFragmentSettingsDialog extends DialogFragment {
         ft.commitAllowingStateLoss();
 
         //dialog.show(fragment.getActivity().getSupportFragmentManager(), "complete_fragment_settings_dialog");
+    }
+
+    public static boolean isValidInteger(String string) {
+        try {
+            Integer.parseInt(string);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }

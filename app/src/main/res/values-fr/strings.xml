@@ -18,7 +18,7 @@
     <string name="reference">Référence</string>
     <string name="number_option_dialog_title">Sélectionner le nombre</string>
     <string name="settings">Réglages</string>
-    <string name="text_size">Taille du texte</string>
+    <string name="text_size_colon">Taille du texte : %d</string>
     <string name="spacings">Espaces</string>
     <string name="number_of_digits_given">Nombre de chiffres donnés</string>
     <string name="range">Intervalle</string>

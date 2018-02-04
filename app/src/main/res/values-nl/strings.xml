@@ -18,7 +18,7 @@
     <string name="restart">Opnieuw</string>
     <string name="settings">Instellingen</string>
     <string name="spacings">Spaties</string>
-    <string name="text_size">Tekstgrootte</string>
+    <string name="text_size_colon">Tekstgrootte: %d</string>
     <string name="vibrate">Trillen</string>
     <string name="add_number">Voeg toe…</string>
     <string name="check_your_settings">Controleer je instellingen</string>

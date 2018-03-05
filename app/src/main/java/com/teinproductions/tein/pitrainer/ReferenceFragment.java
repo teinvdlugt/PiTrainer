@@ -54,13 +54,15 @@ public class ReferenceFragment extends Fragment
         openSettingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onClickOpenSettings();
+                // Animate expansion of the settings menu.
+                AnimationUtils.animateExpand(getContext(), settingsLayout, openSettingsButton);
             }
         });
         root.findViewById(R.id.closeSettings_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickCloseSettings();
+                // Animate collapse of the settings menu
+                AnimationUtils.animateCollapse(getContext(), settingsLayout, openSettingsButton);
             }
         });
 
@@ -157,86 +159,6 @@ public class ReferenceFragment extends Fragment
             }
         }
         fractionalPart.setText(sb);
-    }
-
-    private void onClickOpenSettings() {
-        // Prepare for animation:
-        // Determine final values for animation
-        settingsLayout.measure(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        final int targetHeight = settingsLayout.getMeasuredHeight();
-
-        // Set initial values for animation
-        settingsLayout.setAlpha(0f);
-        settingsLayout.setVisibility(View.VISIBLE);
-        settingsLayout.getLayoutParams().height = 1; // On older versions of Android, the animation gets cancelled if we set height to 0.
-        openSettingsButton.setAlpha(1f);
-        openSettingsButton.setVisibility(View.VISIBLE);
-
-        // Create the animation
-        Animation animation = new Animation() {
-            @Override
-            protected void applyTransformation(float interpolatedTime, Transformation t) {
-                // Update settingsLayout appearance
-                settingsLayout.getLayoutParams().height = interpolatedTime == 1
-                        ? ViewGroup.LayoutParams.WRAP_CONTENT
-                        : (int) (targetHeight * interpolatedTime);
-                settingsLayout.requestLayout();
-                settingsLayout.setAlpha(interpolatedTime);
-                // Update openSettingsButton
-                openSettingsButton.setAlpha(1 - (float) Math.cbrt(interpolatedTime));
-
-                // At the end:
-                if (interpolatedTime == 1)
-                    openSettingsButton.setVisibility(View.GONE);
-            }
-
-            @Override
-            public boolean willChangeBounds() {
-                return true;
-            }
-        };
-        animation.setDuration(getActivity().getResources().getInteger(android.R.integer.config_shortAnimTime));
-
-        // Start the animation!
-        settingsLayout.startAnimation(animation);
-    }
-
-    private void onClickCloseSettings() {
-        // Prepare for animation:
-        // Determine initial height
-        settingsLayout.measure(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        final int initialHeight = settingsLayout.getMeasuredHeight();
-
-        // Set initial values for animation
-        openSettingsButton.setAlpha(0f);
-        openSettingsButton.setVisibility(View.VISIBLE);
-
-        // Create the animation
-        Animation animation = new Animation() {
-            @Override
-            protected void applyTransformation(float interpolatedTime, Transformation t) {
-                // Update settingsLayout appearance
-                settingsLayout.getLayoutParams().height = initialHeight - (int) (initialHeight * interpolatedTime);
-                settingsLayout.requestLayout();
-                settingsLayout.setAlpha(1f - interpolatedTime);
-
-                // Update openSettingsButton appearance
-                openSettingsButton.setAlpha((float) Math.cbrt(interpolatedTime));
-
-                // At the end:
-                if (interpolatedTime == 1)
-                    settingsLayout.setVisibility(View.GONE);
-            }
-
-            @Override
-            public boolean willChangeBounds() {
-                return true;
-            }
-        };
-        animation.setDuration(getActivity().getResources().getInteger(android.R.integer.config_shortAnimTime));
-
-        // Start the animation!
-        settingsLayout.startAnimation(animation);
     }
 
     @Override

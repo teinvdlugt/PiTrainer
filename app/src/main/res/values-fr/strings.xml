@@ -20,7 +20,7 @@
     <string name="settings">Réglages</string>
     <string name="text_size_colon">Taille du texte : %d</string>
     <string name="spacings">Espaces</string>
-    <string name="number_of_digits_given">Nombre de chiffres donnés</string>
+    <string name="number_of_digits_given_colon">Nombre de chiffres donnés : %d</string>
     <string name="range">Intervalle</string>
     <string name="next">Suivant</string>
     <string name="complete_the_statement">Compléter</string>
@@ -35,7 +35,7 @@
     <string name="save">Enregistrer</string>
     <string name="too_much_input_dialog_message">Bravo ! Vous connaissez tous les chiffres de ce nombre enregistrés dans l’application.</string>
     <string name="check_your_settings">Erreur dans vos réglages</string>
-    <string name="length_of_answer">Longueur de la réponse</string>
+    <string name="length_of_answer_colon">Longueur de la réponse : %d</string>
     <string name="title_activity_numbers">Nombres personnalisés</string>
     <string name="custom_numbers">Nombres personnalisés…</string>
     <string name="create">Créer</string>

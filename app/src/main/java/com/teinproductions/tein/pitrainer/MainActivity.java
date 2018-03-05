@@ -299,50 +299,46 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Change the color of the ToolBar.
+     *
+     * @param correct Whether the user did the assignment right. If true, changes
+     *                the color to the primary app color. If false, changes the color to red.
+     */
     @Override
-    public void animateToolbarColor(boolean red) {
-        if (!red && !toolbarCurrentlyRed) {
+    public void animateToolbarColor(boolean correct) {
+        if (!correct && !toolbarCurrentlyRed) {
+            // Paint the toolBar red.
+            ValueAnimator animator = ValueAnimator.ofObject(new ArgbEvaluator(),
+                    getResources().getColor(R.color.colorPrimary),
+                    getResources().getColor(R.color.red));
+            animator.setDuration(getResources().getInteger(android.R.integer.config_shortAnimTime));
+            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                    toolbar.setBackgroundColor((Integer) valueAnimator.getAnimatedValue());
+                }
+            });
+            animator.start();
 
+            // Update this value:
             toolbarCurrentlyRed = true;
+        } else if (correct && toolbarCurrentlyRed) {
+            // Paint the toolbar not-red.
+            ValueAnimator animator = ValueAnimator.ofObject(new ArgbEvaluator(),
+                    getResources().getColor(R.color.red),
+                    getResources().getColor(R.color.colorPrimary));
+            animator.setDuration(getResources().getInteger(android.R.integer.config_shortAnimTime));
+            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                    toolbar.setBackgroundColor((Integer) valueAnimator.getAnimatedValue());
+                }
+            });
+            animator.start();
 
-            if (Build.VERSION.SDK_INT >= 11) {
-                ValueAnimator animator = ValueAnimator.ofObject(new ArgbEvaluator(),
-                        getResources().getColor(R.color.colorPrimary),
-                        getResources().getColor(R.color.red));
-                animator.setDuration(getResources().getInteger(android.R.integer.config_shortAnimTime));
-                animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                    @Override
-                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                        toolbar.setBackgroundColor((Integer) valueAnimator.getAnimatedValue());
-                    }
-                });
-                animator.start();
-
-            } else {
-                toolbar.setBackgroundColor(getResources().getColor(R.color.red));
-            }
-
-        } else if (red && toolbarCurrentlyRed) {
-
+            // Update this value:
             toolbarCurrentlyRed = false;
-
-            if (Build.VERSION.SDK_INT >= 11) {
-                ValueAnimator animator = ValueAnimator.ofObject(new ArgbEvaluator(),
-                        getResources().getColor(R.color.red),
-                        getResources().getColor(R.color.colorPrimary));
-                animator.setDuration(getResources().getInteger(android.R.integer.config_shortAnimTime));
-                animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                    @Override
-                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                        toolbar.setBackgroundColor((Integer) valueAnimator.getAnimatedValue());
-                    }
-                });
-                animator.start();
-
-            } else {
-                toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-            }
-
         }
     }
 

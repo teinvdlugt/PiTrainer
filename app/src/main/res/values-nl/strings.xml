@@ -7,7 +7,7 @@
     <string name="errors_colon">Fouten:</string>
     <string name="next">Volgende</string>
     <string name="number">Getal</string>
-    <string name="number_of_digits_given">Aantal gegeven cijfers</string>
+    <string name="number_of_digits_given_colon">Aantal gegeven cijfers: %d</string>
     <string name="number_option_dialog_title">Kies het getal om te oefenen</string>
     <string name="on_screen_keyboard">Toetsenbord</string>
     <string name="open_drawer">Open menu</string>
@@ -28,7 +28,7 @@
     <string name="fractional_part_explanation">De cijfers achter the komma</string>
     <string name="integer_part">Integer deel</string>
     <string name="integer_part_explanation">De cijfers voor de komma</string>
-    <string name="length_of_answer">Lengte van het antwoord</string>
+    <string name="length_of_answer_colon">Lengte van het antwoord: %d</string>
     <string name="name">Naam</string>
     <string name="pi">Pi</string>
     <string name="save">Opslaan</string>

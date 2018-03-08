@@ -89,6 +89,9 @@
     <string name="error_message_invalid_integer">Invalid integer</string>
     <string name="error_message_too_large">Too large</string>
     <string name="error_message_too_small">Too small</string>
+    <string name="range_start_colon">Range start: %d</string>
+    <string name="range_stop_colon">Range stop: %d</string>
+    <string name="an_error_occurred">An error occurred!</string>
 
     <string-array name="sort_methods">
         <item>Digits per minute</item>

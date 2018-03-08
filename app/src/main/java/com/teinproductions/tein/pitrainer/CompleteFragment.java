@@ -7,6 +7,7 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.teinproductions.tein.pitrainer.keyboard.Keyboard;
 
@@ -36,7 +38,7 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
 
     private ActivityInterface listener;
 
-    private int rangeStart; // Starts counting at 1, inclusive
+    private int rangeStart; // Starts counting at 1 (but if 0, it is treated as 1), inclusive
     private int rangeStop;  // Starts counting at 1, inclusive
     private int numDigits, answerLength;
     private String answer; // The correct answer that should be filled in
@@ -48,6 +50,7 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
     private EditText editText;  // EditText for the answer
     private Keyboard keyboard;
     private EditText rangeStartET, rangeStopET; // EditTexts in the settings menu
+    private TextView rangeStartTV, rangeStopTV;
     private SeekBar numDigitsSB, lengthAnsSB;
     private TextView numDigitsTV, lengthAnsTV;
     private ImageButton openSettingsButton;
@@ -70,6 +73,8 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
         rangeStartET = root.findViewById(R.id.rangeStart_editText);
         openSettingsButton = root.findViewById(R.id.openSettings_button);
         settingsLayout = root.findViewById(R.id.settings_layout);
+        rangeStartTV = root.findViewById(R.id.rangeStart_textView);
+        rangeStopTV = root.findViewById(R.id.rangeStop_textView);
 
         openSettingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,6 +130,8 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
         lengthAnsTV.setText(getContext().getString(R.string.length_of_answer_colon, answerLength));
         rangeStartET.setText(String.valueOf(rangeStart));
         rangeStopET.setText(String.valueOf(rangeStop));
+        rangeStartTV.setText(getContext().getString(R.string.range_start_colon, rangeStart));
+        rangeStopTV.setText(getContext().getString(R.string.range_stop_colon, rangeStop));
 
         showOnScreenKeyboard(getActivity().getPreferences(0).getBoolean(MainActivity.ON_SCREEN_KEYBOARD, false));
 
@@ -149,13 +156,29 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
         // rangeStart starts from 1, so we need to subtract 1 from it to get the inclusive start index. But we also want
         // to start at 0 when rangeStart = 0, so we take max(0, rangeStart - 1). rangeStop is inclusive and
         // starts counting at 1, which is equivalent to exclusive and starts counting at zero.
-        int tempRangeStart = Math.max(0, rangeStart - 1);
-        String digits = Digits.currentDigit.getFractionalPart().substring(tempRangeStart, rangeStop - 1);
+        int tempRangeStart = Math.max(0, rangeStart - 1);  // tempRangeStart starts counting at zero!
+        String digits = Digits.currentDigit.getFractionalPart().substring(tempRangeStart, rangeStop);
 
-        final int index = (int) Math.floor(Math.random() * (rangeStop - tempRangeStart + 1 - answerLength - numDigits)) + rangeStart; // TODO nog ff over nadenken
+        // Randomly choose the starting position of the 'statement'. The created variable 'index' will start
+        // counting at zero. First determine how many possibilities there are for 'index':
+        int choices = rangeStop - answerLength - numDigits - tempRangeStart + 1;
+        // Now select a number in [0, choices - 1]. Don't add tempRangeStart to it, because 'digits' is already
+        // sliced to begin at tempRangeStart.
+        int index = (int) Math.floor(Math.random() * choices);
 
         statement.setText(digits.substring(index, index + numDigits) + "…");
-        answer = digits.substring(index + numDigits, index + numDigits + answerLength);
+        try {
+            answer = digits.substring(index + numDigits, index + numDigits + answerLength);
+        } catch (StringIndexOutOfBoundsException e) {
+            Log.e("Pasta", "rangeStart = " + rangeStart);
+            Log.e("Pasta", "tempRangeStart = " + tempRangeStart);
+            Log.e("Pasta", "rangeStop = " + rangeStop);
+            Log.e("Pasta", "answerLength = " + answerLength);
+            Log.e("Pasta", "numDigits = " + numDigits);
+            Log.e("Pasta", "choices = " + choices);
+            Log.e("Pasta", "index = " + index);
+            Toast.makeText(getContext(), getString(R.string.an_error_occurred), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void setSettingsListeners() {
@@ -223,6 +246,7 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
                 int input;
                 try {
                     input = Integer.parseInt(s.toString().trim());
+                    if (input < 0) throw new NumberFormatException("Values < 0 not allowed");
                 } catch (NumberFormatException e) {
                     rangeStartET.setError(getString(R.string.error_message_invalid_integer));
                     return;
@@ -232,6 +256,11 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
                 if (checkEnteredSettingsAndShowErrorMessage(numDigits, answerLength, input, rangeStop)) {
                     // The new settings are alright, so save the preferences and call next().
                     rangeStart = input;
+
+                    if (input == 0)
+                        rangeStartTV.setText(getString(R.string.range_start_colon, 1));
+                    else
+                        rangeStartTV.setText(getString(R.string.range_start_colon, input));
                     getActivity().getPreferences(0).edit().putInt(
                             RANGE_START + Digits.currentDigit.getName(), rangeStart).apply();
                     next();
@@ -253,6 +282,7 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
                 int input;
                 try {
                     input = Integer.parseInt(s.toString().trim());
+                    if (input < 0) throw new NumberFormatException("Values < 0 not allowed");
                 } catch (NumberFormatException e) {
                     rangeStopET.setError(getString(R.string.error_message_invalid_integer));
                     return;
@@ -262,6 +292,7 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
                 if (checkEnteredSettingsAndShowErrorMessage(numDigits, answerLength, rangeStart, input)) {
                     // The new settings are alright, so save the preferences and call next().
                     rangeStop = input;
+                    rangeStopTV.setText(getString(R.string.range_stop_colon, input));
                     getActivity().getPreferences(0).edit().putInt(
                             RANGE_STOP + Digits.currentDigit.getName(), rangeStop).apply();
                     next();
@@ -280,8 +311,8 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
      */
     private boolean checkEnteredSettingsAndShowErrorMessage(int numDigits, int answerLength,
                                                             int rangeStart, int rangeStop) {
-        // answerLength and numDigits are assumed to be set correctly.
-        if (rangeStart > rangeStop - answerLength - numDigits + 1) {
+        // answerLength and numDigits are 'assumed' to be set correctly.
+        if (rangeStart > rangeStop - answerLength - numDigits) {
             // rangeStop is too low.
             rangeStopET.setError(getString(R.string.error_message_too_small));
             return false;
@@ -290,6 +321,9 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
             rangeStopET.setError(getString(R.string.error_message_too_large));
             return false;
         }
+
+        // Everything seems to be alright
+        rangeStopET.setError(null);
         return true;
     }
 

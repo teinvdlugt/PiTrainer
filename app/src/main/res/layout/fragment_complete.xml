@@ -65,7 +65,7 @@
                 android:layout_marginBottom="8dp"
                 android:layout_toLeftOf="@id/closeSettings_button"
                 android:layout_toStartOf="@id/closeSettings_button"
-                android:max="18" />
+                android:max="14" />
 
             <TextView
                 android:id="@+id/lengthOfAnswer_textView"
@@ -85,35 +85,35 @@
                 android:layout_below="@id/lengthOfAnswer_textView"
                 android:layout_toLeftOf="@id/closeSettings_button"
                 android:layout_toStartOf="@id/closeSettings_button"
-                android:max="18" />
+                android:max="14" />
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/rangeStart_textInputLayout"
+            <TextView
+                android:id="@+id/rangeStart_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lengthOfAnswer_seekBar"
+                android:text="@string/range_start_colon" />
+
+            <EditText
+                android:id="@+id/rangeStart_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/lengthOfAnswer_seekBar">
+                android:layout_below="@id/rangeStart_textView"
+                android:inputType="number" />
 
-                <EditText
-                    android:id="@+id/rangeStart_editText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/range_start"
-                    android:inputType="number" />
-            </android.support.design.widget.TextInputLayout>
+            <TextView
+                android:id="@+id/rangeStop_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rangeStart_editText"
+                android:text="@string/range_stop_colon" />
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/rangeStop_textInputLayout"
+            <EditText
+                android:id="@+id/rangeStop_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/rangeStart_textInputLayout">
-
-                <EditText
-                    android:id="@+id/rangeStop_editText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/range_stop"
-                    android:inputType="number" />
-            </android.support.design.widget.TextInputLayout>
+                android:layout_below="@id/rangeStop_textView"
+                android:inputType="number" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 

@@ -96,4 +96,13 @@
         <item>Jour</item>
         <item>Nuit</item>
     </string-array>
+    <string name="close_settings_xs">Fermer les réglages</string>
+    <string name="range_start">Début de l\'intervalle</string>
+    <string name="range_stop">Fin de l\'intervalle</string>
+    <string name="error_message_invalid_integer">Entier invalide</string>
+    <string name="error_message_too_large">Trop grand</string>
+    <string name="error_message_too_small">Trop petit</string>
+    <string name="range_start_colon">Début de l\'intervalle : %d</string>
+    <string name="range_stop_colon">Fin de l\'intervalle : %d</string>
+    <string name="an_error_occurred">Une erreur s\'est produite !</string>
 </resources>

@@ -6,7 +6,7 @@
     <string name="tau">Tau</string>
     <string name="euler_number">Euler\'s number</string>
     <string name="sqrt2">Square root of 2</string>
-    <string name="restart">restart</string>
+    <string name="restart">Restart</string>
     <string name="digits_colon">Digits:</string>
     <string name="errors_colon">Errors:</string>
     <string name="percentage_colon">Percentage:</string>
@@ -21,7 +21,7 @@
     <string name="spacings">Spacing</string>
     <string name="number_of_digits_given_colon">Number of digits given: %d</string>
     <string name="range">Range</string>
-    <string name="next">next</string>
+    <string name="next">Next</string>
     <string name="complete_the_statement">Complete</string>
     <string name="title_activity_add_number">Add Number</string>
     <string name="integer_part">Integer part</string>
@@ -35,7 +35,7 @@
     <string name="too_much_input_dialog_message">Great work! You have reached the maximum amount of digits of the number.</string>
     <string name="check_your_settings">Something is wrong in your settings</string>
     <string name="length_of_answer_colon">Length of answer: %d</string>
-    <string name="title_activity_numbers">Custom Numbers</string>
+    <string name="title_activity_numbers">Custom numbers</string>
     <string name="custom_numbers">Custom numbers…</string>
     <string name="create">Create</string>
     <string name="no_custom_numbers">You have not added any numbers yet.</string>

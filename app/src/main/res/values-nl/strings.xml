@@ -53,7 +53,7 @@
     <string name="record_card_description" formatted="false">%d cijfers met %.2f cijfers per minuut</string>
     <string name="record_holder_name">Naam</string>
     <string name="sort_by_spinner_text">Sorteren op:</string>
-    <string name="timed_mode_game">Getimede modus</string>
+    <string name="timed_mode_game">Tijdmodus</string>
     <string name="try_again">Probeer opnieuw</string>
     <string name="please_provide_a_fractional_part">Verstrek een fractioneel deel</string>
     <string name="please_provide_a_name">Verstrek een naam</string>
@@ -96,4 +96,13 @@
     <string name="keyboard_width_warning_message">De breedte op Grootst zetten werkt niet met landscape</string>
     <string name="warning">Waarschuwing</string>
     <string name="keyboard_feedback">Toetsenbord feedback</string>
+    <string name="close_settings_xs">Sluit instellingen</string>
+    <string name="range_start">Begin bereik</string>
+    <string name="range_stop">Eind bereik</string>
+    <string name="error_message_invalid_integer">Ongeldig getal</string>
+    <string name="error_message_too_large">Te groot</string>
+    <string name="error_message_too_small">Te klein</string>
+    <string name="range_start_colon">Begin bereik: %d</string>
+    <string name="range_stop_colon">Eind bereik: %d</string>
+    <string name="an_error_occurred">Er is een fout opgetreden!</string>
 </resources>

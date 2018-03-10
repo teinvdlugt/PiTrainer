@@ -7,6 +7,7 @@
     android:scrollbars="none">
 
     <RelativeLayout
+        android:id="@+id/animation_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -102,9 +103,10 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginTop="24dp"
+            android:padding="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/settings"
             android:scaleType="fitCenter"

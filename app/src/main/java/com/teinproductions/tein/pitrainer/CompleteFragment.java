@@ -1,6 +1,11 @@
 package com.teinproductions.tein.pitrainer;
 
 import android.os.Bundle;
+import android.support.transition.AutoTransition;
+import android.support.transition.ChangeBounds;
+import android.support.transition.Fade;
+import android.support.transition.TransitionManager;
+import android.support.transition.TransitionSet;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.Spannable;
@@ -55,12 +60,13 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
     private TextView numDigitsTV, lengthAnsTV;
     private ImageButton openSettingsButton;
     private ViewGroup settingsLayout;
+    private ViewGroup container;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         listener = (ActivityInterface) getActivity();
 
-        View root = inflater.inflate(R.layout.fragment_complete, container, false);
+        View root = inflater.inflate(R.layout.fragment_complete, parent, false);
 
         statement = root.findViewById(R.id.statement_textView);
         editText = root.findViewById(R.id.editText);
@@ -75,17 +81,26 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
         settingsLayout = root.findViewById(R.id.settings_layout);
         rangeStartTV = root.findViewById(R.id.rangeStart_textView);
         rangeStopTV = root.findViewById(R.id.rangeStop_textView);
+        container = root.findViewById(R.id.root);
 
         openSettingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AnimationUtils.animateExpand(getContext(), settingsLayout, openSettingsButton);
+                // Animate expansion of the settings menu.
+                TransitionManager.beginDelayedTransition(container, new AutoTransition()
+                        .setDuration(200));
+                settingsLayout.setVisibility(View.VISIBLE);
+                openSettingsButton.setVisibility(View.GONE);
             }
         });
         root.findViewById(R.id.closeSettings_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AnimationUtils.animateCollapse(getContext(), settingsLayout, openSettingsButton);
+                // Animate collapse of the settings menu.
+                TransitionManager.beginDelayedTransition(container, new AutoTransition()
+                        .setDuration(200));
+                settingsLayout.setVisibility(View.GONE);
+                openSettingsButton.setVisibility(View.VISIBLE);
             }
         });
 

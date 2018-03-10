@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
+import android.support.transition.TransitionManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
@@ -33,6 +34,7 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
     private TextView integerPartTV, digitsTV, errorsTV, percentageTV;
     private Keyboard keyboard;
     private ImageButton restartButton;
+    private ViewGroup root;
 
     private boolean indirectTextChange = false;
     private int selection = 0;
@@ -43,15 +45,16 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         listener = (ActivityInterface) getActivity();
 
-        View root = inflater.inflate(R.layout.fragment_practise, container, false);
+        View view = inflater.inflate(R.layout.fragment_practise, container, false);
 
-        inputET = (EditText) root.findViewById(R.id.input_editText);
-        digitsTV = (TextView) root.findViewById(R.id.digits_textView);
-        keyboard = (Keyboard) root.findViewById(R.id.keyboard);
-        restartButton = (ImageButton) root.findViewById(R.id.refresh_button);
-        errorsTV = (TextView) root.findViewById(R.id.errors_textView);
-        percentageTV = (TextView) root.findViewById(R.id.percentage_textView);
-        integerPartTV = (TextView) root.findViewById(R.id.integerPart_textView);
+        inputET = (EditText) view.findViewById(R.id.input_editText);
+        digitsTV = (TextView) view.findViewById(R.id.digits_textView);
+        keyboard = (Keyboard) view.findViewById(R.id.keyboard);
+        restartButton = (ImageButton) view.findViewById(R.id.refresh_button);
+        errorsTV = (TextView) view.findViewById(R.id.errors_textView);
+        percentageTV = (TextView) view.findViewById(R.id.percentage_textView);
+        integerPartTV = (TextView) view.findViewById(R.id.integerPart_textView);
+        root = view.findViewById(R.id.root);
 
         keyboard.setEditText(inputET);
         restoreValues();
@@ -59,7 +62,7 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
         setRestartImageResource();
         setTextWatcher();
 
-        return root;
+        return view;
     }
 
     private void restoreValues() {
@@ -78,6 +81,7 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
     @Override
     public void showOnScreenKeyboard(boolean show) {
         listener.preventSoftKeyboardFromShowingUp(inputET, show);
+        TransitionManager.beginDelayedTransition(root);
         keyboard.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 

@@ -3,7 +3,7 @@ package com.teinproductions.tein.pitrainer;
 import android.os.Bundle;
 import android.support.transition.AutoTransition;
 import android.support.transition.ChangeBounds;
-import android.support.transition.Fade;
+import android.support.transition.Slide;
 import android.support.transition.TransitionManager;
 import android.support.transition.TransitionSet;
 import android.support.v4.app.Fragment;
@@ -430,8 +430,9 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
 
     @Override
     public void showOnScreenKeyboard(boolean show) {
-        keyboard.setVisibility(show ? View.VISIBLE : View.GONE);
         listener.preventSoftKeyboardFromShowingUp(editText, show);
+        TransitionManager.beginDelayedTransition(container);
+        keyboard.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     @Override

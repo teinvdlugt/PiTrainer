@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
+import android.support.transition.TransitionManager;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -173,6 +174,7 @@ public class TimeFragment extends Fragment implements FragmentInterface {
     @Override
     public void showOnScreenKeyboard(boolean show) {
         activityInterface.preventSoftKeyboardFromShowingUp(inputET, show);
+        TransitionManager.beginDelayedTransition(root);
         keyboard.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 

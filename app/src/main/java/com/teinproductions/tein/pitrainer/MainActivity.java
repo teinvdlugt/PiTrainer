@@ -2,6 +2,7 @@ package com.teinproductions.tein.pitrainer;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -24,6 +26,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -73,14 +76,31 @@ public class MainActivity extends AppCompatActivity
         applyNightMode();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        navigationView = (NavigationView) findViewById(R.id.navigationView);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.navigationView);
         navigationView.setNavigationItemSelectedListener(this);
         initDrawerToggle();
+
+        // Hide the keyboard when the drawer menu is opened.
+        drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+                hideSoftKeyboardRightNow();
+            }
+
+            @Override
+            public void onDrawerOpened(@NonNull View drawerView) {}
+
+            @Override
+            public void onDrawerClosed(@NonNull View drawerView) {}
+
+            @Override
+            public void onDrawerStateChanged(int newState) {}
+        });
 
         Digits.initDigits(this);
         restoreValues();
@@ -260,6 +280,7 @@ public class MainActivity extends AppCompatActivity
         if (prevent) {
             if (Build.VERSION.SDK_INT >= 21) {
                 et.setShowSoftInputOnFocus(false);
+                hideSoftKeyboardRightNow();
             } else {
                 et.setOnTouchListener(new View.OnTouchListener() {
                     @Override
@@ -285,6 +306,16 @@ public class MainActivity extends AppCompatActivity
                 });
             }
         }
+    }
+
+    private void hideSoftKeyboardRightNow() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        View view = getCurrentFocus();
+        // If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(this);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     @Override

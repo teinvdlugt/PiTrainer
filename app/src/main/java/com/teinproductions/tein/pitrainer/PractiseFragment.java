@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
+import android.support.transition.AutoTransition;
 import android.support.transition.TransitionManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -35,6 +36,9 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
     private Keyboard keyboard;
     private ImageButton restartButton;
     private ViewGroup root;
+    private EditText startDigitET;
+    private ImageButton openSettingsButton;
+    private ViewGroup settingsLayout;
 
     private boolean indirectTextChange = false;
     private int selection = 0;
@@ -47,14 +51,43 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
 
         View view = inflater.inflate(R.layout.fragment_practise, container, false);
 
-        inputET = (EditText) view.findViewById(R.id.input_editText);
-        digitsTV = (TextView) view.findViewById(R.id.digits_textView);
-        keyboard = (Keyboard) view.findViewById(R.id.keyboard);
-        restartButton = (ImageButton) view.findViewById(R.id.refresh_button);
-        errorsTV = (TextView) view.findViewById(R.id.errors_textView);
-        percentageTV = (TextView) view.findViewById(R.id.percentage_textView);
-        integerPartTV = (TextView) view.findViewById(R.id.integerPart_textView);
+        inputET = view.findViewById(R.id.input_editText);
+        digitsTV = view.findViewById(R.id.digits_textView);
+        keyboard = view.findViewById(R.id.keyboard);
+        restartButton = view.findViewById(R.id.refresh_button);
+        errorsTV = view.findViewById(R.id.errors_textView);
+        percentageTV = view.findViewById(R.id.percentage_textView);
+        integerPartTV = view.findViewById(R.id.integerPart_textView);
         root = view.findViewById(R.id.root);
+        startDigitET = view.findViewById(R.id.startDigit_editText);
+        openSettingsButton = view.findViewById(R.id.openSettings_button);
+        settingsLayout = view.findViewById(R.id.settings_layout);
+
+        openSettingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Animate expansion of the settings menu.
+                TransitionManager.beginDelayedTransition(root, new AutoTransition()
+                        .setDuration(200));
+                settingsLayout.setVisibility(View.VISIBLE);
+                openSettingsButton.setVisibility(View.GONE);
+                // Hide the keyboard when the settings menu is open, because maybe awkward.
+                keyboard.setVisibility(View.GONE);
+            }
+        });
+        view.findViewById(R.id.closeSettings_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Animate collapse of the settings menu.
+                TransitionManager.beginDelayedTransition(root, new AutoTransition()
+                        .setDuration(200));
+                settingsLayout.setVisibility(View.GONE);
+                openSettingsButton.setVisibility(View.VISIBLE);
+                // Show the keyboard again, if preferences say so
+                showOnScreenKeyboard(getActivity().getPreferences(0)
+                        .getBoolean(MainActivity.ON_SCREEN_KEYBOARD, false));
+            }
+        });
 
         keyboard.setEditText(inputET);
         restoreValues();

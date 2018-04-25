@@ -92,6 +92,7 @@
     <string name="range_start_colon">Range start: %d</string>
     <string name="range_stop_colon">Range stop: %d</string>
     <string name="an_error_occurred">An error occurred!</string>
+    <string name="starting_digit">Starting digit</string>
 
     <string-array name="sort_methods">
         <item>Digits per minute</item>

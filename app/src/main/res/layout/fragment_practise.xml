@@ -1,22 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin">
-
-    <com.teinproductions.tein.pitrainer.keyboard.Keyboard
-        android:id="@+id/keyboard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:visibility="gone"
-        tools:visibility="visible" />
+    android:layout_height="match_parent">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -28,10 +16,70 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <ImageButton
+                android:id="@+id/openSettings_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/settings"
+                android:padding="8dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_keyboard_arrow_down_24dp" />
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/settings_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"
+                app:cardCornerRadius="4dp"
+                app:contentPadding="8dp"
+                tools:visibility="visible">
+
+                <ImageButton
+                    android:id="@+id/closeSettings_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/close_settings_xs"
+                    android:src="@drawable/ic_close_24dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/startDigit_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/starting_digit" />
+
+                    <EditText
+                        android:id="@+id/startDigit_editText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
             <TextView
                 android:id="@+id/integerPart_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/settings_layout"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="48sp"
                 tools:text="3." />
@@ -41,26 +89,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/integerPart_textView"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
                 android:maxLines="8"
                 android:numeric="integer"
                 android:textSize="24sp" />
 
             <ImageButton
-                android:padding="8dp"
                 android:id="@+id/refresh_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_below="@id/input_editText"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
                 android:background="@null"
                 android:contentDescription="@string/restart"
+                android:padding="8dp"
                 tools:src="@drawable/ic_restart" />
 
             <TableLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/input_editText"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp">
 
                 <TableRow>
@@ -98,4 +152,13 @@
             </TableLayout>
         </RelativeLayout>
     </ScrollView>
+
+    <com.teinproductions.tein.pitrainer.keyboard.Keyboard
+        android:id="@+id/keyboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        tools:visibility="visible" />
 </RelativeLayout>

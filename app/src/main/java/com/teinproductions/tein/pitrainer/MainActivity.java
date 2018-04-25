@@ -224,12 +224,7 @@ public class MainActivity extends AppCompatActivity
                                     pref.edit().putInt(THEME_MODE, which).apply();
                                     // UiModeManager.MODE_NIGHT_AUTO = 0, NO = 1, YES = 2
                                     AppCompatDelegate.setDefaultNightMode(which);
-                                    if (Build.VERSION.SDK_INT >= 11) {
-                                        recreate();
-                                    } else {
-                                        startActivity(getIntent());
-                                        finish();
-                                    }
+                                    recreate();
                                 }
                                 dialog.dismiss();
                             }

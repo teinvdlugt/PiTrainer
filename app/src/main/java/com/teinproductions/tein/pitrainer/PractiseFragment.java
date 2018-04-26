@@ -1,5 +1,6 @@
 package com.teinproductions.tein.pitrainer;
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -28,6 +29,7 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
 
     private static final String ERRORS = "ERRORS";
     private static final String INPUT = "PRACTISE_FRAGMENT_INPUT";
+    private static final String STARTING_DIGIT = "STARTING_DIGIT_"; // Append the name of the digit
 
     private ActivityInterface listener;
 
@@ -39,6 +41,8 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
     private EditText startDigitET;
     private ImageButton openSettingsButton;
     private ViewGroup settingsLayout;
+
+    private int startDigit = 1; // Starts counting at 1
 
     private boolean indirectTextChange = false;
     private int selection = 0;
@@ -91,6 +95,7 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
 
         keyboard.setEditText(inputET);
         restoreValues();
+        setSettingsListeners();
         fillTextViews();
         setRestartImageResource();
         setTextWatcher();
@@ -98,17 +103,74 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
         return view;
     }
 
+    @SuppressLint("SetTextI18n")
     private void restoreValues() {
+        startDigit = getActivity().getPreferences(0).getInt(STARTING_DIGIT + Digits.currentDigit.getName(), 1);
+        setStartDigit(startDigit);
+
         errors = getActivity().getPreferences(0).getInt(ERRORS, 0);
-
-        integerPartTV.setText(Digits.currentDigit.getIntegerPart() + ".");
-
         String input = getActivity().getPreferences(0).getString(INPUT, "");
         inputET.setText(toColoredSpannable(input));
         inputET.setSelection(inputET.length());
         listener.animateToolbarColor(!Digits.isIncorrect(inputET.getText().toString()));
 
         showOnScreenKeyboard(getActivity().getPreferences(0).getBoolean(MainActivity.ON_SCREEN_KEYBOARD, false));
+    }
+
+    private void setSettingsListeners() {
+        startDigitET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Try to parse the input.
+                int input;
+                try {
+                    input = Integer.parseInt(s.toString().trim());
+                } catch (NumberFormatException e) {
+                    startDigitET.setError(getString(R.string.error_message_invalid_integer));
+                    return;
+                }
+
+                // Check if the input isn't too large (and if < 0, just to be sure)
+                if (input < 0 || input > Digits.currentDigit.getFractionalPart().length() - 2) {
+                    startDigitET.setError(getString(R.string.error_message_too_large));
+                    return;
+                }
+                // Input of 0 is equivalent to an input of 1:
+                if (input == 0) input = 1;
+
+                // Everything seems to be alright. Reset the input field and apply changes.
+                onClickRestart(false);
+                setStartDigit(input); // TODO Does it also refresh when the activity is restarted? (it shouldn't)
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void setStartDigit(int startDigit) {
+        this.startDigit = startDigit;
+        startDigitET.setText(startDigit + "");
+        getActivity().getPreferences(0).edit()
+                .putInt(STARTING_DIGIT + Digits.currentDigit.getName(), startDigit).apply();
+        // Determine what should be in the integerPartTV.
+        if (startDigit >= Digits.currentDigit.getFractionalPart().length() - 2) {
+            // The startDigit value is too high. Reset it to 1.
+            startDigit = 1;
+        }
+        // Show the six digits in front of the starting digit. If there are no six digits, show the
+        // integer part plus all digits in front of the starting digit.
+        if (startDigit > 6) {
+            integerPartTV.setText("..." + Digits.currentDigit.getFractionalPart()
+                    .substring(startDigit - 7, startDigit - 1) + "...");
+        } else {
+            integerPartTV.setText(Digits.currentDigit.getIntegerPart() + "." + // TODO i18n
+                    Digits.currentDigit.getFractionalPart().substring(0, startDigit - 1));
+        }
     }
 
     @Override
@@ -140,18 +202,21 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
         restartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onClickRestart();
+                onClickRestart(true);
             }
         });
     }
 
-    private void onClickRestart() {
-        if (Build.VERSION.SDK_INT >= 21) {
-            Drawable drawable = restartButton.getDrawable();
-            if (drawable instanceof AnimatedVectorDrawableCompat)
-                ((AnimatedVectorDrawableCompat) drawable).start();
-            else if (drawable instanceof AnimatedVectorDrawable)
-                ((AnimatedVectorDrawable) drawable).start();
+    private void onClickRestart(boolean animate) {
+        if (animate) {
+            // Animate rotation of the restart button.
+            if (Build.VERSION.SDK_INT >= 21) {
+                Drawable drawable = restartButton.getDrawable();
+                if (drawable instanceof AnimatedVectorDrawableCompat)
+                    ((AnimatedVectorDrawableCompat) drawable).start();
+                else if (drawable instanceof AnimatedVectorDrawable)
+                    ((AnimatedVectorDrawable) drawable).start();
+            }
         }
 
         inputET.setText("");
@@ -260,7 +325,7 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
     @Override
     public void notifyDigitsChanged() {
         integerPartTV.setText(Digits.currentDigit.getIntegerPart() + ".");
-        onClickRestart();
+        onClickRestart(true);
     }
 
     @Override

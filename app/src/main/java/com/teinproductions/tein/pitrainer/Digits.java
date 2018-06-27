@@ -61,9 +61,9 @@ public class Digits implements Serializable {
         System.arraycopy(preloaded, 0, digits, saved.length, preloaded.length);
     }
 
-    public static boolean isIncorrect(String stringToCheck) {
+    public static boolean isIncorrect(String stringToCheck, int startDigit) {
         for (int i = 0; i < stringToCheck.length(); i++) {
-            if (stringToCheck.charAt(i) != currentDigit.getFractionalPart().charAt(i)) {
+            if (stringToCheck.charAt(i) != currentDigit.getFractionalPart().charAt(i + startDigit - 1)) {
                 return true;
             }
         }

@@ -116,7 +116,7 @@ public class TimeFragment extends Fragment implements FragmentInterface {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (Digits.isIncorrect(inputET.getText().toString())) {
+                if (Digits.isIncorrect(inputET.getText().toString(), 1)) {
                     end(inputET.length() - 1, true);
                 } else {
                     if (inputET.getText().length() == 1 && before == 0) {

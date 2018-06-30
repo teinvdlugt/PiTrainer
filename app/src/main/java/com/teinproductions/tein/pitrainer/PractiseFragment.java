@@ -1,6 +1,7 @@
 package com.teinproductions.tein.pitrainer;
 
 import android.annotation.SuppressLint;
+import android.content.res.Configuration;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -76,7 +77,9 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
                 settingsLayout.setVisibility(View.VISIBLE);
                 openSettingsButton.setVisibility(View.GONE);
                 // Hide the keyboard when the settings menu is open, because maybe awkward.
-                // keyboard.setVisibility(View.GONE);
+                // But only in portrait mode.
+                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+                    keyboard.setVisibility(View.GONE);
             }
         });
         view.findViewById(R.id.closeSettings_button).setOnClickListener(new View.OnClickListener() {
@@ -88,8 +91,8 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
                 settingsLayout.setVisibility(View.GONE);
                 openSettingsButton.setVisibility(View.VISIBLE);
                 // Show the keyboard again, if preferences say so
-                // showOnScreenKeyboard(getActivity().getPreferences(0)
-                //         .getBoolean(MainActivity.ON_SCREEN_KEYBOARD, false));
+                showOnScreenKeyboard(getActivity().getPreferences(0)
+                        .getBoolean(MainActivity.ON_SCREEN_KEYBOARD, false));
             }
         });
 
@@ -181,8 +184,13 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
     @Override
     public void showOnScreenKeyboard(boolean show) {
         listener.preventSoftKeyboardFromShowingUp(inputET, show);
-        TransitionManager.beginDelayedTransition(root);
-        keyboard.setVisibility(show ? View.VISIBLE : View.GONE);
+        if (keyboard.getVisibility() == View.GONE && show) {
+            TransitionManager.beginDelayedTransition(root);
+            keyboard.setVisibility(View.VISIBLE);
+        } else if (keyboard.getVisibility() == View.VISIBLE && !show) {
+            TransitionManager.beginDelayedTransition(root);
+            keyboard.setVisibility(View.GONE);
+        }
     }
 
     @Override

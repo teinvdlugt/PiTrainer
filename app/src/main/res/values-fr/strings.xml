@@ -105,4 +105,5 @@
     <string name="range_start_colon">Début de l\'intervalle : %d</string>
     <string name="range_stop_colon">Fin de l\'intervalle : %d</string>
     <string name="an_error_occurred">Une erreur s\'est produite !</string>
+    <string name="starting_digit">Position de départ</string>
 </resources>

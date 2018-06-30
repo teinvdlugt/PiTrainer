@@ -105,4 +105,5 @@
     <string name="range_start_colon">Begin bereik: %d</string>
     <string name="range_stop_colon">Eind bereik: %d</string>
     <string name="an_error_occurred">Er is een fout opgetreden!</string>
+    <string name="starting_digit">Beginpositie</string>
 </resources>

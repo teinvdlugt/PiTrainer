@@ -86,6 +86,8 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
         openSettingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Log a firebase event.
+                listener.logEventSelectContent("openSettingsButton", "openSettingsButton", MainActivity.CONTENT_TYPE_BUTTON);
                 // Animate expansion of the settings menu.
                 TransitionManager.beginDelayedTransition(container, new AutoTransition()
                         .setDuration(200));
@@ -107,6 +109,9 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
         root.findViewById(R.id.nextButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Log a firebase event.
+                listener.logEventSelectContent("nextButton", "nextButton", MainActivity.CONTENT_TYPE_BUTTON);
+
                 next();
             }
         });
@@ -372,7 +377,11 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
                     editText.getText().delete(selection - 1, selection);
                 } else if (editText.length() == answerLength) {
                     // The answer is correct, go to the next challenge
+                    // First log a firebase event.
+                    listener.logEventComplete();
+                    // Make the toolbar not-red
                     listener.animateToolbarColor(true);
+                    // Start the next challenge.
                     next();
                     // TODO show the correct answer for a short time before continuing to the next challenge,
                     // or make the toolbar green for a moment.

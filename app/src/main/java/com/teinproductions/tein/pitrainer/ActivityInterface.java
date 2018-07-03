@@ -8,4 +8,6 @@ public interface ActivityInterface {
     void vibrate();
     void animateToolbarColor(boolean red);
     void swapFragment(Class fragmentClass);
+    void logEventSelectContent(String itemId, String itemName, String contentType);
+    void logEventComplete();
 }

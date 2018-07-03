@@ -24,7 +24,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.teinproductions.tein.pitrainer.keyboard.Keyboard;
 
 public class PractiseFragment extends Fragment implements FragmentInterface {
@@ -33,7 +32,7 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
     private static final String INPUT = "PRACTISE_FRAGMENT_INPUT";
     private static final String STARTING_DIGIT = "STARTING_DIGIT_"; // Append the name of the digit
 
-    private ActivityInterface listener;
+    private ActivityInterface activityInterface;
 
     private EditText inputET;
     private TextView integerPartTV, digitsTV, errorsTV, percentageTV;
@@ -53,7 +52,7 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        listener = (ActivityInterface) getActivity();
+        activityInterface = (ActivityInterface) getActivity();
 
         View view = inflater.inflate(R.layout.fragment_practise, container, false);
 
@@ -72,6 +71,8 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
         openSettingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Log a firebase event.
+                activityInterface.logEventSelectContent("openSettingsButton", "openSettingsButton", MainActivity.CONTENT_TYPE_BUTTON);
                 // Animate expansion of the settings menu.
                 TransitionManager.beginDelayedTransition(root, new AutoTransition()
                         .setDuration(200));
@@ -117,7 +118,7 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
         String input = getActivity().getPreferences(0).getString(INPUT, "");
         inputET.setText(toColoredSpannable(input));
         inputET.setSelection(inputET.length());
-        listener.animateToolbarColor(!Digits.isIncorrect(inputET.getText().toString(), startDigit));
+        activityInterface.animateToolbarColor(!Digits.isIncorrect(inputET.getText().toString(), startDigit));
 
         showOnScreenKeyboard(getActivity().getPreferences(0).getBoolean(MainActivity.ON_SCREEN_KEYBOARD, false));
     }
@@ -184,7 +185,7 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
 
     @Override
     public void showOnScreenKeyboard(boolean show) {
-        listener.preventSoftKeyboardFromShowingUp(inputET, show);
+        activityInterface.preventSoftKeyboardFromShowingUp(inputET, show);
         if (keyboard.getVisibility() == View.GONE && show) {
             TransitionManager.beginDelayedTransition(root);
             keyboard.setVisibility(View.VISIBLE);
@@ -216,6 +217,9 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
         restartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Log a firebase event.
+                activityInterface.logEventSelectContent("restartButton", "restartButton", MainActivity.CONTENT_TYPE_BUTTON);
+
                 onClickRestart(true);
             }
         });
@@ -279,7 +283,7 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
                 selection = inputET.getSelectionStart();
 
                 if (Digits.isIncorrect(inputET.getText().toString(), startDigit) && inputET.length() != 0) {
-                    listener.animateToolbarColor(false);
+                    activityInterface.animateToolbarColor(false);
 
                     // If the last typed character is wrong:
                     if (lastTextLength < inputET.length() // backspace is not pressed
@@ -288,10 +292,10 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
                             != Digits.currentDigit.getFractionalPart().charAt(selection - 1 + startDigit - 1)) { // The typed character is wrong
 
                         errors++;
-                        listener.vibrate();
+                        activityInterface.vibrate();
                     }
                 } else {
-                    listener.animateToolbarColor(true);
+                    activityInterface.animateToolbarColor(true);
                 }
 
                 indirectTextChange = true;

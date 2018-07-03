@@ -51,6 +51,9 @@ public class MainActivity extends AppCompatActivity
     private static final int CHOOSE_KEYBOARD_ACTIVITY_REQUEST_CODE = 2;
     private static final int KEYBOARD_SIZE_ACTIVITY_REQUEST_CODE = 3;
 
+    // For firebase event logging
+    public static final String CONTENT_TYPE_BUTTON = "button";
+
     private FirebaseAnalytics mFirebaseAnalytics;
 
     private boolean onScreenKeyboard;
@@ -442,5 +445,26 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void reloadRecords() {
         fragmentInterface.notifyDigitsChanged();
+    }
+
+    /**
+     * Log a Firebase Analytics event of type SELECT_CONTENT and with parameters as specified.
+     */
+    @Override
+    public void logEventSelectContent(String itemId, String itemName, String contentType) {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, itemId);
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, itemName);
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, contentType);
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+    }
+
+    /**
+     * Call this when you want to log a firebase event that says that a series of digits in
+     * CompleteFragment was correctly completed.
+     */
+    @Override
+    public void logEventComplete() {
+        mFirebaseAnalytics.logEvent("completed_statement", null);
     }
 }

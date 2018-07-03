@@ -26,6 +26,8 @@ public class ReferenceFragment extends Fragment
     private static final int MIN_TEXT_SIZE_VALUE = 10;
     private static final int MAX_TEXT_SIZE_VALUE = 40;
 
+    private ActivityInterface activityInterface;
+
     private int textSize;
     private int spacings;
 
@@ -39,6 +41,7 @@ public class ReferenceFragment extends Fragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        activityInterface = (ActivityInterface) getActivity();
         View root = inflater.inflate(R.layout.fragment_reference, container, false);
 
         integerPart = root.findViewById(R.id.integerPart_textView);
@@ -56,6 +59,8 @@ public class ReferenceFragment extends Fragment
         openSettingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Log a firebase event.
+                activityInterface.logEventSelectContent("openSettingsButton", "openSettingsButton", MainActivity.CONTENT_TYPE_BUTTON);
                 // Animate expansion of the settings menu.
                 TransitionManager.beginDelayedTransition(animationContainer, new AutoTransition()
                         .setDuration(200));

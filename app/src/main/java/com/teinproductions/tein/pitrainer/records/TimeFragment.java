@@ -84,6 +84,9 @@ public class TimeFragment extends Fragment implements FragmentInterface {
         restartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Log a firebase event.
+                activityInterface.logEventSelectContent("restartButton", "restartButton", MainActivity.CONTENT_TYPE_BUTTON);
+
                 onClickRestart();
             }
         });
@@ -91,6 +94,9 @@ public class TimeFragment extends Fragment implements FragmentInterface {
             @Override
             public void onClick(View v) {
                 if (inputET.length() > 0) {
+                    // Log a firebase event.
+                    activityInterface.logEventSelectContent("doneButton", "doneButton", MainActivity.CONTENT_TYPE_BUTTON);
+
                     end(inputET.length(), false);
                 } else {
                     Snackbar snack = Snackbar.make(root, R.string.please_type_more_digits_snackbar, Snackbar.LENGTH_LONG);

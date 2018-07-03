@@ -145,9 +145,22 @@ public class MainActivity extends AppCompatActivity
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.content, fragment)
+                .replace(R.id.content, fragment, "currentFragment") // The tag is used in onResume for screen tracking
                 .commit();
         fragmentInterface = (FragmentInterface) fragment;
+
+        // Update the Firebase screen name for screen tracking
+        mFirebaseAnalytics.setCurrentScreen(this, fragmentClass.getSimpleName(), fragmentClass.getSimpleName());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // When MainActivity is opened again after another activity closes, we need to
+        // update the screen name to the current fragment name again, for firebase screen tracking.
+        Fragment currentFragment = getSupportFragmentManager().findFragmentByTag("currentFragment");
+        if (currentFragment != null)
+            mFirebaseAnalytics.setCurrentScreen(this, currentFragment.getClass().getSimpleName(), currentFragment.getClass().getSimpleName());
     }
 
     @Override

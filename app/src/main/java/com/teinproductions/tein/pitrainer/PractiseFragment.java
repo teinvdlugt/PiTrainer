@@ -24,6 +24,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.teinproductions.tein.pitrainer.keyboard.Keyboard;
 
 public class PractiseFragment extends Fragment implements FragmentInterface {

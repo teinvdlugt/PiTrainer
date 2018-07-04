@@ -1,115 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scrollbars="none">
+    android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/animation_container"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/settings_layout"
+        <RelativeLayout
+            android:id="@+id/animation_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="16dp"
-            android:visibility="gone"
-            app:cardCornerRadius="4dp"
-            app:contentPadding="8dp"
-            tools:visibility="visible">
+            android:layout_height="wrap_content">
 
-            <RelativeLayout
+            <android.support.v7.widget.CardView
+                android:id="@+id/settings_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"
+                app:cardCornerRadius="4dp"
+                app:contentPadding="8dp"
+                tools:visibility="visible">
 
-                <ImageButton
-                    android:id="@+id/closeSettings_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/close_settings_xs"
-                    android:src="@drawable/ic_close_24dp" />
-
-                <TextView
-                    android:id="@+id/textSize_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/text_size_colon" />
-
-                <!-- The range of this SeekBar should be 10 to 40,
-                 but the android:min attribute isn't supported on API 26
-                 and lower. So set max to 30, and in ReferenceFragment.java
-                 add 10 every time. -->
-                <SeekBar
-                    android:id="@+id/textSize_seekBar"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/textSize_textView"
-                    android:layout_toLeftOf="@id/closeSettings_button"
-                    android:layout_toStartOf="@id/closeSettings_button"
-                    android:max="30" />
+                    android:layout_height="wrap_content">
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/textSize_seekBar">
+                    <ImageButton
+                        android:id="@+id/closeSettings_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/close_settings_xs"
+                        android:src="@drawable/ic_close_24dp" />
 
-                    <EditText
-                        android:id="@+id/spacings_editText"
+                    <TextView
+                        android:id="@+id/textSize_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_size_colon" />
+
+                    <!-- The range of this SeekBar should be 10 to 40,
+                     but the android:min attribute isn't supported on API 26
+                     and lower. So set max to 30, and in ReferenceFragment.java
+                     add 10 every time. -->
+                    <SeekBar
+                        android:id="@+id/textSize_seekBar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/spacings"
-                        android:inputType="number" />
-                </android.support.design.widget.TextInputLayout>
-            </RelativeLayout>
-        </android.support.v7.widget.CardView>
+                        android:layout_below="@id/textSize_textView"
+                        android:layout_toLeftOf="@id/closeSettings_button"
+                        android:layout_toStartOf="@id/closeSettings_button"
+                        android:max="30" />
 
-        <TextView
-            android:id="@+id/integerPart_textView"
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/textSize_seekBar">
+
+                        <EditText
+                            android:id="@+id/spacings_editText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/spacings"
+                            android:inputType="number" />
+                    </android.support.design.widget.TextInputLayout>
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:id="@+id/integerPart_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/settings_layout"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="56sp"
+                tools:text="3." />
+
+            <TextView
+                android:id="@+id/fractionalPart_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/integerPart_textView"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="18sp"
+                tools:text="1415926535" />
+
+            <ImageButton
+                android:id="@+id/openSettings_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/settings"
+                android:padding="8dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_keyboard_arrow_down_24dp" />
+        </RelativeLayout>
+    </ScrollView>
+
+    <android.support.v7.widget.CardView
+        android:visibility="gone"
+        android:id="@+id/adView_container"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        app:cardCornerRadius="4dp">
+
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/settings_layout"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:textColor="?android:textColorPrimary"
-            android:textSize="56sp"
-            tools:text="3." />
+            android:layout_gravity="center_horizontal"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+        <!--TODO adUnitId-->
+        <!--TODO always test with test ads! Test ad unit id: ca-app-pub-3940256099942544/6300978111 -->
 
-        <TextView
-            android:id="@+id/fractionalPart_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/integerPart_textView"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:textColor="?android:textColorPrimary"
-            android:textSize="18sp"
-            tools:text="1415926535" />
-
-        <ImageButton
-            android:id="@+id/openSettings_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:padding="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="16dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/settings"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_keyboard_arrow_down_24dp" />
-    </RelativeLayout>
-</ScrollView>
+    </android.support.v7.widget.CardView>
+</FrameLayout>

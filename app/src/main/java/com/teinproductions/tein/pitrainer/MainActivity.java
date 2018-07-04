@@ -30,6 +30,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.teinproductions.tein.pitrainer.keyboard.ChooseKeyboardActivity;
 import com.teinproductions.tein.pitrainer.keyboard.KeyboardSizeActivity;
@@ -76,6 +77,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713"); // TODO replace with AdMob app id
         applyNightMode();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

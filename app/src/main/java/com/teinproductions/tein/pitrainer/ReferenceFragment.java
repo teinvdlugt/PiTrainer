@@ -17,6 +17,10 @@ import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 public class ReferenceFragment extends Fragment
         implements FragmentInterface {
 
@@ -38,6 +42,8 @@ public class ReferenceFragment extends Fragment
     private TextView textSizeTV; // TextView above textSizeSB
     private EditText spacingsET;
     private ViewGroup animationContainer; // Contains Views that should be animated (when the settings panel is expanded/collapsed)
+    private AdView adView;
+    private CardView adViewContainer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -52,6 +58,8 @@ public class ReferenceFragment extends Fragment
         spacingsET = root.findViewById(R.id.spacings_editText);
         textSizeTV = root.findViewById(R.id.textSize_textView);
         animationContainer = root.findViewById(R.id.animation_container);
+        adView = root.findViewById(R.id.adView);
+        adViewContainer = root.findViewById(R.id.adView_container);
 
         restoreValues();
         reload();
@@ -80,6 +88,21 @@ public class ReferenceFragment extends Fragment
         });
 
         setTextWatchers();
+
+        // Setup adView:
+        adView.setAdListener(new AdListener() {
+            @Override
+            public void onAdFailedToLoad(int i) {
+                adViewContainer.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAdLoaded() {
+                adViewContainer.setVisibility(View.VISIBLE);
+            }
+        });
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
 
         return root;
     }

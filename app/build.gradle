@@ -9,8 +9,8 @@ android {
         applicationId "com.teinproductions.tein.pitrainer"
         minSdkVersion 14
         targetSdkVersion 27
-        versionCode 17
-        versionName "2.5.1"
+        versionCode 18
+        versionName "2.5.2"
     }
     buildTypes {
         release {

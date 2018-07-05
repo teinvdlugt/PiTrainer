@@ -77,7 +77,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713"); // TODO replace with AdMob app id
+        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
+        // TODO replace with AdMob App ID. Sample ad: ca-app-pub-3940256099942544~3347511713
         applyNightMode();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

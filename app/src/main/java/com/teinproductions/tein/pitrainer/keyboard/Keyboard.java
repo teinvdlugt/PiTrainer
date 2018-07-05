@@ -17,7 +17,6 @@ import com.teinproductions.tein.pitrainer.MainActivity;
 import com.teinproductions.tein.pitrainer.R;
 
 public class Keyboard extends LinearLayout implements View.OnLongClickListener {
-    // TODO: 1-2-17 Delete many characters when backspace key is held
 
     private Button button1, button2, button3, button4, button5, button6, button7, button8, button9, button0;
     private ImageButton backspace;

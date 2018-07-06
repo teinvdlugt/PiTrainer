@@ -99,11 +99,11 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
         });
 
         keyboard.setEditText(inputET);
+        setTextWatcher(); // Has to be called before restoreValues() because restoreValues depends on this.
         restoreValues();
         setSettingsListeners();
         fillTextViews();
         setRestartImageResource();
-        setTextWatcher();
 
         return view;
     }
@@ -116,9 +116,9 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
 
         errors = getActivity().getPreferences(0).getInt(ERRORS, 0);
         String input = getActivity().getPreferences(0).getString(INPUT, "");
-        inputET.setText(toColoredSpannable(input));
+        inputET.setText(input); // The coloring of the text will happen in the TextWatcher
         inputET.setSelection(inputET.length());
-        activityInterface.animateToolbarColor(!Digits.isIncorrect(inputET.getText().toString(), startDigit));
+        // TODO remove activityInterface.animateToolbarColor(!Digits.isIncorrect(inputET.getText().toString(), startDigit));
 
         showOnScreenKeyboard(getActivity().getPreferences(0).getBoolean(MainActivity.ON_SCREEN_KEYBOARD, false));
     }
@@ -271,21 +271,26 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
             @Override
             public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
                 if (indirectTextChange) return;
-                if (inputET.length() >= Digits.currentDigit.getFractionalPart().length() + startDigit - 1) {
+                // If maximum number of digits is reached:
+                if (inputET.length() >= Digits.currentDigit.getFractionalPart().length() - startDigit + 1) {
+                    // Show dialog message
                     tooMuchInput();
+                    // Delete characters that come after the last digit, if any
                     indirectTextChange = true;
-                    inputET.setText(inputET.getText().delete(
-                            Digits.currentDigit.getFractionalPart().length() + startDigit - 2, inputET.length() - 1));
+                    inputET.getText().delete(
+                            Digits.currentDigit.getFractionalPart().length() - startDigit + 1, inputET.length());
                     inputET.setSelection(inputET.length());
                     indirectTextChange = false;
                 }
+                // We can now assume that inputET.length() <= fractionalPart.length() - startDigit + 1
 
                 selection = inputET.getSelectionStart();
 
-                if (Digits.isIncorrect(inputET.getText().toString(), startDigit) && inputET.length() != 0) {
+                // Check if the input is wrong:
+                if (Digits.isIncorrect(inputET.getText().toString(), startDigit)) {
                     activityInterface.animateToolbarColor(false);
 
-                    // If the last typed character is wrong:
+                    // Check if the last typed character was wrong:
                     if (lastTextLength < inputET.length() // backspace is not pressed
                             && selection != 0 // For catching index o.o.b. exception in next line
                             && inputET.getText().toString().charAt(selection - 1)
@@ -295,12 +300,16 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
                         activityInterface.vibrate();
                     }
                 } else {
+                    // All the input is correct, so make the toolbar blue again.
                     activityInterface.animateToolbarColor(true);
                 }
 
+                // Color the text
                 indirectTextChange = true;
                 inputET.setText(toColoredSpannable(inputET.getText().toString()));
                 indirectTextChange = false;
+
+                // Reset the selection to where it was before we called setText().
                 if (selection < inputET.length()) {
                     inputET.setSelection(selection);
                 } else {
@@ -318,6 +327,10 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
         });
     }
 
+    /**
+     * Colors the characters in the Editable by checking them against currentDigit.fractionalPart. Make
+     * sure that  input.length() <= fractionalPart.length() - startDigit + 1  before calling this method.
+     */
     private SpannableStringBuilder toColoredSpannable(String string) {
         SpannableStringBuilder sb = new SpannableStringBuilder(string);
 
@@ -332,7 +345,12 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
         return sb;
     }
 
+    /**
+     * Shows a dialog containing the message that the user has reached the maximum amount of digits.
+     */
     private void tooMuchInput() {
+        if (!inputET.hasWindowFocus()) /*There probably is a dialog already*/ return;
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(R.string.too_much_input_dialog_message)
                 .setPositiveButton(android.R.string.ok, null);

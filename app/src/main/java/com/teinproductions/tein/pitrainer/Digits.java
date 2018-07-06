@@ -61,6 +61,11 @@ public class Digits implements Serializable {
         System.arraycopy(preloaded, 0, digits, saved.length, preloaded.length);
     }
 
+    /**
+     * This method doesn't handle exceptions, for example a StringIndexOutOfBoundsException when
+     * stringToCheck is too large for currentDigit.fractionalPart. So make sure that
+     * stringToCheck.length() <= fractionalPart.length() - startDigit + 1, before calling this method.
+     */
     public static boolean isIncorrect(String stringToCheck, int startDigit) {
         for (int i = 0; i < stringToCheck.length(); i++) {
             if (stringToCheck.charAt(i) != currentDigit.getFractionalPart().charAt(i + startDigit - 1)) {

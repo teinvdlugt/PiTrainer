@@ -106,4 +106,6 @@
     <string name="range_stop_colon">Fin de l\'intervalle : %d</string>
     <string name="an_error_occurred">Une erreur s\'est produite !</string>
     <string name="starting_digit">Position de départ</string>
+    <string name="complete_mode_not_possible">Complete mode can\'t be used with this number because it has too few digits. Please select another number.</string>
+    <string name="invalid">Invalide</string>
 </resources>

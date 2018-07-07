@@ -106,4 +106,6 @@
     <string name="range_stop_colon">Eind bereik: %d</string>
     <string name="an_error_occurred">Er is een fout opgetreden!</string>
     <string name="starting_digit">Beginpositie</string>
+    <string name="complete_mode_not_possible">Voltooi de reeks kan niet worden gebruikt bij dit getal omdat het te weinig cijfers heeft. Gebruik a.u.b. een ander getal.</string>
+    <string name="invalid">Ongeldig</string>
 </resources>

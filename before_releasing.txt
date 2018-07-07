@@ -2,3 +2,4 @@ To do before releasing to the Play Store:
  - Replace AdMob App ID in MainActivity
  - Replace AdMob AdUnit ID in layout/fragment_reference.xml
  - Comment out Crashlytics line in AndroidManifest.xml
+ - Increase version code and version number(?)

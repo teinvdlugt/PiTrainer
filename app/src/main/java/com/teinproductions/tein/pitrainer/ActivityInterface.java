@@ -10,4 +10,5 @@ public interface ActivityInterface {
     void swapFragment(Class fragmentClass);
     void logEventSelectContent(String itemId, String itemName, String contentType);
     void logEventComplete();
+    void showNumberDialog();
 }

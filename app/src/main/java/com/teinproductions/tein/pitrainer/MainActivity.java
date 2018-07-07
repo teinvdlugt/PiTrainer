@@ -207,32 +207,7 @@ public class MainActivity extends AppCompatActivity
                 return true;
 
             case R.id.number:
-                String[] digitsNames = Digits.digitsNames();
-                final String[] singleChoiceItems = new String[digitsNames.length + 1];
-                System.arraycopy(digitsNames, 0, singleChoiceItems, 0, digitsNames.length);
-                singleChoiceItems[singleChoiceItems.length - 1] = getString(R.string.custom_numbers);
-
-                final int currentDigitsIndex = Digits.currentDigitsIndex();
-
-                new AlertDialog.Builder(this)
-                        .setTitle(R.string.number_option_dialog_title)
-                        .setSingleChoiceItems(singleChoiceItems, currentDigitsIndex, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (which == singleChoiceItems.length - 1) {
-                                    Intent intent = new Intent(MainActivity.this, NumbersActivity.class);
-                                    startActivityForResult(intent, NUMBERS_ACTIVITY_REQUEST_CODE);
-                                } else if (which != currentDigitsIndex) {
-                                    Digits newDigits = Digits.digits[which];
-                                    Digits.currentDigit = newDigits;
-                                    getPreferences(0).edit().putString(CURRENT_DIGITS_NAME, newDigits.getName()).apply();
-                                    fragmentInterface.notifyDigitsChanged();
-                                    setTitle();
-                                }
-
-                                dialog.dismiss();
-                            }
-                        }).show();
+                onClickChooseNumber();
                 return true;
 
             case R.id.choose_keyboard_layout:
@@ -273,6 +248,35 @@ public class MainActivity extends AppCompatActivity
             default:
                 return false;
         }
+    }
+
+    private void onClickChooseNumber() {
+        String[] digitsNames = Digits.digitsNames();
+        final String[] singleChoiceItems = new String[digitsNames.length + 1];
+        System.arraycopy(digitsNames, 0, singleChoiceItems, 0, digitsNames.length);
+        singleChoiceItems[singleChoiceItems.length - 1] = getString(R.string.custom_numbers);
+
+        final int currentDigitsIndex = Digits.currentDigitsIndex();
+
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.number_option_dialog_title)
+                .setSingleChoiceItems(singleChoiceItems, currentDigitsIndex, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (which == singleChoiceItems.length - 1) {
+                            Intent intent = new Intent(MainActivity.this, NumbersActivity.class);
+                            startActivityForResult(intent, NUMBERS_ACTIVITY_REQUEST_CODE);
+                        } else if (which != currentDigitsIndex) {
+                            Digits newDigits = Digits.digits[which];
+                            Digits.currentDigit = newDigits;
+                            getPreferences(0).edit().putString(CURRENT_DIGITS_NAME, newDigits.getName()).apply();
+                            fragmentInterface.notifyDigitsChanged();
+                            setTitle();
+                        }
+
+                        dialog.dismiss();
+                    }
+                }).show();
     }
 
     @Override
@@ -443,6 +447,11 @@ public class MainActivity extends AppCompatActivity
         drawerLayout.closeDrawer(GravityCompat.START);
         swapFragment(GAMES[currentGame].getFragment());
         return true;
+    }
+
+    @Override
+    public void showNumberDialog() {
+        onClickChooseNumber();
     }
 
     @Override

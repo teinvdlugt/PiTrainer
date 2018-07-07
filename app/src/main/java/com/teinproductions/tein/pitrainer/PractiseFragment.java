@@ -308,13 +308,8 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
                 indirectTextChange = true;
                 inputET.setText(toColoredSpannable(inputET.getText().toString()));
                 indirectTextChange = false;
-
                 // Reset the selection to where it was before we called setText().
-                if (selection < inputET.length()) {
-                    inputET.setSelection(selection);
-                } else {
-                    inputET.setSelection(inputET.length());
-                }
+                inputET.setSelection(Math.min(selection, inputET.length()));
 
                 lastTextLength = inputET.length();
 

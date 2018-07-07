@@ -91,8 +91,10 @@
     <string name="error_message_too_small">Too small</string>
     <string name="range_start_colon">Range start: %d</string>
     <string name="range_stop_colon">Range stop: %d</string>
-    <string name="an_error_occurred">An error occurred!</string>
+    <string name="an_error_occurred">An error occurred! Please check your range settings.</string>
     <string name="starting_digit">Starting digit</string>
+    <string name="complete_mode_not_possible">Complete mode can\'t be used with this number because it has too few digits. Please select another number.</string>
+    <string name="invalid">Invalid</string>
 
     <string-array name="sort_methods">
         <item>Digits per minute</item>

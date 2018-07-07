@@ -1,12 +1,13 @@
 package com.teinproductions.tein.pitrainer;
 
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.transition.AutoTransition;
-import android.support.transition.ChangeBounds;
-import android.support.transition.Slide;
 import android.support.transition.TransitionManager;
-import android.support.transition.TransitionSet;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -41,7 +42,7 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
     public static final int NUM_DIGITS_GIVEN_DEFAULT = 12;
     public static final int LENGTH_OF_ANSWER_DEFAULT = 6;
 
-    private ActivityInterface listener;
+    private ActivityInterface activityInterface;
 
     private int rangeStart; // Starts counting at 1 (but if 0, it is treated as 1), inclusive
     private int rangeStop;  // Starts counting at 1, inclusive
@@ -64,7 +65,7 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        listener = (ActivityInterface) getActivity();
+        activityInterface = (ActivityInterface) getActivity();
 
         View root = inflater.inflate(R.layout.fragment_complete, parent, false);
 
@@ -87,7 +88,7 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
             @Override
             public void onClick(View view) {
                 // Log a firebase event.
-                listener.logEventSelectContent("openSettingsButton", "openSettingsButton", MainActivity.CONTENT_TYPE_BUTTON);
+                activityInterface.logEventSelectContent("openSettingsButton", "openSettingsButton", MainActivity.CONTENT_TYPE_BUTTON);
                 // Animate expansion of the settings menu.
                 TransitionManager.beginDelayedTransition(container, new AutoTransition()
                         .setDuration(200));
@@ -110,17 +111,17 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
             @Override
             public void onClick(View view) {
                 // Log a firebase event.
-                listener.logEventSelectContent("nextButton", "nextButton", MainActivity.CONTENT_TYPE_BUTTON);
+                activityInterface.logEventSelectContent("nextButton", "nextButton", MainActivity.CONTENT_TYPE_BUTTON);
 
                 next();
             }
         });
 
-        restoreValues();
+        boolean possible = restoreValues();
         setSettingsListeners();
         setTextWatcher();
         keyboard.setEditText(editText);
-        next();
+        if (possible) next();
 
         return root;
     }
@@ -131,17 +132,35 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
      * panel. Open the keyboard if the keyboard preference is set to true.
      * Open the settings panel if this is the first time this fragment is opened with this
      * Digits.
+     *
+     * @return false if currentDigits is too small to use Complete mode, true otherwise.
      */
-    private void restoreValues() {
+    private boolean restoreValues() {
         String name = Digits.currentDigit.getName();
 
         // Load preferences into memory:
         rangeStart = getActivity().getPreferences(0).getInt(RANGE_START + name, RANGE_START_DEFAULT);
         numDigits = getActivity().getPreferences(0).getInt(NUM_OF_DIGITS_GIVEN + name, NUM_DIGITS_GIVEN_DEFAULT);
         answerLength = getActivity().getPreferences(0).getInt(LENGTH_OF_ANSWER + name, LENGTH_OF_ANSWER_DEFAULT);
-        // For rangeStop, take the minimum of current digits length and saved/preloaded preference:
-        int maybeRangeStop = getActivity().getPreferences(0).getInt(RANGE_STOP + name, RANGE_STOP_DEFAULT_MAX);
-        rangeStop = Math.min(maybeRangeStop, Digits.currentDigit.getFractionalPart().length());
+        rangeStop = getActivity().getPreferences(0).getInt(RANGE_STOP + name, RANGE_STOP_DEFAULT_MAX);
+
+        // Check if these settings are possible for currentDigits:
+        if (!settingsArePossible()) {
+            // If they are not possible, try to change them to make it possible:
+            if (!correctSettings()) {
+                // Making them possible was not successful. Show a dialog to the user to switch the currentDigits.
+                if (getContext() == null) return false;
+                new AlertDialog.Builder(getContext())
+                        .setMessage(R.string.complete_mode_not_possible)
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                activityInterface.showNumberDialog();
+                            }
+                        }).create().show();
+                return false;
+            }
+        }
 
         // Setup settings Views
         numDigitsSB.setProgress(numDigits - 4);
@@ -161,6 +180,55 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
             getActivity().getPreferences(0).edit().putBoolean(
                     FRAGMENT_OPENED + Digits.currentDigit.getName(), true).apply();
         }
+        return true;
+    }
+
+    private boolean settingsArePossible() {
+        return settingsArePossible(rangeStart, rangeStop, numDigits, answerLength);
+    }
+
+    private boolean settingsArePossible(int rangeStart, int rangeStop, int numDigits, int answerLength) {
+        // Criteria for the settings to be possible:
+        // rangeStop <= fractionalPart.length()
+        // rangeStart - 1 + numDigits + answerLength <= rangeStop
+        return rangeStop <= Digits.currentDigit.getFractionalPart().length()
+                && rangeStart - 1 + numDigits + answerLength <= rangeStop;
+    }
+
+    /**
+     * Tweaks the values of rangeStop, rangeStart, numDigits and answerLength until
+     * settingsArePossible() returns true. Probably check if settingsArePossible() returns false
+     * first, before calling this method.
+     *
+     * @return true if the method succeeded and settingsArePossible() now returns true; false if
+     * it did not succeed (probably because the length of currentDigit.fractionalPart is way too small).
+     */
+    private boolean correctSettings() {
+        // Is rangeStop the problem? (We also want rangeStop to be at least 10, if possible,
+        // to allow for some space.)
+        rangeStop = Math.min(Math.max(rangeStop, 10), Digits.currentDigit.getFractionalPart().length());
+        if (settingsArePossible()) return true;
+
+        // Is rangeStart the problem?
+        rangeStart = 1;
+        if (settingsArePossible()) return true;
+
+        // rangeStop and rangeStart aren't the problem, so numDigits and answerLength are
+        // too large. We have to make them sufficiently small to make settingsArePossible() true.
+        // First test the default values of those settings:
+        numDigits = NUM_DIGITS_GIVEN_DEFAULT;
+        answerLength = LENGTH_OF_ANSWER_DEFAULT;
+        if (settingsArePossible()) return true;
+
+        // As a last resort, use these values:
+        // Of the space available between rangeStop and rangeStart, give
+        // numDigits 2/3 and answerLength 1/3. Floor the values to allow for maximum space.
+        numDigits = (int) Math.floor((rangeStop - rangeStart - 1) * 2. / 3);
+        answerLength = (int) Math.floor((rangeStart - rangeStop - 1) * 1. / 3);
+        // But we want them to be at least 1!
+        numDigits = Math.max(1, numDigits);
+        answerLength = Math.max(1, answerLength);
+        return settingsArePossible();
     }
 
     /**
@@ -276,15 +344,12 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
                 if (checkEnteredSettingsAndShowErrorMessage(numDigits, answerLength, input, rangeStop)) {
                     // The new settings are alright, so save the preferences and call next().
                     rangeStart = input;
-
-                    if (input == 0)
-                        rangeStartTV.setText(getString(R.string.range_start_colon, 1));
-                    else
-                        rangeStartTV.setText(getString(R.string.range_start_colon, input));
+                    // Show a 1 if input is 0:
+                    rangeStartTV.setText(getString(R.string.range_start_colon, Math.max(1, input)));
                     getActivity().getPreferences(0).edit().putInt(
                             RANGE_START + Digits.currentDigit.getName(), rangeStart).apply();
                     next();
-                }
+                } // else, do nothing. An error message will be displayed in an EditText.
             }
 
             @Override
@@ -316,7 +381,7 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
                     getActivity().getPreferences(0).edit().putInt(
                             RANGE_STOP + Digits.currentDigit.getName(), rangeStop).apply();
                     next();
-                }
+                } // else, do nothing. An error message will be displayed in an EditText.
             }
 
             @Override
@@ -326,19 +391,24 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
 
     /**
      * Checks whether settings are in accordance with each other and with current Digits length.
-     * If not, show error message in appropriate TextInputLayout and return false. Otherwise
-     * clear the error messages and return true.
+     * If not, shows error message in appropriate TextInputLayout and returns false. Otherwise,
+     * clears the error messages and returns true.
      */
     private boolean checkEnteredSettingsAndShowErrorMessage(int numDigits, int answerLength,
                                                             int rangeStart, int rangeStop) {
         // answerLength and numDigits are 'assumed' to be set correctly.
-        if (rangeStart > rangeStop - answerLength - numDigits) {
+        if (rangeStart > rangeStop + 1 - answerLength - numDigits) {
             // rangeStop is too low.
             rangeStopET.setError(getString(R.string.error_message_too_small));
             return false;
         } else if (rangeStop > Digits.currentDigit.getFractionalPart().length()) {
             // There aren't that many digits!
             rangeStopET.setError(getString(R.string.error_message_too_large));
+            return false;
+        }
+        // Check if something else is not yet right:
+        else if (!settingsArePossible(rangeStart, rangeStop, numDigits, answerLength)) {
+            rangeStopET.setError(getString(R.string.invalid));
             return false;
         }
 
@@ -355,53 +425,58 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
 
                 selection = editText.getSelectionStart();
 
+                // Check if the editText is empty, for example when next() has been called.
                 if (editText.length() == 0) {
-                    listener.animateToolbarColor(true);
+                    activityInterface.animateToolbarColor(true);
                     lastTextLength = editText.length();
                     return;
                 }
 
-                if (!answer.startsWith(editText.getText().toString()) && editText.length() <= answerLength) {
-                    // The input is wrong!
-                    listener.animateToolbarColor(false);
+                // If the input is too long, make it shorter by removing characters at the end.
+                if (editText.length() > answerLength) {
+                    indirectTextChange = true;
+                    editText.getText().delete(answerLength, editText.length());
+                    indirectTextChange = false;
+                    // Reset the selection, because we changed the text.
+                    selection = Math.min(selection, editText.length());
+                    editText.setSelection(selection);
+                }
 
-                    // If the last typed character is wrong:
+                // Check if the input is wrong:
+                if (!answer.startsWith(editText.getText().toString())) {
+                    // The input is wrong!
+                    activityInterface.animateToolbarColor(false);
+
+                    // If the last typed character is wrong: TODO check this with TextWatcher's passed arguments (also in PractiseFragment)
                     if (lastTextLength < editText.length() // backspace is not pressed
                             && selection != 0 // For catching index o.o.b. exception in next line
                             && editText.getText().toString().charAt(selection - 1)
                             != answer.charAt(selection - 1)) { // The typed character is wrong
-                        listener.vibrate();
+                        activityInterface.vibrate();
                     }
-                } else if (!answer.startsWith(editText.getText().toString()) && editText.length() > answerLength) {
-                    // Delete the typed character
-                    editText.getText().delete(selection - 1, selection);
                 } else if (editText.length() == answerLength) {
                     // The answer is correct, go to the next challenge
                     // First log a firebase event.
-                    listener.logEventComplete();
-                    // Make the toolbar not-red
-                    listener.animateToolbarColor(true);
+                    activityInterface.logEventComplete();
+                    // Make the toolbar blue
+                    activityInterface.animateToolbarColor(true);
                     // Start the next challenge.
                     next();
                     // TODO show the correct answer for a short time before continuing to the next challenge,
                     // or make the toolbar green for a moment.
                     return;
                 } else {
-                    listener.animateToolbarColor(true);
+                    activityInterface.animateToolbarColor(true);
                 }
 
                 // Make the wrong digits red. The indirectTextChange field makes sure the new
-                // setText() call is not seen as if the user changed the text. Also, restore the
-                // location of the pointer (selection) in the EditText, because the setText call
-                // automatically places it at the end.
+                // setText() call will not cause this code in onTextChanged to executed again.
                 indirectTextChange = true;
                 editText.setText(toColoredSpannable());
                 indirectTextChange = false;
-                if (selection < editText.length()) {
-                    editText.setSelection(selection);
-                } else {
-                    editText.setSelection(editText.length());
-                }
+                // Also, restore the location of the pointer (selection) in the EditText, because
+                // changing the text automatically places it at the end.
+                editText.setSelection(Math.min(selection, editText.length()));
 
                 lastTextLength = editText.length();
             }
@@ -439,7 +514,7 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
 
     @Override
     public void showOnScreenKeyboard(boolean show) {
-        listener.preventSoftKeyboardFromShowingUp(editText, show);
+        activityInterface.preventSoftKeyboardFromShowingUp(editText, show);
         TransitionManager.beginDelayedTransition(container);
         keyboard.setVisibility(show ? View.VISIBLE : View.GONE);
     }

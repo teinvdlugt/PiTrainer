@@ -234,7 +234,7 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
     /**
      * Clears the answer EditText and creates a new question.
      * Assumes that rangStart, rangeStop, answerLength and numDigits are all valid numbers that
-     * agree with each other and with the length of the current Digits object. TODO handle erroneous values properly elsewhere!
+     * agree with each other and with the length of the current Digits object.
      */
     private void next() {
         // Clear the answer text field

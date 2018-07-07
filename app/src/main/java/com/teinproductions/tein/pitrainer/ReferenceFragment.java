@@ -175,7 +175,7 @@ public class ReferenceFragment extends Fragment
 
     private void reload() {
         // Set texts to current Digits (thereby also setting the desired spacings in fractionalPart)
-        integerPart.setText(Digits.currentDigit.getIntegerPart() + "."); // TODO Use point or comma depending on locale
+        integerPart.setText(Digits.currentDigit.getIntegerPart() + Digits.decimalSeparator);
         setFractionalPartText();
 
         // Set the desired text size

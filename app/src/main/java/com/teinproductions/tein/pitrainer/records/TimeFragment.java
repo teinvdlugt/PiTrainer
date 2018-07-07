@@ -49,19 +49,18 @@ public class TimeFragment extends Fragment implements FragmentInterface {
 
         View theView = inflater.inflate(R.layout.fragment_time, container, false);
 
-        integerPartTV = (TextView) theView.findViewById(R.id.integerPart_textView);
-        inputET = (EditText) theView.findViewById(R.id.input_editText);
-        timer = (TextView) theView.findViewById(R.id.timer);
-        digitsTV = (TextView) theView.findViewById(R.id.digits_textView);
-        TextView integerPartTV = (TextView) theView.findViewById(R.id.integerPart_textView);
-        keyboard = (Keyboard) theView.findViewById(R.id.keyboard);
-        restartButton = (ImageButton) theView.findViewById(R.id.restart_button);
-        doneButton = (ImageButton) theView.findViewById(R.id.done_button);
-        highScoresButton = (ImageButton) theView.findViewById(R.id.high_scores_button);
-        root = (ViewGroup) theView.findViewById(R.id.root);
+        integerPartTV = theView.findViewById(R.id.integerPart_textView);
+        inputET = theView.findViewById(R.id.input_editText);
+        timer = theView.findViewById(R.id.timer);
+        digitsTV = theView.findViewById(R.id.digits_textView);
+        keyboard = theView.findViewById(R.id.keyboard);
+        restartButton = theView.findViewById(R.id.restart_button);
+        doneButton = theView.findViewById(R.id.done_button);
+        highScoresButton = theView.findViewById(R.id.high_scores_button);
+        root = theView.findViewById(R.id.root);
 
         keyboard.setEditText(inputET);
-        integerPartTV.setText(Digits.currentDigit.getIntegerPart() + ".");
+        integerPartTV.setText(Digits.currentDigit.getIntegerPart() + Digits.decimalSeparator);
         updateDigitsText();
         showOnScreenKeyboard(getActivity().getPreferences(0).getBoolean(MainActivity.ON_SCREEN_KEYBOARD, false));
         setRestartImageResource();
@@ -173,7 +172,7 @@ public class TimeFragment extends Fragment implements FragmentInterface {
 
     @Override
     public void notifyDigitsChanged() {
-        integerPartTV.setText(Digits.currentDigit.getIntegerPart() + ".");
+        integerPartTV.setText(Digits.currentDigit.getIntegerPart() + Digits.decimalSeparator);
         onClickRestart();
     }
 

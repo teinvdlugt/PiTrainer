@@ -110,15 +110,19 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
 
     @SuppressLint("SetTextI18n")
     private void restoreValues() {
+        // Restore startDigit preference:
         startDigit = getActivity().getPreferences(0).getInt(STARTING_DIGIT + Digits.currentDigit.getName(), 1);
         startDigitET.setText(startDigit + "");
         setStartDigit(startDigit);
 
+        // Restore error amount:
         errors = getActivity().getPreferences(0).getInt(ERRORS, 0);
+
+        // Restore inputET contents (this should be done AFTER restoring startDigitET, because
+        // startDigitET's TextWatcher calls onClickRestart()):
         String input = getActivity().getPreferences(0).getString(INPUT, "");
         inputET.setText(input); // The coloring of the text will happen in the TextWatcher
         inputET.setSelection(inputET.length());
-        // TODO remove activityInterface.animateToolbarColor(!Digits.isIncorrect(inputET.getText().toString(), startDigit));
 
         showOnScreenKeyboard(getActivity().getPreferences(0).getBoolean(MainActivity.ON_SCREEN_KEYBOARD, false));
     }
@@ -150,7 +154,7 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
 
                 // Everything seems to be alright. Reset the input field and apply changes.
                 onClickRestart(false);
-                setStartDigit(input); // TODO Does it also refresh when the activity is restarted? (it shouldn't)
+                setStartDigit(input);
             }
 
             @Override
@@ -178,7 +182,7 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
             integerPartTV.setText("…" + Digits.currentDigit.getFractionalPart()
                     .substring(startDigit - 7, startDigit - 1) + "…");
         } else {
-            integerPartTV.setText(Digits.currentDigit.getIntegerPart() + "." + // TODO i18n
+            integerPartTV.setText(Digits.currentDigit.getIntegerPart() + Digits.decimalSeparator +
                     Digits.currentDigit.getFractionalPart().substring(0, startDigit - 1));
         }
     }

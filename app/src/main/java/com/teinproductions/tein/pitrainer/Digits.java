@@ -16,6 +16,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 
 public class Digits implements Serializable {
 
@@ -43,6 +46,8 @@ public class Digits implements Serializable {
      */
     private String integerPart, fractionalPart;
 
+    public static String decimalSeparator = "."; // Point or comma, depending on locale. Initialised in initDigits().
+
     public Digits() {
     }
 
@@ -59,6 +64,16 @@ public class Digits implements Serializable {
         digits = new Digits[preloaded.length + saved.length];
         System.arraycopy(saved, 0, digits, 0, saved.length);
         System.arraycopy(preloaded, 0, digits, saved.length, preloaded.length);
+
+        // Determine what decimal separator to use
+        // https://stackoverflow.com/questions/8188137/decimal-point-or-decimal-comma-in-android
+        NumberFormat nf = NumberFormat.getInstance();
+        if (nf instanceof DecimalFormat) {
+            DecimalFormatSymbols sym = ((DecimalFormat) nf).getDecimalFormatSymbols();
+            char decSeparator = sym.getDecimalSeparator();
+            if (decSeparator == '.' || decSeparator == ',')
+                decimalSeparator = Character.toString(decSeparator);
+        }
     }
 
     /**

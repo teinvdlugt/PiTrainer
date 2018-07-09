@@ -127,6 +127,8 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
         showOnScreenKeyboard(getActivity().getPreferences(0).getBoolean(MainActivity.ON_SCREEN_KEYBOARD, false));
     }
 
+    private boolean indirectTextChangeStartDigitET = false;
+
     private void setSettingsListeners() {
         startDigitET.addTextChangedListener(new TextWatcher() {
             @Override
@@ -134,6 +136,7 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (indirectTextChangeStartDigitET) return;
                 // Try to parse the input.
                 int input;
                 try {
@@ -165,6 +168,7 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
     /**
      * Sets this class's field this.startDigit to startDigit, saves the startDigit preference,
      * checks if startDigit has a legal value, and loads text into integerPartTV.
+     * It DOESN'T change the text in startDigitET.
      */
     @SuppressLint("SetTextI18n")
     private void setStartDigit(int startDigit) {
@@ -241,7 +245,7 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
             }
         }
 
-        inputET.setText("");
+        inputET.setText(""); // This will trigger the TextWatcher which will set the Toolbar color.
         errors = 0;
         fillTextViews();
     }
@@ -356,13 +360,14 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
         builder.create().show();
     }
 
-
     @Override
     public void notifyDigitsChanged() {
-        onClickRestart(true);
         startDigit = getActivity().getPreferences(0).getInt(STARTING_DIGIT + Digits.currentDigit.getName(), 1);
+        indirectTextChangeStartDigitET = true;
         startDigitET.setText(startDigit + "");
+        indirectTextChangeStartDigitET = false;
         setStartDigit(startDigit);
+        onClickRestart(true);
     }
 
     @Override

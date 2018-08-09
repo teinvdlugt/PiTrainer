@@ -121,6 +121,14 @@ public class TimeFragment extends Fragment implements FragmentInterface {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Check if maximum number of digits is reached:
+                if (inputET.length() >= Digits.currentDigit.getFractionalPart().length()) {
+                    // End the game
+                    end(inputET.length() - 1, true);
+                    return;
+                }
+                // We can now assume that inputET.length() < fractionalPart.length(), so we can safely
+                // call Digits.isIncorrect.
                 if (Digits.isIncorrect(inputET.getText().toString(), 1)) {
                     end(inputET.length() - 1, true);
                 } else {

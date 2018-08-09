@@ -20,9 +20,12 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
 public class ReferenceFragment extends Fragment
         implements FragmentInterface {
+
+    public static final String ADS_ENABLED_KEY = "ads_enabled"; // Must be the same as in Firebase console!
 
     public static final String TEXT_SIZE = "TEXT_SIZE_INT"; // Text size was once a float so to prevent
     // an old saved float value of getting in the way, let's name it TEXT_SIZE_INT
@@ -90,20 +93,22 @@ public class ReferenceFragment extends Fragment
         setTextWatchers();
 
         // Setup adView:
-        adView.setAdListener(new AdListener() {
-            @Override
-            public void onAdFailedToLoad(int i) {
-                adViewContainer.setVisibility(View.GONE);
-            }
+        // Check if ads are enabled (Firebase Remote Config):
+        if (FirebaseRemoteConfig.getInstance().getBoolean(ADS_ENABLED_KEY)) {
+            adView.setAdListener(new AdListener() {
+                @Override
+                public void onAdFailedToLoad(int i) {
+                    adViewContainer.setVisibility(View.GONE);
+                }
 
-            @Override
-            public void onAdLoaded() {
-                adViewContainer.setVisibility(View.VISIBLE);
-            }
-        });
-        AdRequest adRequest = new AdRequest.Builder().build();
-        adView.loadAd(adRequest);
-
+                @Override
+                public void onAdLoaded() {
+                    adViewContainer.setVisibility(View.VISIBLE);
+                }
+            });
+            AdRequest adRequest = new AdRequest.Builder().build();
+            adView.loadAd(adRequest);
+        } else adViewContainer.setVisibility(View.GONE);
         return root;
     }
 

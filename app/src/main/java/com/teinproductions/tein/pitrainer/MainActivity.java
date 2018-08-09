@@ -31,11 +31,16 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.teinproductions.tein.pitrainer.keyboard.ChooseKeyboardActivity;
 import com.teinproductions.tein.pitrainer.keyboard.KeyboardSizeActivity;
 import com.teinproductions.tein.pitrainer.records.RecordDialog;
 import com.teinproductions.tein.pitrainer.records.TimeFragment;
+
+import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity
@@ -78,6 +83,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
+        setupRemoteConfig();
         // TODO replace with AdMob App ID. Sample ad: ca-app-pub-3940256099942544~3347511713
         applyNightMode();
         super.onCreate(savedInstanceState);
@@ -112,6 +118,22 @@ public class MainActivity extends AppCompatActivity
         restoreValues();
         setTitle();
         swapFragment(GAMES[currentGame].getFragment());
+    }
+
+    private void setupRemoteConfig() {
+        final FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+        firebaseRemoteConfig.setDefaults(R.xml.remote_config_defaults);
+        firebaseRemoteConfig.fetch(43200) // 43200 seconds indicates that the fetch request will
+                // fetch data from the server only if the cache is more than 43200 seconds (12 hrs) old.
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        // The fetch has completed; make sure the newly fetched values are activated
+                        // so they can be used in the app.
+                        if (task.isSuccessful())
+                            firebaseRemoteConfig.activateFetched();
+                    }
+                });
     }
 
     private void applyNightMode() {

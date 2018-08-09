@@ -29,6 +29,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.4'
     implementation 'com.google.firebase:firebase-ads:15.0.1' // TODO fix support library version conflict
+    implementation 'com.google.firebase:firebase-config:16.0.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

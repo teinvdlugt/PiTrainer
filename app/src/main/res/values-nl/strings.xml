@@ -108,4 +108,5 @@
     <string name="starting_digit">Beginpositie</string>
     <string name="complete_mode_not_possible">Voltooi de reeks kan niet worden gebruikt bij dit getal omdat het te weinig cijfers heeft. Gebruik a.u.b. een ander getal.</string>
     <string name="invalid">Ongeldig</string>
+    <string name="privacy_policy">Privacybeleid</string>
 </resources>

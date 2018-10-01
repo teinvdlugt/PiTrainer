@@ -4,6 +4,7 @@ import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,6 +22,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +30,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.MobileAds;
@@ -40,6 +43,10 @@ import com.teinproductions.tein.pitrainer.keyboard.KeyboardSizeActivity;
 import com.teinproductions.tein.pitrainer.records.RecordDialog;
 import com.teinproductions.tein.pitrainer.records.TimeFragment;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Map;
 
 
@@ -265,6 +272,14 @@ public class MainActivity extends AppCompatActivity
                                 dialog.dismiss();
                             }
                         })
+                        .create().show();
+                return true;
+            case R.id.privacy_policy:
+                //TextView message = new TextView(this);
+                //message.setText(Html.fromHtml(readPrivacyPolicy(this)));
+                new AlertDialog.Builder(this)
+                        .setMessage(Html.fromHtml(readPrivacyPolicy(this)))
+                        .setPositiveButton(R.string.ok, null)
                         .create().show();
                 return true;
             default:
@@ -500,5 +515,23 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void logEventComplete() {
         mFirebaseAnalytics.logEvent("completed_statement", null);
+    }
+
+
+    public static String readPrivacyPolicy(Context context) {
+        try {
+            InputStream is = context.getAssets().open("privacy_policy.html");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+            reader.close();
+            return sb.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "File not found"; // Shouldn't happen
     }
 }

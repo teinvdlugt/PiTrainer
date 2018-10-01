@@ -95,6 +95,7 @@
     <string name="starting_digit">Starting digit</string>
     <string name="complete_mode_not_possible">Complete mode can\'t be used with this number because it has too few digits. Please select another number.</string>
     <string name="invalid">Invalid</string>
+    <string name="privacy_policy">Privacy policy</string>
 
     <string-array name="sort_methods">
         <item>Digits per minute</item>

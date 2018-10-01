@@ -43,4 +43,9 @@
         android:id="@+id/menu_action_theme"
         android:title="@string/theme_ellipsis"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/privacy_policy"
+        android:title="@string/privacy_policy"
+        app:showAsAction="never" />
 </menu>

@@ -1,6 +1,6 @@
 package com.teinproductions.tein.pitrainer;
 
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 
 public class Game {
 

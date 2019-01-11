@@ -7,11 +7,11 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
-import android.support.transition.TransitionManager;
-import android.support.v4.app.Fragment;
+import androidx.annotation.Nullable;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
+import androidx.transition.TransitionManager;
+import androidx.fragment.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -100,7 +100,7 @@ public class TimeFragment extends Fragment implements FragmentInterface {
                 } else {
                     Snackbar snack = Snackbar.make(root, R.string.please_type_more_digits_snackbar, Snackbar.LENGTH_LONG);
                     View snackView = snack.getView();
-                    ((TextView) snackView.findViewById(android.support.design.R.id.snackbar_text)).setTextColor(Color.WHITE);
+                    ((TextView) snackView.findViewById(com.google.android.material.R.id.snackbar_text)).setTextColor(Color.WHITE);
                     snack.show();
                 }
             }

@@ -1,11 +1,11 @@
 package com.teinproductions.tein.pitrainer;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.transition.AutoTransition;
-import android.support.transition.TransitionManager;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
+import androidx.annotation.Nullable;
+import androidx.transition.AutoTransition;
+import androidx.transition.TransitionManager;
+import androidx.fragment.app.Fragment;
+import androidx.cardview.widget.CardView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.TypedValue;

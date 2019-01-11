@@ -1,13 +1,12 @@
 package com.teinproductions.tein.pitrainer;
 
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.transition.AutoTransition;
-import android.support.transition.TransitionManager;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
+
+import androidx.transition.AutoTransition;
+import androidx.transition.TransitionManager;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AlertDialog;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;

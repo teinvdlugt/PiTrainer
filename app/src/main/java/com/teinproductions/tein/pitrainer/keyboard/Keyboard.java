@@ -3,7 +3,7 @@ package com.teinproductions.tein.pitrainer.keyboard;
 import android.content.Context;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import android.support.v4.widget.Space;
+import androidx.legacy.widget.Space;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.MotionEvent;

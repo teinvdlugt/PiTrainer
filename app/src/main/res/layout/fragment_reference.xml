@@ -20,14 +20,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
                 android:visibility="gone"
                 app:cardCornerRadius="4dp"
                 app:contentPadding="8dp"
                 tools:visibility="visible">
 
-                <RelativeLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -35,45 +35,89 @@
                         android:id="@+id/closeSettings_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentTop="true"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:contentDescription="@string/close_settings_xs"
-                        android:src="@drawable/ic_close_24dp" />
+                        android:src="@drawable/ic_close_24dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/textSize_textView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/text_size_colon" />
+                        android:text="@string/text_size_colon"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <!-- The range of this SeekBar should be 10 to 40,
+                    <!-- The range of this SeekBar should be 5 to 60,
                      but the android:min attribute isn't supported on API 26
-                     and lower. So set max to 30, and in ReferenceFragment.java
-                     add 10 every time. -->
+                     and lower. So set max to 55, and in ReferenceFragment.java
+                     add 5 every time. -->
                     <SeekBar
                         android:id="@+id/textSize_seekBar"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/textSize_textView"
-                        android:layout_toLeftOf="@id/closeSettings_button"
-                        android:layout_toStartOf="@id/closeSettings_button"
-                        android:max="30" />
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:max="55"
+                        app:layout_constraintEnd_toStartOf="@+id/closeSettings_button"
+                        app:layout_constraintRight_toLeftOf="@id/closeSettings_button"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textSize_textView" />
+
+                    <CheckBox
+                        android:id="@+id/spaces_checkBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="@id/spaces_textInputLayout"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/spaces_textInputLayout"
+                        app:layout_constraintVertical_bias="0.74" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
+                        android:id="@+id/spaces_textInputLayout"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/textSize_seekBar">
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/spaces_checkBox"
+                        app:layout_constraintTop_toBottomOf="@id/textSize_seekBar">
 
                         <EditText
-                            android:id="@+id/spacings_editText"
+                            android:id="@+id/spaces_editText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/spacings"
+                            android:hint="@string/spaces"
+                            android:importantForAutofill="no"
                             android:inputType="number" />
                     </com.google.android.material.textfield.TextInputLayout>
-                </RelativeLayout>
+
+                    <CheckBox
+                        android:id="@+id/lineCount_checkBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="@id/lineCount_textInputLayout"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/lineCount_textInputLayout"
+                        app:layout_constraintVertical_bias="0.74" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/lineCount_textInputLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/spaces_checkBox"
+                        app:layout_constraintTop_toBottomOf="@id/spaces_textInputLayout">
+
+                        <EditText
+                            android:id="@+id/lineCount_editText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/line_count"
+                            android:importantForAutofill="no"
+                            android:inputType="number" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
             <TextView
@@ -81,8 +125,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/settings_layout"
-                android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="56sp"
@@ -93,9 +137,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/integerPart_textView"
-                android:layout_marginBottom="66dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
+                android:layout_marginBottom="66dp"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="18sp"
                 tools:text="1415926535" />
@@ -106,12 +150,12 @@
                 android:id="@+id/openSettings_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
-                android:layout_marginTop="16dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/settings"
                 android:padding="8dp"

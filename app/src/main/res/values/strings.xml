@@ -18,7 +18,7 @@
     <string name="number_option_dialog_title">Select the number to practise</string>
     <string name="settings">Settings</string>
     <string name="text_size_colon">Text size: %d</string>
-    <string name="spacings">Spacing</string>
+    <string name="spaces">Spaces</string>
     <string name="number_of_digits_given_colon">Number of digits given: %d</string>
     <string name="range">Range</string>
     <string name="next">Next</string>
@@ -96,6 +96,7 @@
     <string name="complete_mode_not_possible">Complete mode can\'t be used with this number because it has too few digits. Please select another number.</string>
     <string name="invalid">Invalid</string>
     <string name="privacy_policy">Privacy policy</string>
+    <string name="line_count">Line count</string>
 
     <string-array name="sort_methods">
         <item>Digits per minute</item>

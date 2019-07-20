@@ -1,26 +1,36 @@
 package com.teinproductions.tein.pitrainer;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Layout;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextWatcher;
+import android.text.style.BackgroundColorSpan;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.transition.AutoTransition;
 import androidx.transition.TransitionManager;
@@ -55,6 +65,9 @@ public class ReferenceFragment extends Fragment
     private ViewGroup animationContainer; // Contains Views that should be animated (when the settings panel is expanded/collapsed)
     private AdView adView;
     private CardView adViewContainer;
+    private Button scrollToButton;
+    private EditText scrollToET;
+    private ScrollView scrollView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -75,6 +88,9 @@ public class ReferenceFragment extends Fragment
         animationContainer = root.findViewById(R.id.animation_container);
         adView = root.findViewById(R.id.adView);
         adViewContainer = root.findViewById(R.id.adView_container);
+        scrollToButton = root.findViewById(R.id.scrollTo_button);
+        scrollView = root.findViewById(R.id.scrollView);
+        scrollToET = root.findViewById(R.id.scrollTo_editText);
 
         restoreValues();
         reload();
@@ -220,6 +236,62 @@ public class ReferenceFragment extends Fragment
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {}
         });
+
+
+        scrollToET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                try {
+                    Integer.parseInt(s.toString());
+                    scrollToButton.setEnabled(true);
+                } catch (NumberFormatException e) {
+                    scrollToButton.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
+        // Trigger this listener now to enable/disable button:
+        scrollToET.setText(scrollToET.getText());
+
+
+        scrollToButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Hide keyboard
+                scrollToET.clearFocus();
+                ((InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE))
+                        .hideSoftInputFromWindow(scrollToET.getWindowToken(), 0);
+
+                // Parse input
+                try {
+                    int digitPosition = Integer.parseInt(scrollToET.getText().toString()) - 1;
+                    digitPosition = Math.max(digitPosition, 0);
+                    if (digitPosition < Digits.currentDigit.getFractionalPart().length()) {
+                        // Position of corresponding character in textView
+                        int charPosition = getDigitPositionInTextView(digitPosition);
+                        // Scroll to the requested digit
+                        Layout layout = fractionalPart.getLayout();
+                        if (layout != null) {
+                            int yCoordinate = layout.getLineTop(layout.getLineForOffset(charPosition))
+                                    + fractionalPart.getTop();
+                            scrollView.scrollTo(0, yCoordinate);
+                        }
+                        // Highlight the requested digit
+                        addHighlight(charPosition);
+
+                        return;
+                    }
+                } catch (NumberFormatException ignored) {}
+                // Show error message
+                Snackbar.make(scrollView, R.string.invalid_input, Snackbar.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void restoreValues() {
@@ -286,6 +358,51 @@ public class ReferenceFragment extends Fragment
             }
         }
         fractionalPart.setText(sb);
+    }
+
+    private void addHighlight(int charPosition) {
+        SpannableString ss = new SpannableString(fractionalPart.getText());
+        // Remove previous span
+        BackgroundColorSpan[] oldSpans = ss.getSpans(0, ss.length(), BackgroundColorSpan.class);
+        for (BackgroundColorSpan span : oldSpans)
+            ss.removeSpan(span);
+
+        // Set new span
+        ss.setSpan(new BackgroundColorSpan(ContextCompat.getColor(getContext(), R.color.highlight_color)),
+                charPosition, charPosition + 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        fractionalPart.setText(ss);
+    }
+
+    /**
+     * Returns the character index of given digit in fractionalPart textView.
+     * Does not check if the digit position is larger than Digits length.
+     *
+     * @param digitPosition Starts counting at 0! So subtract 1 from the UI input
+     * @return Character index, starts counting at 0
+     */
+    private int getDigitPositionInTextView(int digitPosition) {
+        int numExtraChars = 0;
+        // If both lines and spaces enabled:
+        if (lineCountCB.isChecked() && lineCount > 0
+                && spacingsCB.isChecked() && spacings > 0
+                && spacings < lineCount) {
+            int spacesPerLine = lineCount / spacings;
+            if (lineCount % spacings == 0) spacesPerLine--; // No spaces at end of line
+            int extraCharsPerLine = spacesPerLine + 1;
+            int numLinesBefore = digitPosition / lineCount;
+            int numExtraSpaces = (digitPosition % lineCount) / spacings;
+            numExtraChars = numLinesBefore * extraCharsPerLine + numExtraSpaces;
+        }
+        // If only lines enabled:
+        else if (lineCountCB.isChecked() && lineCount > 0) {
+            numExtraChars = digitPosition / lineCount;
+        }
+        // If only spaces enabled:
+        else if (spacingsCB.isChecked() && spacings > 0) {
+            numExtraChars = digitPosition / spacings;
+        }
+
+        return digitPosition + numExtraChars;
     }
 
     @Override

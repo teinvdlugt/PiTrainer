@@ -97,6 +97,9 @@
     <string name="invalid">Invalid</string>
     <string name="privacy_policy">Privacy policy</string>
     <string name="line_count">Line count</string>
+    <string name="scroll_to">Scroll to…</string>
+    <string name="invalid_input">Invalid input</string>
+    <string name="go">Go</string>
 
     <string-array name="sort_methods">
         <item>Digits per minute</item>

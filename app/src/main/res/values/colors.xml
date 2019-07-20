@@ -9,4 +9,6 @@
 
     <color name="background_shade">#c3ffffff</color>
     <color name="primary_text">#ff000000</color>
+
+    <color name="highlight_color">#CCFF90</color>
 </resources>

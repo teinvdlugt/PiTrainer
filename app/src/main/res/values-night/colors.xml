@@ -3,4 +3,5 @@
     <color name="restart_arrow_color">#ffffffff</color>
     <color name="background_shade">#4d000000</color>
     <color name="primary_text">#ffffffff</color>
+    <color name="highlight_color">#6C8B4C</color>
 </resources>

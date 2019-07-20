@@ -3,6 +3,7 @@ package com.teinproductions.tein.pitrainer;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.transition.AutoTransition;
 import androidx.transition.TransitionManager;
 import androidx.fragment.app.Fragment;
@@ -493,7 +494,7 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
         SpannableStringBuilder sb = new SpannableStringBuilder(text);
         for (int i = 0; i < text.length(); i++) {
             if (text.charAt(i) != answer.charAt(i)) {
-                ForegroundColorSpan redSpan = new ForegroundColorSpan(getResources().getColor(R.color.red));
+                ForegroundColorSpan redSpan = new ForegroundColorSpan(ContextCompat.getColor(getContext(), R.color.red));
                 sb.setSpan(redSpan, i, i + 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
             }
         }

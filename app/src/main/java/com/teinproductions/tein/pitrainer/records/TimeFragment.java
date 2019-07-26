@@ -17,8 +17,10 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextClock;
 import android.widget.TextView;
 
 import com.teinproductions.tein.pitrainer.ActivityInterface;
@@ -36,10 +38,10 @@ public class TimeFragment extends Fragment implements FragmentInterface {
     private ActivityInterface activityInterface;
 
     private EditText inputET;
-    private TextView timer, digitsTV, integerPartTV;
+    private TextView digitsTV, integerPartTV;
     private Keyboard keyboard;
     private ImageButton restartButton, doneButton, highScoresButton;
-    private TimerTask timerTask;
+    private StopWatch stopWatch;
     private ViewGroup root;
 
     @Nullable
@@ -51,7 +53,7 @@ public class TimeFragment extends Fragment implements FragmentInterface {
 
         integerPartTV = theView.findViewById(R.id.integerPart_textView);
         inputET = theView.findViewById(R.id.input_editText);
-        timer = theView.findViewById(R.id.timer);
+        stopWatch = theView.findViewById(R.id.timer);
         digitsTV = theView.findViewById(R.id.digits_textView);
         keyboard = theView.findViewById(R.id.keyboard);
         restartButton = theView.findViewById(R.id.restart_button);
@@ -68,6 +70,7 @@ public class TimeFragment extends Fragment implements FragmentInterface {
         setTextWatcher();
         onClickRestart();
 
+        inputET.requestFocus();
         return theView;
     }
 
@@ -108,7 +111,7 @@ public class TimeFragment extends Fragment implements FragmentInterface {
         highScoresButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (timerTask != null) timerTask.cancel(true);
+                stopWatch.stop();
                 activityInterface.swapFragment(RecordsFragment.class);
             }
         });
@@ -133,8 +136,7 @@ public class TimeFragment extends Fragment implements FragmentInterface {
                     end(inputET.length() - 1, true);
                 } else {
                     if (inputET.getText().length() == 1 && before == 0) {
-                        timerTask = new TimerTask();
-                        timerTask.execute();
+                        stopWatch.start();
                     }
                     updateDigitsText();
                 }
@@ -146,12 +148,12 @@ public class TimeFragment extends Fragment implements FragmentInterface {
     }
 
     private void end(int numOfDigits, boolean vibrate) {
-        if (timerTask != null) timerTask.cancel(true);
+        long result = stopWatch.stop();
         if (vibrate) activityInterface.vibrate();
         inputET.setEnabled(false);
         keyboard.setEnabled(false);
 
-        RecordDialog.show(TimeFragment.this, numOfDigits, timerTask.getMilliseconds());
+        RecordDialog.show(TimeFragment.this, numOfDigits, (int) result);
         activityInterface.swapFragment(RecordsFragment.class);
     }
 
@@ -171,11 +173,7 @@ public class TimeFragment extends Fragment implements FragmentInterface {
         inputET.setText("");
         updateDigitsText();
 
-        if (timerTask != null) {
-            timerTask.cancel(true);
-        }
-        timerTask = new TimerTask();
-        timerTask.onProgressUpdate(0);
+        stopWatch.reset();
     }
 
     @Override
@@ -203,62 +201,14 @@ public class TimeFragment extends Fragment implements FragmentInterface {
         return null;
     }
 
-
-    class TimerTask extends AsyncTask<Void, Integer, Void> {
-
-        private final int sleepTime = 100;
-
-        private int milliseconds = 0;
-        private SimpleDateFormat format;
-
-        public TimerTask() {
-            format = new SimpleDateFormat("mm:ss.S", Locale.getDefault());
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            while (!isCancelled()) {
-                publishProgress(milliseconds);
-
-                try {
-                    Thread.sleep(sleepTime);
-                    milliseconds += sleepTime;
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            return null;
-        }
-
-        private Date time = new Date(0);
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            time.setTime(values[0]);
-            timer.setText(format.format(time));
-            /*StringBuilder text = new StringBuilder(Integer.toString(centiseconds / 600)).append(":");
-            if (text.length() == 2) text.insert(0, "0");
-            text.append(centiseconds / 10 % 60);
-            if (text.length() == 4) text.insert(3, "0");
-            text.append(".").append(centiseconds % 10);
-            timer.setText(text);*/
-        }
-
-        public int getMilliseconds() {
-            return milliseconds;
-        }
-    }
-
     @Override
     public void onPause() {
         super.onPause();
-        if (timerTask != null) timerTask.cancel(true);
+        stopWatch.stop();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        timerTask = new TimerTask();
     }
 }

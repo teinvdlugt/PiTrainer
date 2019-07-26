@@ -105,6 +105,7 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
         fillTextViews();
         setRestartImageResource();
 
+        inputET.requestFocus();
         return view;
     }
 
@@ -255,7 +256,7 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
 
         int count = 0;
         for (int i = 0; i < input.length(); i++) {
-            if (input.charAt(i) == Digits.currentDigit.getFractionalPart().charAt(i)) {
+            if (input.charAt(i) == Digits.currentDigit.getFractionalPart().charAt(i + startDigit - 1)) {
                 count++;
             }
         }

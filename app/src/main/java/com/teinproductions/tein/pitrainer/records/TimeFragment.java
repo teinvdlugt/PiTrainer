@@ -1,28 +1,23 @@
 package com.teinproductions.tein.pitrainer.records;
 
 
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
-import androidx.transition.TransitionManager;
-import androidx.fragment.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextClock;
 import android.widget.TextView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.teinproductions.tein.pitrainer.ActivityInterface;
 import com.teinproductions.tein.pitrainer.Digits;
 import com.teinproductions.tein.pitrainer.FragmentInterface;
@@ -30,9 +25,10 @@ import com.teinproductions.tein.pitrainer.MainActivity;
 import com.teinproductions.tein.pitrainer.R;
 import com.teinproductions.tein.pitrainer.keyboard.Keyboard;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.transition.TransitionManager;
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
 
 public class TimeFragment extends Fragment implements FragmentInterface {
     private ActivityInterface activityInterface;
@@ -112,6 +108,8 @@ public class TimeFragment extends Fragment implements FragmentInterface {
             @Override
             public void onClick(View v) {
                 stopWatch.stop();
+                // Release screen orientation lock
+                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                 activityInterface.swapFragment(RecordsFragment.class);
             }
         });
@@ -137,6 +135,10 @@ public class TimeFragment extends Fragment implements FragmentInterface {
                 } else {
                     if (inputET.getText().length() == 1 && before == 0) {
                         stopWatch.start();
+                        // Lock screen orientation
+                        int orientation = getContext().getResources().getConfiguration().orientation;
+                        getActivity().setRequestedOrientation(orientation == Configuration.ORIENTATION_LANDSCAPE ?
+                                ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
                     }
                     updateDigitsText();
                 }
@@ -152,6 +154,8 @@ public class TimeFragment extends Fragment implements FragmentInterface {
         if (vibrate) activityInterface.vibrate();
         inputET.setEnabled(false);
         keyboard.setEnabled(false);
+        // Release screen orientation lock
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
 
         RecordDialog.show(TimeFragment.this, numOfDigits, (int) result);
         activityInterface.swapFragment(RecordsFragment.class);
@@ -174,6 +178,8 @@ public class TimeFragment extends Fragment implements FragmentInterface {
         updateDigitsText();
 
         stopWatch.reset();
+        // Release screen orientation lock
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
     }
 
     @Override
@@ -205,6 +211,8 @@ public class TimeFragment extends Fragment implements FragmentInterface {
     public void onPause() {
         super.onPause();
         stopWatch.stop();
+        // Release screen orientation lock
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
     }
 
     @Override

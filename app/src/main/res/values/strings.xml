@@ -100,6 +100,9 @@
     <string name="scroll_to">Scroll to…</string>
     <string name="invalid_input">Invalid input</string>
     <string name="go">Go</string>
+    <string name="record_digits_format">%d digits</string>
+    <string name="record_time_format">%.2f seconds</string>
+    <string name="record_dpm_format">%.2f per minute</string>
 
     <string-array name="sort_methods">
         <item>Digits per minute</item>

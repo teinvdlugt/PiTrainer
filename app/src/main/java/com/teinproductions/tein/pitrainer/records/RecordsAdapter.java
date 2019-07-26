@@ -70,7 +70,7 @@ public class RecordsAdapter extends RecyclerView.Adapter<RecordsAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.displayRecordData(context, data.get(position), position + 1);
+        holder.displayRecordData(data.get(position), position + 1);
     }
 
     @Override
@@ -83,22 +83,27 @@ public class RecordsAdapter extends RecyclerView.Adapter<RecordsAdapter.ViewHold
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView titleTextView, dateTextView, descriptionTextView;
+        TextView titleTextView, dateTextView, digitsTV, timeTV, dpmTV;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            titleTextView = (TextView) itemView.findViewById(R.id.title_textView);
-            descriptionTextView = (TextView) itemView.findViewById(R.id.numbers_textView);
-            dateTextView = (TextView) itemView.findViewById(R.id.date_textView);
+            titleTextView = itemView.findViewById(R.id.title_textView);
+            dateTextView = itemView.findViewById(R.id.date_textView);
+            digitsTV = itemView.findViewById(R.id.digits_textView);
+            timeTV = itemView.findViewById(R.id.time_textView);
+            dpmTV = itemView.findViewById(R.id.dpm_textView);
         }
 
-        public void displayRecordData(Context context, Record record, int rank) {
+        public void displayRecordData(Record record, int rank) {
             titleTextView.setText(String.format("%d. %s", rank, record.getRecordHolder()));
             dateTextView.setText(record.getDateString());
 
-            double digitsPerMinute = (double) record.getDigits() / record.getMilliseconds() * 60000;
-            descriptionTextView.setText(context.getString(
-                    R.string.record_card_description, record.getDigits(), digitsPerMinute));
+            digitsTV.setText(itemView.getContext().getString(R.string.record_digits_format, record.getDigits()));
+            timeTV.setText(itemView.getContext().getString(R.string.record_time_format, record.getMilliseconds() / 1000.));
+            double dpm = record.getDigitsPerMinute();
+            if (Double.isNaN(dpm) || Double.isInfinite(dpm))
+                dpmTV.setText("");
+            else dpmTV.setText(itemView.getContext().getString(R.string.record_dpm_format, dpm));
         }
     }
 }

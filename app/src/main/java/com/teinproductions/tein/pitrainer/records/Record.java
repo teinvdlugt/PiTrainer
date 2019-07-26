@@ -55,7 +55,7 @@ public class Record {
 
     private String toJSON() {
         return "{\"" + DIGITS_JSON + "\":" + digits + ",\"" + MILLISECONDS_JSON + "\":" + milliseconds +
-                ",\"" + RECORD_HOLDER_NAME_JSON + "\":" + recordHolder + ",\"" + DATE_MILLIS + "\":" + dateMillis + "}";
+                ",\"" + RECORD_HOLDER_NAME_JSON + "\":\"" + recordHolder + "\",\"" + DATE_MILLIS + "\":" + dateMillis + "}";
     }
 
     public static Record fromJSON(String json) throws JSONException {

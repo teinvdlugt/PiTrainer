@@ -31,8 +31,8 @@ public class RecordsFragment extends Fragment implements FragmentInterface {
         activityInterface = (ActivityInterface) getActivity();
 
         View theView = inflater.inflate(R.layout.fragment_records, container, false);
-        RecyclerView recyclerView = (RecyclerView) theView.findViewById(R.id.records_recyclerView);
-        sortBySpinner = (Spinner) theView.findViewById(R.id.sortBy_spinner);
+        RecyclerView recyclerView = theView.findViewById(R.id.records_recyclerView);
+        sortBySpinner = theView.findViewById(R.id.sortBy_spinner);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new RecordsAdapter(getActivity());

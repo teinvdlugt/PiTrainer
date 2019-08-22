@@ -28,6 +28,7 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
+                android:gravity="center_vertical"
                 android:id="@+id/headerLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -43,10 +44,11 @@
                 <com.teinproductions.tein.pitrainer.records.StopWatch
                     android:id="@+id/timer"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:textSize="38sp"
+                    android:textColor="?android:textColorPrimary"
                     tools:text="00:31.4" />
 
                 <ImageButton

@@ -40,12 +40,12 @@ public class ReferenceFragment extends Fragment
 
     public static final String ADS_ENABLED_KEY = "ads_enabled"; // Must be the same as in Firebase console!
 
-    public static final String TEXT_SIZE = "TEXT_SIZE_INT"; // Text size was once a float so to prevent
+    private static final String TEXT_SIZE = "TEXT_SIZE_INT"; // Text size was once a float so to prevent
     // an old saved float value of getting in the way, let's name it TEXT_SIZE_INT
-    public static final String SPACINGS = "SPACINGS";
-    public static final String SPACINGS_ENABLED = "SPACINGS_ENABLED";
-    public static final String LINE_COUNT = "LINE_COUNT";
-    public static final String LINE_COUNT_ENABLED = "LINE_COUNT_ENABLED";
+    private static final String SPACINGS = "SPACINGS";
+    private static final String SPACINGS_ENABLED = "SPACINGS_ENABLED";
+    private static final String LINE_COUNT = "LINE_COUNT";
+    private static final String LINE_COUNT_ENABLED = "LINE_COUNT_ENABLED";
     private static final int MIN_TEXT_SIZE_VALUE = 5;
     private static final int MAX_TEXT_SIZE_VALUE = 60;
 
@@ -54,6 +54,7 @@ public class ReferenceFragment extends Fragment
     private int textSize;
     private int spacings;
     private int lineCount;
+    private int highlightPosition = -1;
 
     private TextView integerPart, fractionalPart;
     private CardView settingsLayout;
@@ -273,17 +274,29 @@ public class ReferenceFragment extends Fragment
                     int digitPosition = Integer.parseInt(scrollToET.getText().toString()) - 1;
                     digitPosition = Math.max(digitPosition, 0);
                     if (digitPosition < Digits.currentDigit.getFractionalPart().length()) {
+                        // Collapse settings menu
+                        settingsLayout.setVisibility(View.GONE);
+                        openSettingsButton.setVisibility(View.VISIBLE);
+
                         // Position of corresponding character in textView
-                        int charPosition = getDigitPositionInTextView(digitPosition);
-                        // Scroll to the requested digit
-                        Layout layout = fractionalPart.getLayout();
-                        if (layout != null) {
-                            int yCoordinate = layout.getLineTop(layout.getLineForOffset(charPosition))
-                                    + fractionalPart.getTop();
-                            scrollView.scrollTo(0, yCoordinate);
-                        }
+                        final int charPosition = getDigitPositionInTextView(digitPosition);
+
+                        fractionalPart.post(new Runnable() { // Post it as the settingsLayout needs to collapse first
+                            @Override
+                            public void run() {
+                                // Scroll to the requested digit
+                                Layout layout = fractionalPart.getLayout();
+                                if (layout != null) {
+                                    int yCoordinate = layout.getLineTop(layout.getLineForOffset(charPosition))
+                                            + fractionalPart.getTop();
+                                    scrollView.scrollTo(0, yCoordinate);
+                                }
+                            }
+                        });
+
                         // Highlight the requested digit
                         addHighlight(charPosition);
+                        highlightPosition = digitPosition;
 
                         return;
                     }
@@ -315,7 +328,7 @@ public class ReferenceFragment extends Fragment
 
     /**
      * Sets text of integer and fractional parts to currentDigits and applies
-     * textSize, spacings and lineCount settings.
+     * textSize, spacings and lineCount settings. And adds highlight if applicable.
      */
     private void reload() {
         // Set texts to current Digits (thereby also setting the desired spacings and line breaks in fractionalPart)
@@ -326,6 +339,10 @@ public class ReferenceFragment extends Fragment
         fractionalPart.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
     }
 
+    /**
+     * Sets text of fractional part to currentDigits and applies spacings and lineCount
+     * settings. And adds highlight if applicable.
+     */
     private void setFractionalPartText() {
         StringBuilder sb = new StringBuilder(Digits.currentDigit.getFractionalPart());
         // If both spacings and lineCount are enabled and
@@ -358,6 +375,11 @@ public class ReferenceFragment extends Fragment
             }
         }
         fractionalPart.setText(sb);
+
+        // Add highlight
+        if (highlightPosition != -1 && highlightPosition < Digits.currentDigit.getFractionalPart().length())
+            addHighlight(getDigitPositionInTextView(highlightPosition));
+        else highlightPosition = -1; // highlightPosition invalid
     }
 
     private void addHighlight(int charPosition) {
@@ -407,6 +429,7 @@ public class ReferenceFragment extends Fragment
 
     @Override
     public void notifyDigitsChanged() {
+        highlightPosition = -1; // Reset highlight
         reload();
     }
 

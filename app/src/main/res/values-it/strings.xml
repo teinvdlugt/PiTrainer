@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Pi Trainer</string>
+    <string name="add_number">Aggiungi numero…</string>
+    <string name="an_error_occurred">Si è verificato un errore!</string>
+    <string name="check_your_settings">Qualcosa è sbagliato nelle tue impostazioni</string>
+    <string name="choose_keyboard_layout">Scegli il layout della tastiera</string>
+    <string name="close_drawer">Close Navigation Drawer</string>
+    <string name="close_settings_xs">Chiudi impostazioni</string>
+    <string name="complete_mode_not_possible">La modalità completa non può essere usata con questo numero perchè ha troppe poche cifre. Per favore seleziona un altro numero</string>
+    <string name="complete_the_statement">Completa</string>
+    <string name="create">Crea</string>
+    <string name="custom_numbers">Numeri Personalizzati</string>
+    <string name="delete">Elimina</string>
+    <string name="digits_colon">Cifre:</string>
+    <string name="digits_colon_format">Cifre: %d</string>
+    <string name="dismiss">Annulla</string>
+    <string name="do_not_save_record">Non salvare</string>
+    <string name="done">Fatto</string>
+    <string name="error_message_invalid_integer">Intero non valido</string>
+    <string name="error_message_too_large">Troppo grande</string>
+    <string name="error_message_too_small">Troppo piccolo</string>
+    <string name="errors_colon">Errori:</string>
+    <string name="euler_number">Numero di Eulero</string>
+    <string name="fractional_part">Parte decimale</string>
+    <string name="fractional_part_explanation">Le cifre dopo la virgola</string>
+    <string name="go">Vai</string>
+    <string name="golden_ratio">Sezione aurea</string>
+    <string name="gregory_leibniz_series">Gregory-Leibniz series</string>
+    <string name="high_scores">Punteggi migliori</string>
+    <string name="integer_part">Parte intera</string>
+    <string name="integer_part_explanation">Le cifre prima della virgola</string>
+    <string name="invalid">Non valido</string>
+    <string name="invalid_input">Input non valido</string>
+    <string name="keyboard_feedback">Feedback tastiera</string>
+    <string name="keyboard_height_format">Altezza tastiera: %s</string>
+    <string name="keyboard_layout_ellipsis">Layout tastiera…</string>
+    <string name="keyboard_size">Dimensioni tastiera</string>
+    <string name="keyboard_size_ellipsis">Dimensioni tastiera…</string>
+    <string name="keyboard_size_discard">Annulla</string>
+    <string name="keyboard_size_largest">Massima</string>
+    <string name="keyboard_size_save">Salva</string>
+    <string name="keyboard_size_save_or_discard">Salvare o annullare?</string>
+    <string name="keyboard_size_smallest">Minima</string>
+    <string name="keyboard_width_format">Larghezza tastiera: %s</string>
+    <string name="keyboard_width_warning_message">Impostare la larghezza su Massima non funzionerà in modalità Landscape</string>
+    <string name="learn_more">Learn more</string>
+    <string name="length_of_answer_colon">Lunghezza della risposta</string>
+    <string name="line_count">Numero linee</string>
+    <string name="n_textView_format">…+1/%d…</string>
+    <string name="name">Nome</string>
+    <string name="next">Prossimo</string>
+    <string name="night_mode_not_available_message">Scusa, questa funzione non è disponibile per la tua versione di Android</string>
+    <string name="no">No</string>
+    <string name="no_custom_numbers">Non hai aggiunto alcun numero</string>
+    <string name="number">Numero…</string>
+    <string name="number_of_digits_given_colon">Numero di cifre date</string>
+    <string name="number_option_dialog_title">Seleziona il numero da ripassare</string>
+    <string name="ok">OK</string>
+    <string name="on_screen_keyboard">Tastiera in-app</string>
+    <string name="open_drawer">Open navigation drawer</string>
+    <string name="percentage_colon">Percentuale:</string>
+    <string name="pi">Pi</string>
+    <string name="please_provide_a_fractional_part">Per favore inserisci una parte decimale</string>
+    <string name="please_provide_a_name">Per favore inserisci un numero</string>
+    <string name="please_provide_an_integer_part">Per favore inserisci una parte intera</string>
+    <string name="please_type_more_digits_snackbar">Per favore inserisci piú cifre</string>
+    <string name="practise">Ripassa</string>
+    <string name="privacy_policy">Politica sulla riservatezza</string>
+    <string name="range">Range</string>
+    <string name="range_start">Inizio range</string>
+    <string name="range_start_colon">Inizio range: %d</string>
+    <string name="range_stop">Fine range</string>
+    <string name="range_stop_colon">Fine range: %d</string>
+    <string name="record_dialog_message_format">Hai digitato %d cifre in %.1f secondi</string>
+    <string name="record_digits_format">%d cifre</string>
+    <string name="record_dpm_format">%.2f al minuto</string>
+    <string name="record_holder_name">Nome</string>
+    <string name="record_time_format">secondi</string>
+    <string name="reference">Cifre</string>
+    <string name="restart">Ricomincia</string>
+    <string name="save">Salva</string>
+    <string name="save_error_message">Qualcosa è andato storto durante il salvataggio</string>
+    <string name="scroll_to">Vai a…</string>
+    <string name="settings">Impostazioni</string>
+    <string name="sort_by_spinner_text">Ordina per:</string>
+    <string name="spaces">Spazi</string>
+    <string name="sqrt2">Radice di 2</string>
+    <string name="starting_digit">Posizione di partenza</string>
+    <string name="sure_delete_digits">Sei sicuro di voler eliminare questo numero?</string>
+    <string name="tau">Tau</string>
+    <string name="text_size_colon">Dimensione testo: %d</string>
+    <string name="theme">Tema</string>
+    <string name="theme_ellipsis">Tema…</string>
+    <string name="there_is_already_a_number_with_that_name">Esiste già un numero con questo nome</string>
+    <string name="timed_mode_game">Modalità a tempo</string>
+    <string name="title_activity_add_number">Aggiungi numero</string>
+    <string name="title_activity_numbers">Numeri Personalizzati</string>
+    <string name="too_much_input_dialog_message">Ottimo lavoro! Hai raggiunto il massimo numero di cifre per quel numero!</string>
+    <string name="try_again">Riprova</string>
+    <string name="vibrate">Vibrazione</string>
+    <string name="warning">Attenzione</string>
+    <string name="xs_backspace">backspace</string>
+    <string name="yes">Si</string>
+
+    <string-array name="sort_methods">
+        <item>Cifre al minuto</item>
+        <item>Numero di cifre</item>
+        <item>Data</item>
+    </string-array>
+
+    <string-array name="themes">
+        <item>Auto</item>
+        <item>Tema diurno</item>
+        <item>Tema notturno</item>
+    </string-array>
+</resources>

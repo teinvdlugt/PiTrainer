@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.teinproductions.tein.pitrainer">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -12,12 +13,13 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:windowSoftInputMode="stateHidden"
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,11 +40,14 @@
             android:name=".keyboard.ChooseKeyboardActivity"
             android:label="@string/choose_keyboard_layout" />
 
-        <activity android:name=".keyboard.KeyboardSizeActivity"
+        <activity
+            android:name=".keyboard.KeyboardSizeActivity"
             android:label="@string/keyboard_size" />
 
         <!-- FOR DEBUGGING: REMOVE WHEN RELEASING-->
-        <meta-data android:name="firebase_crashlytics_collection_enabled" android:value="false" />
+        <meta-data
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="false" />
         <!-- Replace with AdMob App ID before release. Sample ad: ca-app-pub-3940256099942544~3347511713 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"

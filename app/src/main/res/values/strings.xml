@@ -47,7 +47,6 @@
     <string name="timed_mode_game">Timed mode</string>
     <string name="digits_colon_format">Digits: %d</string>
     <string name="sort_by_spinner_text">Sort by:</string>
-    <string name="record_card_description" formatted="false">%d digits at %.2f digits per minute"</string>
     <string name="try_again">Try again</string>
     <string name="record_holder_name">Name</string>
     <string name="do_not_save_record">Don\'t save</string>
@@ -63,7 +62,6 @@
     <string name="choose_keyboard_layout">Choose keyboard layout</string>
     <string name="keyboard_layout_ellipsis">Keyboard layout…</string>
     <string name="gregory_leibniz_series">Gregory-Leibniz series</string>
-    <string name="click_start">Click start</string>
     <string name="n_textView_format">…+1/%d…</string>
     <string name="learn_more">Learn more</string>
     <string name="ok">OK</string>
@@ -103,6 +101,7 @@
     <string name="record_digits_format">%d digits</string>
     <string name="record_time_format">%.2f seconds</string>
     <string name="record_dpm_format">%.2f per minute</string>
+    <string name="clear">Clear</string>
 
     <string-array name="sort_methods">
         <item>Digits per minute</item>

@@ -6,7 +6,7 @@
     <string name="digits_colon">Cijfer:</string>
     <string name="errors_colon">Fouten:</string>
     <string name="next">Volgende</string>
-    <string name="number">Getal</string>
+    <string name="number">Getal…</string>
     <string name="number_of_digits_given_colon">Aantal gegeven cijfers: %d</string>
     <string name="number_option_dialog_title">Kies het getal om te oefenen</string>
     <string name="on_screen_keyboard">Toetsenbord</string>
@@ -61,7 +61,6 @@
     <string name="record_dialog_message_format" formatted="false">Je typte %d cijfers in %.1f seconden.</string>
     <string name="save_error_message">Er ging iets mis tijdens het opslaan.</string>
     <string name="there_is_already_a_number_with_that_name">Er is al een getal met die naam.</string>
-    <string name="click_start">Druk op start</string>
     <string name="gregory_leibniz_series">Leibniz oneindige reeks</string>
     <string name="learn_more">Meer informatie</string>
     <string name="n_textView_format">…+1/%d…</string>
@@ -109,4 +108,11 @@
     <string name="complete_mode_not_possible">Voltooi de reeks kan niet worden gebruikt bij dit getal omdat het te weinig cijfers heeft. Gebruik a.u.b. een ander getal.</string>
     <string name="invalid">Ongeldig</string>
     <string name="privacy_policy">Privacybeleid</string>
+    <string name="go">Ga</string>
+    <string name="line_count">Aantal per regel</string>
+    <string name="scroll_to">Scrollen naar…</string>
+    <string name="record_digits_format">%d cijfers</string>
+    <string name="record_dpm_format">%.2f per minuut</string>
+    <string name="record_time_format">%.2f seconden</string>
+    <string name="invalid_input">Ongeldige invoer</string>
 </resources>

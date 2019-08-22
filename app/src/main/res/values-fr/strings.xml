@@ -63,7 +63,6 @@
     <string name="choose_keyboard_layout">Choisir la disposition du clavier</string>
     <string name="keyboard_layout_ellipsis">Disposition du clavier</string>
     <string name="gregory_leibniz_series">Gregory-Leibniz series</string>
-    <string name="click_start">Click start</string>
     <string name="n_textView_format">…+1/%d…</string>
     <string name="learn_more">Learn more</string>
     <string name="ok">OK</string>
@@ -109,4 +108,11 @@
     <string name="complete_mode_not_possible">Complete mode can\'t be used with this number because it has too few digits. Please select another number.</string>
     <string name="invalid">Invalide</string>
     <string name="privacy_policy">Confidentialité</string>
+    <string name="go">Aller</string>
+    <string name="invalid_input">Entrée invalide</string>
+    <string name="line_count">Nombre de chiffres par ligne</string>
+    <string name="record_digits_format">%d chiffres</string>
+    <string name="record_dpm_format">%.2f par minute</string>
+    <string name="record_time_format">%.2f secondes</string>
+    <string name="scroll_to">Défiler jusqu\'à…</string>
 </resources>

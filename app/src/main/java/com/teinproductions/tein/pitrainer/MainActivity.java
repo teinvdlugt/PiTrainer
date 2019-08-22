@@ -12,16 +12,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
-import androidx.annotation.IdRes;
-import androidx.annotation.NonNull;
-import com.google.android.material.navigation.NavigationView;
-import androidx.fragment.app.Fragment;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.widget.Toolbar;
 import android.text.Html;
 import android.text.InputType;
 import android.view.Menu;
@@ -35,6 +25,7 @@ import android.widget.Toast;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.teinproductions.tein.pitrainer.keyboard.ChooseKeyboardActivity;
@@ -46,6 +37,16 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
 
 public class MainActivity extends AppCompatActivity
@@ -167,11 +168,20 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    private ReferenceFragment refFrag = null;
+
     @Override
     public void swapFragment(Class fragmentClass) {
         Fragment fragment = null;
         try {
-            fragment = (Fragment) fragmentClass.newInstance();
+            // Reuse instance of ReferenceFragment to retain ScrollView scroll position
+            if (fragmentClass == ReferenceFragment.class) {
+                if (refFrag == null) {
+                    refFrag = new ReferenceFragment();
+                    refFrag.setRetainInstance(true);  // TODO necessary?
+                }
+                fragment = refFrag;
+            } else fragment = (Fragment) fragmentClass.newInstance();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -9,15 +9,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
-    <com.teinproductions.tein.pitrainer.keyboard.Keyboard
-        android:id="@+id/keyboard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:visibility="gone"
-        tools:visibility="visible" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -66,8 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/headerLayout"
-                android:maxLines="8"
-                android:numeric="integer"
+                android:inputType="number"
                 android:textSize="24sp" />
 
             <TextView
@@ -103,4 +93,13 @@
                 android:src="@drawable/ic_crown_36dp" />
         </RelativeLayout>
     </ScrollView>
+
+    <com.teinproductions.tein.pitrainer.keyboard.Keyboard
+        android:id="@+id/keyboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        tools:visibility="visible" />
 </RelativeLayout>

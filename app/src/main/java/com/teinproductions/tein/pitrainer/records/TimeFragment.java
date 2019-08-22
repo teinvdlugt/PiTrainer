@@ -66,6 +66,7 @@ public class TimeFragment extends Fragment implements FragmentInterface {
         setTextWatcher();
         onClickRestart();
 
+        inputET.setSingleLine(false);
         inputET.requestFocus();
         return theView;
     }
@@ -131,7 +132,7 @@ public class TimeFragment extends Fragment implements FragmentInterface {
                 // We can now assume that inputET.length() < fractionalPart.length(), so we can safely
                 // call Digits.isIncorrect.
                 if (Digits.isIncorrect(inputET.getText().toString(), 1)) {
-                    end(inputET.length() - 1, true);
+                    // end(inputET.length() - 1, true);
                 } else {
                     if (inputET.getText().length() == 1 && before == 0) {
                         stopWatch.start();

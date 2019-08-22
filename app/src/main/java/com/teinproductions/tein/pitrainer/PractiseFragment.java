@@ -1,17 +1,12 @@
 package com.teinproductions.tein.pitrainer;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
-import androidx.transition.AutoTransition;
-import androidx.transition.TransitionManager;
-import androidx.fragment.app.Fragment;
-import androidx.appcompat.app.AlertDialog;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -20,11 +15,19 @@ import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.teinproductions.tein.pitrainer.keyboard.Keyboard;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.transition.AutoTransition;
+import androidx.transition.TransitionManager;
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
 
 public class PractiseFragment extends Fragment implements FragmentInterface {
 
@@ -93,8 +96,14 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
                 settingsLayout.setVisibility(View.GONE);
                 openSettingsButton.setVisibility(View.VISIBLE);
                 // Show the keyboard again, if preferences say so
-                showOnScreenKeyboard(getActivity().getPreferences(0)
-                        .getBoolean(MainActivity.ON_SCREEN_KEYBOARD, false));
+                final boolean inAppKeyboard = getActivity().getPreferences(0)
+                        .getBoolean(MainActivity.ON_SCREEN_KEYBOARD, false);
+                showOnScreenKeyboard(inAppKeyboard);
+                // Hide soft keyboard
+                if (inAppKeyboard)
+                    ((InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE))
+                            .hideSoftInputFromWindow(inputET.getWindowToken(), 0);
+                inputET.requestFocus();
             }
         });
 
@@ -105,6 +114,7 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
         fillTextViews();
         setRestartImageResource();
 
+        inputET.setSingleLine(false);
         inputET.requestFocus();
         return view;
     }

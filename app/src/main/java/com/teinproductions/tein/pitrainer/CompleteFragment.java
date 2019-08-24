@@ -1,13 +1,9 @@
 package com.teinproductions.tein.pitrainer;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Configuration;
 import android.os.Bundle;
-
-import androidx.core.content.ContextCompat;
-import androidx.transition.AutoTransition;
-import androidx.transition.TransitionManager;
-import androidx.fragment.app.Fragment;
-import androidx.appcompat.app.AlertDialog;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -17,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
@@ -24,6 +21,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.teinproductions.tein.pitrainer.keyboard.Keyboard;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.transition.AutoTransition;
+import androidx.transition.TransitionManager;
 
 public class CompleteFragment extends Fragment implements FragmentInterface {
 
@@ -94,6 +97,10 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
                         .setDuration(200));
                 settingsLayout.setVisibility(View.VISIBLE);
                 openSettingsButton.setVisibility(View.GONE);
+                // Hide the keyboard when the settings menu is open, because maybe awkward.
+                // But only in portrait mode.
+                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+                    keyboard.setVisibility(View.GONE);
             }
         });
         root.findViewById(R.id.closeSettings_button).setOnClickListener(new View.OnClickListener() {
@@ -104,6 +111,15 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
                         .setDuration(200));
                 settingsLayout.setVisibility(View.GONE);
                 openSettingsButton.setVisibility(View.VISIBLE);
+                // Show the keyboard again, if preferences say so
+                boolean inAppKeyboard = getActivity().getPreferences(0)
+                        .getBoolean(MainActivity.ON_SCREEN_KEYBOARD, false);
+                showOnScreenKeyboard(inAppKeyboard);
+                // Hide soft keyboard
+                if (inAppKeyboard)
+                    ((InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE))
+                            .hideSoftInputFromWindow(editText.getWindowToken(), 0);
+                editText.requestFocus();
             }
         });
 

@@ -96,7 +96,7 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
                 settingsLayout.setVisibility(View.GONE);
                 openSettingsButton.setVisibility(View.VISIBLE);
                 // Show the keyboard again, if preferences say so
-                final boolean inAppKeyboard = getActivity().getPreferences(0)
+                boolean inAppKeyboard = getActivity().getPreferences(0)
                         .getBoolean(MainActivity.ON_SCREEN_KEYBOARD, false);
                 showOnScreenKeyboard(inAppKeyboard);
                 // Hide soft keyboard

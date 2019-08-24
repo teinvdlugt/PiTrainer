@@ -16,161 +16,166 @@
         android:visibility="gone"
         tools:visibility="visible" />
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1">
 
-        <ImageButton
-            android:id="@+id/openSettings_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginTop="24dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/settings"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_keyboard_arrow_down_24dp" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/settings_layout"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="16dp"
-            android:visibility="gone"
-            app:cardCornerRadius="4dp"
-            app:contentPadding="8dp"
-            tools:visibility="visible">
+            android:layout_height="wrap_content">
 
-            <RelativeLayout
+            <ImageButton
+                android:id="@+id/openSettings_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="24dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/settings"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_keyboard_arrow_down_24dp" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/settings_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"
+                app:cardCornerRadius="4dp"
+                app:contentPadding="8dp"
+                tools:visibility="visible">
 
-                <ImageButton
-                    android:id="@+id/closeSettings_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/close_settings_xs"
-                    android:src="@drawable/ic_close_24dp" />
-
-                <TextView
-                    android:id="@+id/numDigits_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/number_of_digits_given_colon" />
-
-                <!-- The range of this SeekBar should be 4 to 18,
-                 but the android:min attribute isn't supported on API 26
-                 and lower. So set max to 14, and in CompleteFragment.java
-                 add 4 every time. -->
-                <SeekBar
-                    android:id="@+id/numDigits_seekBar"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/numDigits_textView"
-                    android:layout_marginBottom="8dp"
-                    android:layout_toLeftOf="@id/closeSettings_button"
-                    android:layout_toStartOf="@id/closeSettings_button"
-                    android:max="14" />
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/lengthOfAnswer_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/numDigits_seekBar"
-                    android:text="@string/length_of_answer_colon" />
+                    <ImageButton
+                        android:id="@+id/closeSettings_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/close_settings_xs"
+                        android:src="@drawable/ic_close_24dp" />
 
-                <!-- The range of this SeekBar should be 4 to 18,
-                 but the android:min attribute isn't supported on API 26
-                 and lower. So set max to 14, and in CompleteFragment.java
-                 add 4 every time. -->
-                <SeekBar
-                    android:id="@+id/lengthOfAnswer_seekBar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/lengthOfAnswer_textView"
-                    android:layout_toLeftOf="@id/closeSettings_button"
-                    android:layout_toStartOf="@id/closeSettings_button"
-                    android:max="14" />
+                    <TextView
+                        android:id="@+id/numDigits_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/number_of_digits_given_colon" />
 
-                <TextView
-                    android:id="@+id/rangeStart_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/lengthOfAnswer_seekBar"
-                    android:text="@string/range_start_colon" />
+                    <!-- The range of this SeekBar should be 4 to 18,
+                     but the android:min attribute isn't supported on API 26
+                     and lower. So set max to 14, and in CompleteFragment.java
+                     add 4 every time. -->
+                    <SeekBar
+                        android:id="@+id/numDigits_seekBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/numDigits_textView"
+                        android:layout_marginBottom="8dp"
+                        android:layout_toLeftOf="@id/closeSettings_button"
+                        android:layout_toStartOf="@id/closeSettings_button"
+                        android:max="14" />
 
-                <EditText
-                    android:id="@+id/rangeStart_editText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/rangeStart_textView"
-                    android:inputType="number" />
+                    <TextView
+                        android:id="@+id/lengthOfAnswer_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/numDigits_seekBar"
+                        android:text="@string/length_of_answer_colon" />
 
-                <TextView
-                    android:id="@+id/rangeStop_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/rangeStart_editText"
-                    android:text="@string/range_stop_colon" />
+                    <!-- The range of this SeekBar should be 4 to 18,
+                     but the android:min attribute isn't supported on API 26
+                     and lower. So set max to 14, and in CompleteFragment.java
+                     add 4 every time. -->
+                    <SeekBar
+                        android:id="@+id/lengthOfAnswer_seekBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/lengthOfAnswer_textView"
+                        android:layout_toLeftOf="@id/closeSettings_button"
+                        android:layout_toStartOf="@id/closeSettings_button"
+                        android:max="14" />
 
-                <EditText
-                    android:id="@+id/rangeStop_editText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/rangeStop_textView"
-                    android:inputType="number" />
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
+                    <TextView
+                        android:id="@+id/rangeStart_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/lengthOfAnswer_seekBar"
+                        android:text="@string/range_start_colon" />
 
-        <TextView
-            android:id="@+id/statement_textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/settings_layout"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_toLeftOf="@+id/openSettings_button"
-            android:layout_toStartOf="@id/openSettings_button"
-            android:textColor="?android:textColorPrimary"
-            android:textSize="27sp"
-            tools:text="8979323846..." />
+                    <EditText
+                        android:id="@+id/rangeStart_editText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/rangeStart_textView"
+                        android:inputType="number" />
 
-        <ImageButton
-            android:id="@+id/nextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/editText"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_margin="16dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/next"
-            android:src="@drawable/ic_arrow_forward_24dp" />
+                    <TextView
+                        android:id="@+id/rangeStop_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/rangeStart_editText"
+                        android:text="@string/range_stop_colon" />
 
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/statement_textView"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_toLeftOf="@id/nextButton"
-            android:layout_toStartOf="@id/nextButton"
-            android:inputType="number"
-            android:maxLines="8"
-            android:textSize="24sp"
-            tools:text="2643383279" />
-    </RelativeLayout>
+                    <EditText
+                        android:id="@+id/rangeStop_editText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/rangeStop_textView"
+                        android:inputType="number" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/statement_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/settings_layout"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_toLeftOf="@+id/openSettings_button"
+                android:layout_toStartOf="@id/openSettings_button"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="27sp"
+                tools:text="8979323846..." />
+
+            <ImageButton
+                android:id="@+id/nextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/editText"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_margin="16dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/next"
+                android:src="@drawable/ic_arrow_forward_24dp" />
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/statement_textView"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_toLeftOf="@id/nextButton"
+                android:layout_toStartOf="@id/nextButton"
+                android:inputType="number"
+                android:maxLines="8"
+                android:textSize="24sp"
+                tools:text="2643383279" />
+        </RelativeLayout>
+    </ScrollView>
 </LinearLayout>

@@ -123,6 +123,8 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
         keyboard.setEditText(editText);
         if (possible) next();
 
+        editText.requestFocus();
+
         return root;
     }
 

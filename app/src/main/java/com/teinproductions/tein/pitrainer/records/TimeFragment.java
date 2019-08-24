@@ -3,7 +3,6 @@ package com.teinproductions.tein.pitrainer.records;
 
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -17,7 +16,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.teinproductions.tein.pitrainer.ActivityInterface;
 import com.teinproductions.tein.pitrainer.Digits;
 import com.teinproductions.tein.pitrainer.FragmentInterface;
@@ -36,7 +34,7 @@ public class TimeFragment extends Fragment implements FragmentInterface {
     private EditText inputET;
     private TextView digitsTV, integerPartTV;
     private Keyboard keyboard;
-    private ImageButton restartButton, doneButton, highScoresButton;
+    private ImageButton restartButton, highScoresButton;
     private StopWatch stopWatch;
     private ViewGroup root;
 
@@ -53,8 +51,7 @@ public class TimeFragment extends Fragment implements FragmentInterface {
         digitsTV = theView.findViewById(R.id.digits_textView);
         keyboard = theView.findViewById(R.id.keyboard);
         restartButton = theView.findViewById(R.id.restart_button);
-        doneButton = theView.findViewById(R.id.done_button);
-        highScoresButton = theView.findViewById(R.id.high_scores_button);
+        highScoresButton = theView.findViewById(R.id.highScores_button);
         root = theView.findViewById(R.id.root);
 
         keyboard.setEditText(inputET);
@@ -89,7 +86,7 @@ public class TimeFragment extends Fragment implements FragmentInterface {
                 onClickRestart();
             }
         });
-        doneButton.setOnClickListener(new View.OnClickListener() {
+        highScoresButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (inputET.length() > 0) {
@@ -98,20 +95,11 @@ public class TimeFragment extends Fragment implements FragmentInterface {
 
                     end(inputET.length(), false);
                 } else {
-                    Snackbar snack = Snackbar.make(root, R.string.please_type_more_digits_snackbar, Snackbar.LENGTH_LONG);
-                    View snackView = snack.getView();
-                    ((TextView) snackView.findViewById(com.google.android.material.R.id.snackbar_text)).setTextColor(Color.WHITE);
-                    snack.show();
+                    stopWatch.stop();
+                    // Release screen orientation lock
+                    getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+                    activityInterface.swapFragment(RecordsFragment.class);
                 }
-            }
-        });
-        highScoresButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                stopWatch.stop();
-                // Release screen orientation lock
-                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-                activityInterface.swapFragment(RecordsFragment.class);
             }
         });
     }
@@ -132,10 +120,11 @@ public class TimeFragment extends Fragment implements FragmentInterface {
                 // We can now assume that inputET.length() < fractionalPart.length(), so we can safely
                 // call Digits.isIncorrect.
                 if (Digits.isIncorrect(inputET.getText().toString(), 1)) {
-                    // end(inputET.length() - 1, true);
+                    end(inputET.length() - 1, true);
                 } else {
                     if (inputET.getText().length() == 1 && before == 0) {
                         stopWatch.start();
+                        highScoresButton.setImageResource(R.drawable.ic_stop_36dp);
                         // Lock screen orientation
                         int orientation = getContext().getResources().getConfiguration().orientation;
                         getActivity().setRequestedOrientation(orientation == Configuration.ORIENTATION_LANDSCAPE ?
@@ -179,6 +168,7 @@ public class TimeFragment extends Fragment implements FragmentInterface {
         updateDigitsText();
 
         stopWatch.reset();
+        highScoresButton.setImageResource(R.drawable.ic_crown_36dp);
         // Release screen orientation lock
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
     }

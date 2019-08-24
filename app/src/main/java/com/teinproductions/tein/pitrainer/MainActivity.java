@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity
     public static final String THEME_MODE = "theme_mode"; // Int preference
     private static final String VIBRATE = "VIBRATE"; // Boolean preference
     public static final String ON_SCREEN_KEYBOARD = "ON_SCREEN_KEYBOARD"; // Boolean preference
+    public static final boolean ON_SCREEN_KEYBOARD_DEFAULT = true;
     public static final String KEYBOARD_FEEDBACK = "keyboard_feedback"; // Boolean preference
     private static final String CURRENT_DIGITS_NAME = "CURRENT_DIGITS_NAME";
     private static final String CURRENT_GAME = "CURRENT_GAME";
@@ -449,7 +450,7 @@ public class MainActivity extends AppCompatActivity
         vibrate = getPreferences(0).getBoolean(VIBRATE, true);
         Digits.currentDigit = Digits.findDigits(
                 getPreferences(0).getString(CURRENT_DIGITS_NAME, Digits.digits[0].getName()));
-        onScreenKeyboard = getPreferences(0).getBoolean(ON_SCREEN_KEYBOARD, false);
+        onScreenKeyboard = getPreferences(0).getBoolean(ON_SCREEN_KEYBOARD, ON_SCREEN_KEYBOARD_DEFAULT);
         currentGame = getPreferences(0).getInt(CURRENT_GAME, 0);
         // For the NavigationView
         @IdRes int checkedItem;

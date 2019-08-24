@@ -113,7 +113,7 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
                 openSettingsButton.setVisibility(View.VISIBLE);
                 // Show the keyboard again, if preferences say so
                 boolean inAppKeyboard = getActivity().getPreferences(0)
-                        .getBoolean(MainActivity.ON_SCREEN_KEYBOARD, false);
+                        .getBoolean(MainActivity.ON_SCREEN_KEYBOARD, MainActivity.ON_SCREEN_KEYBOARD_DEFAULT);
                 showOnScreenKeyboard(inAppKeyboard);
                 // Hide soft keyboard
                 if (inAppKeyboard)
@@ -190,7 +190,7 @@ public class CompleteFragment extends Fragment implements FragmentInterface {
         rangeStartTV.setText(getContext().getString(R.string.range_start_colon, rangeStart));
         rangeStopTV.setText(getContext().getString(R.string.range_stop_colon, rangeStop));
 
-        showOnScreenKeyboard(getActivity().getPreferences(0).getBoolean(MainActivity.ON_SCREEN_KEYBOARD, false));
+        showOnScreenKeyboard(getActivity().getPreferences(0).getBoolean(MainActivity.ON_SCREEN_KEYBOARD, MainActivity.ON_SCREEN_KEYBOARD_DEFAULT));
 
         // Open the settings menu if this is the first time this Digits is used.
         if (!getActivity().getPreferences(0).getBoolean(FRAGMENT_OPENED + name, false)) {

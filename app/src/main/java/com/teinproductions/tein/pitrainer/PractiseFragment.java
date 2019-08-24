@@ -97,7 +97,7 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
                 openSettingsButton.setVisibility(View.VISIBLE);
                 // Show the keyboard again, if preferences say so
                 boolean inAppKeyboard = getActivity().getPreferences(0)
-                        .getBoolean(MainActivity.ON_SCREEN_KEYBOARD, false);
+                        .getBoolean(MainActivity.ON_SCREEN_KEYBOARD, MainActivity.ON_SCREEN_KEYBOARD_DEFAULT);
                 showOnScreenKeyboard(inAppKeyboard);
                 // Hide soft keyboard
                 if (inAppKeyboard)
@@ -135,7 +135,7 @@ public class PractiseFragment extends Fragment implements FragmentInterface {
         inputET.setText(input); // The coloring of the text will happen in the TextWatcher
         inputET.setSelection(inputET.length());
 
-        showOnScreenKeyboard(getActivity().getPreferences(0).getBoolean(MainActivity.ON_SCREEN_KEYBOARD, false));
+        showOnScreenKeyboard(getActivity().getPreferences(0).getBoolean(MainActivity.ON_SCREEN_KEYBOARD, MainActivity.ON_SCREEN_KEYBOARD_DEFAULT));
     }
 
     private boolean indirectTextChangeStartDigitET = false;

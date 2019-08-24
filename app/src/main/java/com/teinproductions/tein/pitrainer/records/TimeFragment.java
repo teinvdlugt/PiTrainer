@@ -57,7 +57,7 @@ public class TimeFragment extends Fragment implements FragmentInterface {
         keyboard.setEditText(inputET);
         integerPartTV.setText(Digits.currentDigit.getIntegerPart() + Digits.decimalSeparator);
         updateDigitsText();
-        showOnScreenKeyboard(getActivity().getPreferences(0).getBoolean(MainActivity.ON_SCREEN_KEYBOARD, false));
+        showOnScreenKeyboard(getActivity().getPreferences(0).getBoolean(MainActivity.ON_SCREEN_KEYBOARD, MainActivity.ON_SCREEN_KEYBOARD_DEFAULT));
         setRestartImageResource();
         setButtonOnClickListeners();
         setTextWatcher();

@@ -22,11 +22,7 @@ import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
@@ -38,7 +34,7 @@ import androidx.transition.TransitionManager;
 public class ReferenceFragment extends Fragment
         implements FragmentInterface {
 
-    public static final String ADS_ENABLED_KEY = "ads_enabled"; // Must be the same as in Firebase console!
+    // public static final String ADS_ENABLED_KEY = "ads_enabled"; // Must be the same as in Firebase console!
 
     private static final String TEXT_SIZE = "TEXT_SIZE_INT"; // Text size was once a float so to prevent
     // an old saved float value of getting in the way, let's name it TEXT_SIZE_INT
@@ -64,8 +60,6 @@ public class ReferenceFragment extends Fragment
     private EditText spacingsET, lineCountET;
     private CheckBox spacingsCB, lineCountCB;
     private ViewGroup animationContainer; // Contains Views that should be animated (when the settings panel is expanded/collapsed)
-    private AdView adView;
-    private CardView adViewContainer;
     private Button scrollToButton;
     private EditText scrollToET;
     private ScrollView scrollView;
@@ -87,8 +81,8 @@ public class ReferenceFragment extends Fragment
         lineCountCB = root.findViewById(R.id.lineCount_checkBox);
         textSizeTV = root.findViewById(R.id.textSize_textView);
         animationContainer = root.findViewById(R.id.animation_container);
-        adView = root.findViewById(R.id.adView);
-        adViewContainer = root.findViewById(R.id.adView_container);
+        // adView = root.findViewById(R.id.adView);
+        // adViewContainer = root.findViewById(R.id.adView_container);
         scrollToButton = root.findViewById(R.id.scrollTo_button);
         scrollView = root.findViewById(R.id.scrollView);
         scrollToET = root.findViewById(R.id.scrollTo_editText);
@@ -97,7 +91,7 @@ public class ReferenceFragment extends Fragment
         reload();
         setMenuListeners();
         setupMenuAnimations();
-        setupAdView();
+        // setupAdView();
 
         return root;
     }
@@ -127,7 +121,7 @@ public class ReferenceFragment extends Fragment
         });
     }
 
-    private void setupAdView() {
+    /*private void setupAdView() {
         // Setup adView:
         // Check if ads are enabled (Firebase Remote Config):
         if (FirebaseRemoteConfig.getInstance().getBoolean(ADS_ENABLED_KEY)) {
@@ -145,7 +139,7 @@ public class ReferenceFragment extends Fragment
             AdRequest adRequest = new AdRequest.Builder().build();
             adView.loadAd(adRequest);
         } else adViewContainer.setVisibility(View.GONE);
-    }
+    }*/
 
     private void setMenuListeners() {
         // Listen for changes in the text fields and update layout instantly.

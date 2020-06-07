@@ -1,7 +1,7 @@
 package com.teinproductions.tein.pitrainer.keyboard;
 
 import android.content.Context;
-import androidx.legacy.widget.Space;
+import android.widget.Space;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;

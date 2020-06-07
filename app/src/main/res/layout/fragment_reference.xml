@@ -191,7 +191,7 @@
         </RelativeLayout>
     </ScrollView>
 
-    <androidx.cardview.widget.CardView
+    <!--<androidx.cardview.widget.CardView
         android:id="@+id/adView_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -207,8 +207,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             ads:adSize="BANNER"
-            ads:adUnitId="ca-app-pub-3940256099942544/6300978111" /> <!--TODO Replace with AdUnitID-->
-        <!--TODO always test with test ads! Test ad unit id: ca-app-pub-3940256099942544/6300978111 -->
+            ads:adUnitId="ca-app-pub-3940256099942544/6300978111" /> &lt;!&ndash;TODO Replace with AdUnitID&ndash;&gt;
+        &lt;!&ndash;TODO always test with test ads! Test ad unit id: ca-app-pub-3940256099942544/6300978111 &ndash;&gt;
 
-    </androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>-->
 </FrameLayout>

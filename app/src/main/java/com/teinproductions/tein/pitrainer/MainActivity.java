@@ -22,7 +22,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
@@ -89,8 +88,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-        // Replace with AdMob App ID before release. Sample ad: ca-app-pub-3940256099942544~3347511713
-        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
+        // MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");  // Sample ad id
         setupRemoteConfig();
         applyNightMode();
         super.onCreate(savedInstanceState);
@@ -329,6 +327,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == NUMBERS_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             getPreferences(0).edit().putString(CURRENT_DIGITS_NAME, Digits.currentDigit.getName()).apply();
             fragmentInterface.notifyDigitsChanged();

@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import com.teinproductions.tein.pitrainer.MainActivity;
 import com.teinproductions.tein.pitrainer.R;
 
-import androidx.legacy.widget.Space;
+import android.widget.Space;
 
 public class Keyboard extends LinearLayout implements View.OnLongClickListener {
 

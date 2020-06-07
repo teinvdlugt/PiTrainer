@@ -114,4 +114,5 @@
         <item>Tema diurno</item>
         <item>Tema notturno</item>
     </string-array>
+    <string name="euler_mascheroni_constant">Costante di Eulero-Mascheroni</string>
 </resources>

@@ -44,6 +44,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="golden_ratio">Golden Ratio</string>
+    <string name="euler_mascheroni_constant">Euler-Mascheroni constant</string>
     <string name="timed_mode_game">Timed mode</string>
     <string name="digits_colon_format">Digits: %d</string>
     <string name="sort_by_spinner_text">Sort by:</string>
@@ -101,7 +102,6 @@
     <string name="record_digits_format">%d digits</string>
     <string name="record_time_format">%.2f seconds</string>
     <string name="record_dpm_format">%.2f per minute</string>
-    <string name="clear">Clear</string>
 
     <string-array name="sort_methods">
         <item>Digits per minute</item>

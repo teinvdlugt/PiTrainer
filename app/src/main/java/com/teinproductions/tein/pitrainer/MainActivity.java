@@ -212,6 +212,8 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.menu_main, menu);
         menu.findItem(R.id.vibrate).setChecked(vibrate);
         menu.findItem(R.id.keyboard).setChecked(onScreenKeyboard);
+        menu.findItem(R.id.keyboard_feedback).setChecked(PreferenceManager.getDefaultSharedPreferences(this)
+                .getBoolean(KEYBOARD_FEEDBACK, true));
 
         return true;
     }
@@ -390,7 +392,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void vibrate() {
         if (vibrate) {
-            ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(100);
+            Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+            if (vibrator != null) vibrator.vibrate(100);
         }
     }
 

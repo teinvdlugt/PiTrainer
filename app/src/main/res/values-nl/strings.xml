@@ -50,7 +50,6 @@
     <string name="done">Klaar</string>
     <string name="high_scores">High scores</string>
     <string name="please_type_more_digits_snackbar">Vul meer cijfers in</string>
-    <string name="record_card_description" formatted="false">%d cijfers met %.2f cijfers per minuut</string>
     <string name="record_holder_name">Naam</string>
     <string name="sort_by_spinner_text">Sorteren op:</string>
     <string name="timed_mode_game">Tijdmodus</string>
@@ -115,4 +114,5 @@
     <string name="record_dpm_format">%.2f per minuut</string>
     <string name="record_time_format">%.2f seconden</string>
     <string name="invalid_input">Ongeldige invoer</string>
+    <string name="euler_mascheroni_constant">Euler-Mascheroniconstante</string>
 </resources>

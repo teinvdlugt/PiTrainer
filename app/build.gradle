@@ -9,8 +9,8 @@ android {
         applicationId "com.teinproductions.tein.pitrainer"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 24
-        versionName "2.6"
+        versionCode 25
+        versionName '2.6.1'
     }
     buildTypes {
         release {
@@ -23,14 +23,14 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     // For latest versions see: https://dl.google.com/dl/android/maven2/index.html
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.google.android.material:material:1.0.0'
-    implementation 'com.google.firebase:firebase-core:17.0.1'
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'com.google.firebase:firebase-core:17.4.3'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
-    implementation 'com.google.firebase:firebase-ads:18.1.1' // TODO fix support library version conflict
-    implementation 'com.google.firebase:firebase-config:18.0.0'
+    implementation 'com.google.firebase:firebase-ads:19.1.0' // TODO fix support library version conflict
+    implementation 'com.google.firebase:firebase-config:19.1.4'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 }
 

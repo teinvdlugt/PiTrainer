@@ -48,7 +48,6 @@
     <string name="timed_mode_game">Mode chronométré</string>
     <string name="digits_colon_format">Chiffres : %d</string>
     <string name="sort_by_spinner_text">Trier par :</string>
-    <string name="record_card_description">%d chiffres à %.2f chiffres par minute</string>
     <string name="record_holder_name">Nom</string>
     <string name="do_not_save_record">Ne pas enregistrer</string>
     <string name="high_scores">Meilleurs scores</string>
@@ -115,4 +114,5 @@
     <string name="record_dpm_format">%.2f par minute</string>
     <string name="record_time_format">%.2f secondes</string>
     <string name="scroll_to">Défiler jusqu\'à…</string>
+    <string name="euler_mascheroni_constant">Constante d\'Euler-Mascheroni</string>
 </resources>

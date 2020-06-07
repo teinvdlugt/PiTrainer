@@ -1,9 +1,7 @@
 package com.teinproductions.tein.pitrainer.keyboard;
 
 import android.content.Context;
-import android.os.Build;
 import android.preference.PreferenceManager;
-import androidx.legacy.widget.Space;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.MotionEvent;
@@ -15,6 +13,8 @@ import android.widget.LinearLayout;
 
 import com.teinproductions.tein.pitrainer.MainActivity;
 import com.teinproductions.tein.pitrainer.R;
+
+import androidx.legacy.widget.Space;
 
 public class Keyboard extends LinearLayout implements View.OnLongClickListener {
 
@@ -130,9 +130,7 @@ public class Keyboard extends LinearLayout implements View.OnLongClickListener {
                 button.setBackgroundResource(outValue.resourceId);
         } else {
             for (View button : buttons) {
-                if (Build.VERSION.SDK_INT >= 16)
-                    button.setBackground(null);
-                else button.setBackgroundDrawable(null);
+                button.setBackground(null);
             }
         }
     }

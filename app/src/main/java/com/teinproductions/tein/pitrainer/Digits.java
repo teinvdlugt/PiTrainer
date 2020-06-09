@@ -134,7 +134,7 @@ public class Digits implements Serializable {
                 loadPreloadedDigitsFromAssets(context, "digits_e", R.string.euler_number),
 
                 // Source for sqrt 2: https://apod.nasa.gov/htmltest/gifcity/sqrt2.1mil and
-                // https://nerdparadise.com/math/reference/2sqrt10000
+                // https://nerdparadise.com/math/reference/2sqrt10000 (for first 10K)
                 loadPreloadedDigitsFromAssets(context, "digits_sqrt2", R.string.sqrt2),
 
                 // Source for phi: https://www2.cs.arizona.edu/icon/oddsends/phi.htm and

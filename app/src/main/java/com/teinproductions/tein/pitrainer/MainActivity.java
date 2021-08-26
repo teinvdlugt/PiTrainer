@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity
 
     private void setupRemoteConfig() {
         final FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
-        firebaseRemoteConfig.setDefaults(R.xml.remote_config_defaults);
+        firebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config_defaults);
         firebaseRemoteConfig.fetch(43200) // 43200 seconds indicates that the fetch request will
                 // fetch data from the server only if the cache is more than 43200 seconds (12 hrs) old.
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity
                         // The fetch has completed; make sure the newly fetched values are activated
                         // so they can be used in the app.
                         if (task.isSuccessful())
-                            firebaseRemoteConfig.activateFetched();
+                            firebaseRemoteConfig.activate();
                     }
                 });
     }
